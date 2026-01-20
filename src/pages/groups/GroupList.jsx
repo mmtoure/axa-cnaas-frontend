@@ -12,25 +12,29 @@ import { Trash2 } from 'lucide-react'
 import { Eye } from 'lucide-react'
 import { Edit } from 'lucide-react'
 import Table from '../../components/Table'
+import EmptyState from '../../components/EmptyState'
 
 const columns = [
   {
     header: "Nom",
     accessor: "name",
+    className: "text-left px-2"
   },
   {
     header: "Représentant",
     accessor: "representant",
+    className: "text-left px-2"
   },
   {
     header: "Téléphone",
     accessor: "phoneNumber",
-    className: "text-center",
+    className: "text-left px-2"
+    
   },
   {
     header: "Nombre assurés",
     accessor: "insuredCount",
-    className: "text-center",
+    className: "text-center px-2"
   },
   {
     header: "Actions",
@@ -72,19 +76,19 @@ const GroupList = () => {
       key={item.id}
       className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
     >
-      <td className="px-4 py-2 font-medium text-center">
+      <td className="text-left px-2 py-2 font-medium">
         {item.name}
       </td>
 
-      <td className="px-4 py-2 text-center">
+      <td className="text-left px-2 py-2">
         {item.firstName} {item.lastName}
       </td>
 
-      <td className="px-4 py-2 text-center">
+      <td className="text-left px-2 py-2">
         {item.phoneNumber}
       </td>
 
-      <td className="px-4 py-2 text-center">
+      <td className="text-center px-2 py-2">
         {item.insureds?.length ?? 0}
       </td>
 
@@ -121,7 +125,7 @@ const GroupList = () => {
   return (
     <div className='space-y-6'>
       <Dashboard activeMenu="Groupements">
-        <div className="bg-white rounded-lg shadow-sm p-6 m-3">
+          <div className="bg-white bg-opacity-95 backdrop-blur-sm p-8 max-h-[90vh] overflow-y-auto rounded-lg shadow-lg">
 
           {/* Header */}
           <div className="flex items-center justify-between mb-2">
@@ -164,8 +168,10 @@ const GroupList = () => {
 
               ) :
               (
-                <p className='text-gray-500'>Aucun utilisateur trouvé.</p>
-
+                <EmptyState
+                  title="Aucun groupement trouvé"
+                  description="Commencez par créer un groupement."
+                />
               )}
 
             </div>

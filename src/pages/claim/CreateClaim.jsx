@@ -1,8 +1,11 @@
 import React from 'react'
+import Dashboard from '../../components/Dashboard'
 
 const CreateClaim = () => {
   return (
-    <div>CreateClaim</div>
+    <Dashboard activeMenu="Sinistres">
+      CreateClaim
+    </Dashboard>
   )
 }
 

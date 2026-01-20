@@ -7,27 +7,30 @@ import Table from './Table';
 const columns = [
     {
         header:"Info", 
-        accessor:"info"
+        accessor:"info",
+        className:"text-left px-2 flex items-center gap-4"
     },
      {
         header:"Email",
         accessor:"email", 
-        className:"hidden md:table-cell"
+        className:"hidden md:table-cell text-left px-2 flex items-center gap-4"
     },
      {
         header:"Téléphone",
         accessor:"téléphone", 
-        className:"hidden md:table-cell"
+        className:"hidden md:table-cell text-left px-2 flex items-center gap-4"
+            
     },
      {
         header:"Role",
         accessor:"role", 
-        className:"hidden md:table-cell"
+        className:"hidden md:table-cell text-left px-2 flex items-center gap-4"
     },
-
+    
       {
         header:"Actions",
-        accessor:"actions", 
+        accessor:"actions",
+        className:"flex items-center justify-center"
 
     }
 ]
@@ -48,7 +51,7 @@ const UsersList = ({usersData}) => {
                 <td className='hidden md:table-cell'>{item.email}</td>
                 <td className='hidden md:table-cell'>{item.phoneNumber}</td>
                 <td className='hidden md:table-cell'>{item.role.name}</td>
-                <td>
+                <td className='flex items-center justify-center gap-1 px-2'>
                     Actions
                 </td>
             

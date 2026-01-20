@@ -42,7 +42,7 @@ export const getAllGroups = createAsyncThunk(
 
 export const getGroupById = createAsyncThunk(
     'group/getGroupdById',
-    async ({groupId}, { rejectWithValue }) =>{
+    async (groupId, { rejectWithValue }) =>{
         try {
             const res = await api.get(`/groups/${groupId}`)
             console.log("find group by id success",res.data);

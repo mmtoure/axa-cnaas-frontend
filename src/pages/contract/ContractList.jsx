@@ -12,12 +12,13 @@ import Table from '../../components/Table'
 import { Eye } from 'lucide-react'
 import { Edit } from 'lucide-react'
 import { Trash2 } from 'lucide-react'
+import EmptyState from '../../components/EmptyState'
 
 const columns = [
       {
     header: "Assuré",
     accessor: "insured",
-    className: "text-center",
+    className: "px-4 py-2 font-medium text-left",
   },
   {
     header: "Numéro police",
@@ -73,7 +74,7 @@ export const ContractList = () => {
       key={item.id}
       className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
     >
-      <td className="px-4 py-2 font-medium text-center">
+      <td className="px-4 py-2 font-medium text-left">
         {item.firstName} {item.lastName}
       </td>
       <td className="px-4 py-2 font-medium text-center">
@@ -173,7 +174,10 @@ export const ContractList = () => {
 
               ) :
               (
-                <p className='text-gray-500'>Aucun utilisateur trouvé.</p>
+                <EmptyState
+                  title="Aucun contrat trouvé"
+                  description="Commencez par créer un contrat."
+                />
 
               )}
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Trash2 } from 'lucide-react'
 import { Eye } from 'lucide-react'
 import { Edit } from 'lucide-react'
+import EmptyState from '../../components/EmptyState'
 const columns = [
   {
     header: "Assuré",
@@ -115,8 +116,10 @@ const InsuredList = ({insuredsData}) => {
         
             ):
             (
-                <p className='text-gray-500'>Aucun utilisateur trouvé.</p>
-
+                <EmptyState
+                  title="Aucun assuré trouvé"
+                  description="Commencez par créer un assuré."
+                />
             )}
         
         </div>

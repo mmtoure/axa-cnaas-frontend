@@ -13,6 +13,7 @@ import { Eye } from 'lucide-react'
 import { Edit } from 'lucide-react'
 import { Trash2 } from 'lucide-react'
 import { getAllclaims } from '../../features/claim/claimThunk'
+import EmptyState from '../../components/EmptyState'
 
 const columns = [
       {
@@ -55,7 +56,7 @@ const ClaimList = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [search, setSearch] = useState("");
-    const { contracts, loading, error } = useSelector((state) => state.claim);
+    const { claims, loading, error } = useSelector((state) => state.claim);
 
    
    
@@ -98,7 +99,7 @@ const ClaimList = () => {
       <td className="px-4 py-2 flex items-center justify-center gap-1">
         {/* Voir */}
         <button
-          onClick={() => navigate(`/contracts/${item.id}`)}
+          onClick={() => navigate(`/claims/${item.id}`)}
           className="p-1 rounded hover:bg-gray-200"
           title="Voir"
         >
@@ -107,7 +108,7 @@ const ClaimList = () => {
 
         {/* Éditer */}
         <button
-          onClick={() => navigate(`/contracts/edit/${item.id}`)}
+          onClick={() => navigate(`/claims/edit/${item.id}`)}
           className="p-1 rounded hover:bg-gray-200"
           title="Éditer"
         >
@@ -127,14 +128,14 @@ const ClaimList = () => {
   );
 
   return (
-    <Dashboard activeMenu="Contracts">
-        <div className="bg-white rounded-lg shadow-sm p-6 m-3">
+    <Dashboard activeMenu="Sinistres">
+        <div className="bg-white bg-opacity-95 backdrop-blur-sm p-8 max-h-[90vh] overflow-y-auto rounded-lg shadow-lg">
         
 
           {/* Header */}
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-lg font-semibold text-gray-700">
-              Gestion des contrats
+              Gestion des Sinistres
             </h3>
             <div className='flex items-center justify-content gap-2'>
               {/* Search */}
@@ -154,12 +155,12 @@ const ClaimList = () => {
               <button
                 type="button"
                 aria-label="Créer un nouvel assuré"
-                onClick={() => navigate("/contracts/create")}
+                onClick={() => navigate("/claims/create")}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-md
                         hover:bg-blue-700 transition
                         focus:outline-none focus:ring-2 focus:ring-blue-400">
                 <PlusCircle className="w-5 h-5" />
-                Nouvel contrat
+                Déclarer un sinistre
               </button>
             </div>
           </div>
@@ -168,12 +169,15 @@ const ClaimList = () => {
             <div className='card p-4'>
               {/* Table des utilisateurs */}
                 {/* Table des utilisateurs */}
-              {contracts && contracts.length > 0 ? (
-                <Table columns={columns} renderRow={renderRow} data={contracts} />
+              {claims && claims.length > 0 ? (
+                <Table columns={columns} renderRow={renderRow} data={claims} />
 
               ) :
               (
-                <p className='text-gray-500'>Aucun utilisateur trouvé.</p>
+                <EmptyState
+                  title="Aucun Sinistre trouvé"
+                  description="Commencez par créer un sinistre."
+                />
 
               )}
 

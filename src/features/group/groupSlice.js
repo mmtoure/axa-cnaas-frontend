@@ -7,6 +7,7 @@ const groupSlice = createSlice ({
         loading: false,
         console: null,
         group: null,
+        success: false,
         groups: []
         
 
@@ -22,14 +23,17 @@ const groupSlice = createSlice ({
 
         //Create group
             .addCase(createGroup.pending, (state)=>{
+                state.success=false
                 state.loading=true
                 state.error=null
             })
             .addCase(createGroup.fulfilled, (state, action)=>{
+                state.success=true,
                 state.loading=false
                 state.insured=action.payload
             })
             .addCase(createGroup.rejected, (state, action)=>{
+                state.success=false
                 state.loading=false
                 state.error=action.payload
             })

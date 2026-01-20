@@ -25,7 +25,7 @@ const ContractTab = ({ contract }) => {
 
       {/* Informations contrat */}
       <div className="w-full md:w-1/2 bg-white rounded-sm p-6 shadow-md">
-        <h3 className="text-sm font-semibold text-gray-700 mb-5 flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-gray-800 mb-5 flex items-center gap-2">
           <ShieldCheck className="w-5 h-5 text-blue-700" />
           Informations du contrat
          
@@ -49,11 +49,9 @@ const ContractTab = ({ contract }) => {
           value={formatDate(contract.endDate)}
         />
 
-        <div className="flex justify-between gap-8 items-center pt-3">
-          <div className="flex items-center gap-2 text-sm text-gray-500 mr-6">
+        <div className="flex justify-content gap-2 items-center pt-3">
             <BadgeCheck className="w-4 h-4" />
-            Statut du contrat
-          </div>
+            <p className="text-gray-800">Statut du contrat</p>
           <StatusBadge status={contract.status} />
         </div>
       </div>

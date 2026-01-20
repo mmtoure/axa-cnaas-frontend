@@ -14,6 +14,7 @@ import { resetState } from '../../features/insured/insuredSlice';
 import { toast } from 'react-toastify';
 import { groupSchema } from '../../validations/groupSchema';
 import { createGroup } from '../../features/group/groupThunk';
+import { useState } from 'react';
 
 
 
@@ -22,6 +23,7 @@ const CreateGroup = () => {
 const navigate = useNavigate()
 const dispatch = useDispatch()
 const {loading, success, error} = useSelector((state) => state.group)
+const[newGroup, setNewGroup] = useState();
 
   const {
     register,
@@ -48,7 +50,9 @@ const {loading, success, error} = useSelector((state) => state.group)
     
     try {
       console.log("creation assuré",data);
-      dispatch(createGroup(data))
+      const group =dispatch(createGroup(data))
+      setNewGroup(group)
+      
       reset();
     } catch (err) {
       alert("Erreur lors de la création", err.message);
@@ -90,7 +94,7 @@ useEffect(() => {
         <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>
           <User2 className='w-4 h-4' />
           <h2 className="text-gray-500 text-lg font-semibold">
-            Informations du représentant:
+            Informations du groupement:
           </h2>
         </div>
 

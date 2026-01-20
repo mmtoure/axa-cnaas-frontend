@@ -30,7 +30,7 @@ const insuredSlice = createSlice ({
             .addCase(createInsured.fulfilled, (state, action)=>{
                 state.loading=false
                 state.success=true
-                state.insured=action.payload
+                state.currentInsured=action.payload
             })
             .addCase(createInsured.rejected, (state, action)=>{
                 state.loading=false

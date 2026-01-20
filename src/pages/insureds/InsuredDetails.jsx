@@ -19,9 +19,7 @@ import GuaranteesTab from "./tabs/GuaranteesTab";
 import ClaimsTab from "./tabs/ClaimsTab";
 import { useState } from 'react';
 import { Phone } from 'lucide-react';
-import { PhoneIcon } from 'lucide-react';
-import { PhoneCall } from 'lucide-react';
-import { CalendarDays } from 'lucide-react';
+
 import { Book } from 'lucide-react';
 import ContractTab from './tabs/ContractTab';
 import StatusBadge from '../../components/StatusBadge';
@@ -53,7 +51,7 @@ const InsuredDetails = () => {
     <Dashboard activeMenu="Assurés">
       <div className="bg-white p-6 rounded shadow">
 
-          {/* HEADER */}
+        {/* HEADER */}
         <div className="flex items-center justify-between">
             <div className='mb-6'>
                 <h2 className="text-2xl font-semibold">
@@ -61,11 +59,11 @@ const InsuredDetails = () => {
                 </h2>
                 <InfoRow
                   icon={Phone}
-                  label="Téléphone: "
+                  label="Téléphone"
                   value={currentInsured.phoneNumber}
                 />
-                <div className="flex justify-content gap-8 items-center">
-                  <div className="flex items-center gap-2 text-sm text-gray-500 mr-6">
+                <div className="flex justify-content gap-2 items-center">
+                  <div className="flex items-center gap-2 text-sm text-gray-500 mr-3">
                     <LucideBadgeCheck className="w-4 h-4" />
                     Statut du contrat: 
                   </div>
@@ -107,7 +105,7 @@ const InsuredDetails = () => {
         <ContractTab contract={currentInsured?.contract} />
         )}
         {activeTab === "guarantees" && (
-        <GuaranteesTab garanties={currentInsured?.contract?.garanties} />
+        <GuaranteesTab garanties={currentInsured?.contract} />
         )}
         {activeTab === "claims" && (
         <ClaimsTab claims={currentInsured} />
