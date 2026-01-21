@@ -1,12 +1,12 @@
 export const cleanRow = (row)=>({
     firstName: row["prenom"]?.trim(),
     lastName: row["nom"]?.trim(),
-    dateOfBirth: row["date_naissance"],
+    dateOfBirth: row["date_naissance"]?.toString()?.trim(),
     phoneNumber: row["telephone"]?.toString().trim(),
     beneficiary:{
         firstName: row["prenom_beneficiaire"]?.trim(),
         lastName: row["nom_beneficiaire"]?.trim(),
-        dateOfBirth: row.date_naissance_beneficiaire,
+        dateOfBirth: row["date_naissance_beneficiaire"]?.toString()?.trim(),
         phoneNumber:  row["telephone_beneficiaire"]?.toString().trim(),
     }
 
@@ -31,8 +31,11 @@ export const validateRow1 =(row, index)=>{
         errors.push("Téléphone Bén invalide");
     }
 
-    if (isNaN(new Date(row.date_naissance))) {
-        errors.push("Date de nais. Bén invalide");
+    if (isNaN(new Date(row.dateOfBirth))) {
+      errors.push("Date de nais. Ass invalide");
+    }
+    if (isNaN(new Date(row.beneficiary.dateOfBirth))) {
+      errors.push("Date de nais. Ass invalide");
     }
     
     return errors.length

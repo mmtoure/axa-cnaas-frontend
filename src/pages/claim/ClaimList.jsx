@@ -22,10 +22,6 @@ const columns = [
     className: "text-center",
   },
   {
-    header: "Numéro police",
-    accessor: "policeNumber",
-  },
-  {
     header: "Date début",
     accessor: "startDate",
   },
@@ -37,11 +33,6 @@ const columns = [
   {
     header: "status",
     accessor: "status",
-    className: "text-center",
-  },
-    {
-    header: "Souscription",
-    accessor: "typeContract",
     className: "text-center",
   },
   {
@@ -77,23 +68,19 @@ const ClaimList = () => {
       <td className="px-4 py-2 font-medium text-center">
         {item.firstName} {item.lastName}
       </td>
-      <td className="px-4 py-2 font-medium text-center">
-        {item.policeNumber}
+    
+     
+
+      <td className="px-4 py-2 text-center">
+        {item.hospitalizationStartDate} 
       </td>
 
       <td className="px-4 py-2 text-center">
-        {item.startDate} 
-      </td>
-
-       <td className="px-4 py-2 text-center">
-        {item.endDate} 
+        {item.hospitalizationEndDate} 
       </td>
 
       <td className="px-4 py-2 text-center">
         {item.status}
-      </td>
-          <td className="px-4 py-2 text-center">
-        {item?.typeContract}
       </td>
 
       <td className="px-4 py-2 flex items-center justify-center gap-1">

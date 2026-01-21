@@ -163,6 +163,14 @@ useEffect(() => {
             error={errors.beneficiary?.phoneNumber?.message}
           />
         </div>
+
+        <div className="mt-4">
+          <Input
+            label="Lien de parenté"
+            {...register("beneficiary.lienParente")}
+            error={errors.beneficiary?.lienParente?.message}
+          />
+        </div>
       </div>
     </div>
     {/* ================== ACTION ================== */}

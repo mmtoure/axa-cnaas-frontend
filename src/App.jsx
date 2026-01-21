@@ -38,6 +38,7 @@ function App() {
           <Route path="/insureds/create" element={<CreateInsured />} />
           <Route path="/insureds/:id" element={<InsuredDetails />} />
           <Route path="/insureds/edit/:id" element={<InsuredEdit />} />
+          <Route path="/insureds/:insuredId/claims/new" element={<CreateClaim />} />
 
           {/** Groups routes */}
           <Route path="/groups" element={<GroupList />} />

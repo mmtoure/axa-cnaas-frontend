@@ -108,8 +108,9 @@ const InsuredDetails = () => {
         <GuaranteesTab garanties={currentInsured?.contract} />
         )}
         {activeTab === "claims" && (
-        <ClaimsTab claims={currentInsured} />
+        <ClaimsTab currentInsured={currentInsured} />
         )}
+
 
 
       </div>

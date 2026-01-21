@@ -14,7 +14,7 @@ import { resetState } from '../../features/insured/insuredSlice';
 import { toast } from 'react-toastify';
 import { groupSchema } from '../../validations/groupSchema';
 import { createGroup } from '../../features/group/groupThunk';
-import { useState } from 'react';
+
 
 
 
@@ -23,7 +23,7 @@ const CreateGroup = () => {
 const navigate = useNavigate()
 const dispatch = useDispatch()
 const {loading, success, error} = useSelector((state) => state.group)
-const[newGroup, setNewGroup] = useState();
+
 
   const {
     register,
@@ -50,9 +50,7 @@ const[newGroup, setNewGroup] = useState();
     
     try {
       console.log("creation assuré",data);
-      const group =dispatch(createGroup(data))
-      setNewGroup(group)
-      
+      dispatch(createGroup(data))
       reset();
     } catch (err) {
       alert("Erreur lors de la création", err.message);
