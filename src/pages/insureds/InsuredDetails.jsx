@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 
 import PersonalInfoTab from "./tabs/PersonalInfoTab";
-import BeneficiaryTab from "./tabs/ContractTab";
 import GuaranteesTab from "./tabs/GuaranteesTab";
 import ClaimsTab from "./tabs/ClaimsTab";
 import { useState } from 'react';
@@ -65,17 +64,27 @@ const InsuredDetails = () => {
                 <div className="flex justify-content gap-2 items-center">
                   <div className="flex items-center gap-2 text-sm text-gray-500 mr-3">
                     <LucideBadgeCheck className="w-4 h-4" />
-                    Statut du contrat: 
+                    Statut: 
                   </div>
-                  <StatusBadge status={currentInsured?.contract?.status} />
+                  <StatusBadge status={currentInsured?.status} />
+                  
                 </div>
                 
             </div>
-            <button
+            <div>
+              <button
+                onClick={() => navigate(`/insureds/${currentInsured.id}/claims/new`)}
+                className="px-4 py-2 bg-blue-600 text-white rounded text-sm mr-2">
+                Déclarer sinistre
+            </button>
+              <button
                 onClick={() => navigate("/insureds")}
                 className="px-4 py-2 bg-gray-500 text-white rounded text-sm">
                 Retour
             </button>
+
+            </div>
+         
         </div>
 
         {/* TABS */}
@@ -118,5 +127,4 @@ const InsuredDetails = () => {
    
   )
 }
-
 export default InsuredDetails

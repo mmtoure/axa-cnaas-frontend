@@ -42,3 +42,25 @@ export const getContractById =createAsyncThunk(
     }
 
 )
+export const generateContractPdf =createAsyncThunk(
+    'contract/generateContractPdf',
+    async (contractId, { rejectWithValue }) => {
+        try {
+        const response = await api.get(`/contracts/${contractId}/pdf`, {
+            responseType: "blob",
+        });
+
+        console.log("generate contract pdf success",response.data);
+        return response.data
+            
+        } 
+        catch (error) {
+            if (error.response && error.response.data.message) {
+                return rejectWithValue(error.response.data.message)
+            } else {
+                return rejectWithValue(error.message || "fetch contract failed")
+            }
+        }
+
+    }
+)

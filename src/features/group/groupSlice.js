@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createGroup, getAllGroups, getGroupById } from "./groupThunk";
+import { createGroup, getAllGroups, getGroupById, generateContractByGroup } from "./groupThunk";
 
 const groupSlice = createSlice ({
     name: "group",
@@ -7,6 +7,7 @@ const groupSlice = createSlice ({
         loading: false,
         console: null,
         group: null,
+        generateContract: null,
         success: false,
         groups: []
         
@@ -65,6 +66,20 @@ const groupSlice = createSlice ({
                 state.loading=false
                 state.error=action.payload
         })
+        // generate contract pdf
+        .addCase(generateContractByGroup.pending, (state)=>{
+                state.loading=true  
+                state.error=null
+                state.generateContract=null
+            })
+            .addCase(generateContractByGroup.fulfilled, (state, action)=>{
+                state.loading=false
+                state.generateContract=action.payload
+            })
+            .addCase(generateContractByGroup.rejected, (state, action)=>{
+                state.loading=false
+                state.error=action.payload
+            })
     }
 
 

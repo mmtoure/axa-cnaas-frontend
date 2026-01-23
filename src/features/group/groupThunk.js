@@ -57,5 +57,29 @@ export const getGroupById = createAsyncThunk(
       }
     }
        
+  }
+)
+
+export const generateContractByGroup = createAsyncThunk(
+    'group/generateContractByGroup',
+    async (groupId, { rejectWithValue }) =>{
+        try {
+          const response = await api.get(`/groups/${groupId}/pdf`, {
+            responseType: "blob",
+          });
+            console.log("contract generate success",response.data);
+            return response.data
+
+        }
+
+        
+       catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message)
+      } else {
+        return rejectWithValue(error.message || "generate contract failed")
+      }
     }
+       
+  }
 )

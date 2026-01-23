@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { getAllContracts } from '../../features/contract/contractThunk'
+import { generateContractPdf, getAllContracts } from '../../features/contract/contractThunk'
 import Dashboard from '../../components/Dashboard'
 import { useState } from 'react'
 import { Search } from 'lucide-react'
@@ -13,6 +13,8 @@ import { Eye } from 'lucide-react'
 import { Edit } from 'lucide-react'
 import { Trash2 } from 'lucide-react'
 import EmptyState from '../../components/EmptyState'
+import { FileText } from 'lucide-react'
+import { LucideFileText } from 'lucide-react'
 
 const columns = [
       {
@@ -56,18 +58,36 @@ export const ContractList = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [search, setSearch] = useState("");
-    const { contracts, loading, error } = useSelector((state) => state.contract);
+    const { contracts, contractPdf, loading, error } = useSelector((state) => state.contract);
 
    
    
 
     useEffect(()=>{
         dispatch(getAllContracts())
+        
     },[dispatch])
 
     const handleDelete = () => {
       console.log("Insured supprimé");
     }
+
+    const generatePdf = async (contractId) => {
+      console.log("ID", contractId);
+     const res = await dispatch(generateContractPdf(contractId));
+      if (res.meta.requestStatus === "fulfilled") {
+      const blob = new Blob([res.payload], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+
+      window.open(url, "_blank"); // 👉 ouvre PDF
+
+      setTimeout(() => window.URL.revokeObjectURL(url), 1000);
+
+      }
+  
+    
+
+  };
 
     const renderRow = (item) => (
     <tr
@@ -97,6 +117,14 @@ export const ContractList = () => {
       </td>
 
       <td className="px-4 py-2 flex items-center justify-center gap-1">
+        {/* PDF */}
+        <button
+          onClick={() => generatePdf(item.id)}
+          className="p-1 rounded hover:bg-gray-200"
+          title="Voir"
+        >
+          <FileText className="w-4 h-4 text-green-600" />
+        </button>
         {/* Voir */}
         <button
           onClick={() => navigate(`/contracts/${item.id}`)}

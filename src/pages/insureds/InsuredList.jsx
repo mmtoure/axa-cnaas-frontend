@@ -4,6 +4,7 @@ import { Trash2 } from 'lucide-react'
 import { Eye } from 'lucide-react'
 import { Edit } from 'lucide-react'
 import EmptyState from '../../components/EmptyState'
+import { formatDate } from '../../util/helper'
 const columns = [
   {
     header: "Assuré",
@@ -38,7 +39,6 @@ const InsuredList = ({insuredsData}) => {
         console.log("Groupement supprimé");
         
     }
-
     const renderRow = (item) => (
   <tr
     key={item.id}
@@ -56,7 +56,7 @@ const InsuredList = ({insuredsData}) => {
 
     {/* Date naissance */}
     <td className="px-2 py-2 text-left">
-      {item.dateOfBirth}
+      {formatDate(item.dateOfBirth)}
     </td>
 
     {/* Bénéficiaire */}

@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllContracts, getContractById } from "./contractThunk";
+import { getAllContracts, getContractById, generateContractPdf } from "./contractThunk";
 
 const contractSlice = createSlice({
     name: "contract",
     initialState: {
         contracts: [],
         contract: null,
+        contractPdf: null,
         loading: false,
         error: null
     },
@@ -45,6 +46,20 @@ const contractSlice = createSlice({
                         state.error=action.payload
                 })
             
+            //generate contract pdf
+                .addCase(generateContractPdf.pending, (state)=>{
+                        state.loading=true
+                        state.error=null
+                })
+                .addCase(generateContractPdf.fulfilled, (state, action)=>{
+                        state.loading=false
+                        state.contractPdf=action.payload
+                })
+                .addCase(generateContractPdf.rejected, (state, action)=>{
+                        state.loading=false
+                        state.error=action.payload
+                })
+
                     
             }
         }

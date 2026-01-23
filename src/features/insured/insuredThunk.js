@@ -59,5 +59,25 @@ export const getInsuredById = createAsyncThunk(
       }
     }
        
+  }
+)
+
+export const generateContract = createAsyncThunk(
+    'insured/generateContract',
+    async (insuredId, { rejectWithValue }) =>{
+        try {
+            const res = await api.get(`/insureds/${insuredId}/pdf`)
+            console.log("contract generate success",res.data);
+            return res.data
+
+        }
+       catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message)
+      } else {
+        return rejectWithValue(error.message || "generate contract failed")
+      }
     }
+       
+  }
 )

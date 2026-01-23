@@ -3,7 +3,7 @@ import Dashboard from '../../components/Dashboard'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { getAllGroups } from '../../features/group/groupThunk'
+import { generateContractByGroup, getAllGroups } from '../../features/group/groupThunk'
 import { Plus } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Search } from 'lucide-react'
@@ -13,6 +13,7 @@ import { Eye } from 'lucide-react'
 import { Edit } from 'lucide-react'
 import Table from '../../components/Table'
 import EmptyState from '../../components/EmptyState'
+import { FileText } from 'lucide-react'
 
 const columns = [
   {
@@ -46,7 +47,7 @@ const columns = [
 
 const GroupList = () => {
   const dispatch = useDispatch()
-  const groupsData = useSelector((state) => state.group.groups)
+  const {groups, generateContract, loading, error} = useSelector((state) => state.group)
   const navigate = useNavigate()
   const [search, setSearch] = useState("");
 
@@ -54,7 +55,7 @@ const GroupList = () => {
     dispatch(getAllGroups())
   }, [dispatch])
 
-  const filteredGroups = groupsData.filter((group) => {
+  const filteredGroups = groups.filter((group) => {
     const term = search.toLowerCase();
 
     return (
@@ -70,6 +71,18 @@ const GroupList = () => {
     console.log("Insured supprimé");
 
   }
+    const handleGenerateContractByGroup = async (groupId) => {
+      const response = await dispatch(generateContractByGroup(groupId));
+      if(response.meta.requestStatus === "fulfilled") {
+        const blob = new Blob([response.payload], { type: "application/pdf" });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, "_blank");
+        setTimeout(() => window.URL.revokeObjectURL(url), 1000);
+      }
+
+      console.log("Génération du contrat", groupId);
+    }
+
 
   const renderRow = (item) => (
     <tr
@@ -93,6 +106,15 @@ const GroupList = () => {
       </td>
 
       <td className="px-4 py-2 flex items-center justify-center gap-1">
+        {/* Générer le contrat */}
+        <button
+          onClick={() => handleGenerateContractByGroup(item.id)}
+          className="p-1 rounded hover:bg-gray-200"
+          title="Générer le contrat"
+        >
+          <FileText className="w-4 h-4 text-green-600" />
+        </button>
+
         {/* Voir */}
         <button
           onClick={() => navigate(`/groups/${item.id}`)}

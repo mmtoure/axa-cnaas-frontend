@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createInsured, getAllInsureds, getInsuredById } from "./insuredThunk";
+import { createInsured, getAllInsureds, getInsuredById, generateContract } from "./insuredThunk";
 
 
 const insuredSlice = createSlice ({
@@ -9,6 +9,7 @@ const insuredSlice = createSlice ({
         error: null,
         success: false,
         currentInsured: null,
+        generateContract: null,
         insureds: []
         
 
@@ -65,7 +66,20 @@ const insuredSlice = createSlice ({
                 state.loading=false
                 state.error=action.payload
             })
-
+        // generate contract pdf
+            .addCase(generateContract.pending, (state)=>{
+                state.loading=true  
+                state.error=null
+                state.generateContract=null
+            })
+            .addCase(generateContract.fulfilled, (state, action)=>{
+                state.loading=false
+                state.generateContract=action.payload
+            })
+            .addCase(generateContract.rejected, (state, action)=>{
+                state.loading=false
+                state.error=action.payload
+            })
     }
 
 
