@@ -62,11 +62,13 @@ export const getInsuredById = createAsyncThunk(
   }
 )
 
-export const generateContract = createAsyncThunk(
+export const generateContractByInsured = createAsyncThunk(
     'insured/generateContract',
     async (insuredId, { rejectWithValue }) =>{
         try {
-            const res = await api.get(`/insureds/${insuredId}/pdf`)
+            const res = await api.get(`/insureds/${insuredId}/pdf`,{
+              responseType: "blob",
+            })
             console.log("contract generate success",res.data);
             return res.data
 

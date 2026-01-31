@@ -14,6 +14,7 @@ import { Edit } from 'lucide-react'
 import Table from '../../components/Table'
 import EmptyState from '../../components/EmptyState'
 import { FileText } from 'lucide-react'
+import api from '../../util/api'
 
 const columns = [
   {
@@ -71,17 +72,26 @@ const GroupList = () => {
     console.log("Insured supprimé");
 
   }
-    const handleGenerateContractByGroup = async (groupId) => {
-      const response = await dispatch(generateContractByGroup(groupId));
-      if(response.meta.requestStatus === "fulfilled") {
-        const blob = new Blob([response.payload], { type: "application/pdf" });
-        const url = window.URL.createObjectURL(blob);
-        window.open(url, "_blank");
-        setTimeout(() => window.URL.revokeObjectURL(url), 1000);
-      }
-
-      console.log("Génération du contrat", groupId);
+  const handleGenerateContractByGroup11 = async (groupId) => {
+    const response = await dispatch(generateContractByGroup(groupId));
+    if(response.meta.requestStatus === "fulfilled") {
+      const blob = new Blob([response.payload], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url, "_blank");
+      setTimeout(() => window.URL.revokeObjectURL(url), 1000);
     }
+
+    console.log("Génération du contrat", groupId);
+  }
+
+    const handleGenerateContractByGroup = async (groupId) => {
+    const res = await api.get(`/groups/${groupId}/pdf`, {
+      responseType: "blob"
+    });
+
+    const url = window.URL.createObjectURL(res.data);
+    window.open(url, "_blank");
+  };
 
 
   const renderRow = (item) => (
@@ -106,23 +116,18 @@ const GroupList = () => {
       </td>
 
       <td className="px-4 py-2 flex items-center justify-center gap-1">
-        {/* Générer le contrat */}
-        <button
-          onClick={() => handleGenerateContractByGroup(item.id)}
-          className="p-1 rounded hover:bg-gray-200"
-          title="Générer le contrat"
-        >
-          <FileText className="w-4 h-4 text-green-600" />
-        </button>
+      
 
         {/* Voir */}
-        <button
-          onClick={() => navigate(`/groups/${item.id}`)}
-          className="p-1 rounded hover:bg-gray-200"
-          title="Voir"
-        >
-          <Eye className="w-4 h-4 text-green-600" />
-        </button>
+     <button
+        type="button"
+        onClick={() => navigate(`/groups/${item.id}`)}
+        className="p-2 rounded-lg bg-green-50 hover:bg-green-100
+                  transition hover:scale-105"
+        aria-label="Voir le contrat"
+      >
+        <Eye className="w-4 h-4 text-green-600" />
+      </button>
 
         {/* Éditer */}
         <button
@@ -140,6 +145,15 @@ const GroupList = () => {
           title="Supprimer"
         >
           <Trash2 className="w-4 h-4 text-red-600" />
+        </button>
+
+          {/* Générer le contrat */}
+        <button
+          onClick={() => handleGenerateContractByGroup(item.id)}
+          className="p-1 rounded hover:bg-gray-200"
+          title="Générer le contrat"
+        >
+          <FileText className="w-4 h-4 text-green-600" />
         </button>
       </td>
     </tr>

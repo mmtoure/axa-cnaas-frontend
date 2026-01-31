@@ -9,6 +9,7 @@ import { selectCurrentUser } from '../features/auth/authSelectors';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { me } from '../features/user/userThunk';
+import Breadcrumb from './Breadcrumb';
 
 const MenuBar = ({activeMenu}) => {
     const[openSideMenu, setOpenSideMenu] = useState(false);
@@ -40,7 +41,7 @@ const MenuBar = ({activeMenu}) => {
     <div className='flex items-center justify-between gap-5 bg-white border border-b border-gray-200/50 backdrop-blur-[2px] px-4 py-4 sm:px-7 sticky top-0 z-30'>
         {/** Left side - Menu button and title */}
 
-         <div className='flex items-center gap-5'>
+          <div className='flex items-center gap-5'>
            <button
              className='block lg:hidden text-black hover:bg-gray-100p-1 rounded transition-colors'
              onClick={() => setOpenSideMenu(!openSideMenu)}
@@ -54,8 +55,11 @@ const MenuBar = ({activeMenu}) => {
             </button>
             <div className='flex items-center gap-2'>
               <span className='text-lg font-medium text-black trucate'> AXA  </span>
+
+          
             </div>
-         </div>
+          </div>
+       
          
         {/** Rignt side - Avatar photo */}
         <div className='relative' ref={dropDownRef}>

@@ -2,6 +2,7 @@ import React from 'react'
 import EmptyState from '../../../components/EmptyState'
 import { useNavigate } from 'react-router-dom';
 import ClaimsTimeline from '../../../components/ClaimsTimeline';
+import ClaimsList from '../../../components/ClaimsList';
 
 
 const ClaimsTab = ({currentInsured}) => {
@@ -13,12 +14,10 @@ const ClaimsTab = ({currentInsured}) => {
   return (
     <div>
       {currentInsured.claims && currentInsured.claims.length > 0 ? (
-         <div className="bg-white rounded-lg shadow p-6 mt-6">
-      <h2 className="text-lg font-semibold mb-4">
-        Historique des sinistres
-      </h2>
+      <div className="bg-white rounded-lg shadow p-6 mt-6">
+     
 
-      <ClaimsTimeline claims={claims} />
+      <ClaimsList claims={claims} />
     </div>
 
       ):

@@ -19,7 +19,7 @@ import { Users2 } from 'lucide-react';
 
 
 const tabs = [
-  { key: "info", label: "", icon: ListCheck },
+  { key: "info", label: "Info. Groupement", icon: ListCheck },
   { key: "insureds", label: "Assurés", icon: Users },
   { key: "contract", label: "Contrat", icon: FileText },
 ];

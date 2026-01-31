@@ -24,6 +24,7 @@ import ContractTab from './tabs/ContractTab';
 import StatusBadge from '../../components/StatusBadge';
 import { LucideBadgeCheck } from 'lucide-react';
 import InfoRow from '../../components/InfoRow';
+import { PlusCircle } from 'lucide-react';
 
 const tabs = [
   { key: "info", label: "Infos personnelles", icon: User },
@@ -71,12 +72,18 @@ const InsuredDetails = () => {
                 </div>
                 
             </div>
-            <div>
+            <div className='flex items-center gap-2'>
+            {/* Button Creation sinistre */}
               <button
+                type="button"
+                aria-label="Créer un nouvel assuré"
                 onClick={() => navigate(`/insureds/${currentInsured.id}/claims/new`)}
-                className="px-4 py-2 bg-blue-600 text-white rounded text-sm mr-2">
-                Déclarer sinistre
-            </button>
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-md
+                        hover:bg-blue-700 transition
+                        focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <PlusCircle className="w-5 h-5" />
+                  Déclarer un sinistre
+              </button>
               <button
                 onClick={() => navigate("/insureds")}
                 className="px-4 py-2 bg-gray-500 text-white rounded text-sm">
@@ -114,10 +121,10 @@ const InsuredDetails = () => {
         <ContractTab contract={currentInsured?.contract} />
         )}
         {activeTab === "guarantees" && (
-        <GuaranteesTab garanties={currentInsured?.contract} />
+        <GuaranteesTab garanties={currentInsured?.contract?.garanties} />
         )}
         {activeTab === "claims" && (
-        <ClaimsTab currentInsured={currentInsured} />
+        <ClaimsTab currentInsured={currentInsured}  />
         )}
 
 

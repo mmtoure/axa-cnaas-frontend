@@ -46,7 +46,7 @@ export const sidebarData = [
   {
     id: '06',
     label: 'Utilisateurs',
-    path: '/utilisateurs',
+    path: '/users',
     icon: Users,
     roles: ['ADMIN'],
   },

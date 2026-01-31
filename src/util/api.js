@@ -1,6 +1,8 @@
 import axios from "axios";
+export const API_BASE = "http://localhost:8080/api/v1.0";
+export const FILE_BASE = `${API_BASE}/api/files`;
 const api= axios.create({
-    baseURL: "http://localhost:8080/api/v1.0",
+    baseURL: API_BASE,
 })
 api.interceptors.request.use(
   (config) => {
@@ -15,13 +17,17 @@ api.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
+      console.warn("Token expiré → déconnexion");
+
       localStorage.removeItem("token");
-      window.location.href = "/login";
+      window.location.href = "/";
     }
+
     return Promise.reject(error);
   }
 );

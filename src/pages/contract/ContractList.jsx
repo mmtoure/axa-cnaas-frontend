@@ -126,10 +126,12 @@ export const ContractList = () => {
           <FileText className="w-4 h-4 text-green-600" />
         </button>
         {/* Voir */}
-        <button
+       <button
+          type="button"
           onClick={() => navigate(`/contracts/${item.id}`)}
-          className="p-1 rounded hover:bg-gray-200"
-          title="Voir"
+          className="p-2 rounded-lg bg-green-50 hover:bg-green-100
+                    transition hover:scale-105"
+          aria-label="Voir le contrat"
         >
           <Eye className="w-4 h-4 text-green-600" />
         </button>
@@ -179,7 +181,7 @@ export const ContractList = () => {
                 <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
               </div>
 
-              {/* Button Creation group */}
+              {/* Button Creation contract */}
               <button
                 type="button"
                 aria-label="Créer un nouvel assuré"

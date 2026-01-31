@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { getAllInsureds } from '../../features/insured/insuredThunk'
 import { useSelector } from 'react-redux'
 import { Plus } from 'lucide-react'
-import InsuredList from './InsuredList'
+import InsuredList from '../../components/InsuredList'
 import Modal from '../../components/Modal'
 import {useNavigate } from "react-router-dom";
 import { PlusCircle } from 'lucide-react'

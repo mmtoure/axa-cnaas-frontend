@@ -16,33 +16,31 @@ import { getAllclaims } from '../../features/claim/claimThunk'
 import EmptyState from '../../components/EmptyState'
 
 const columns = [
-      {
+  {
     header: "Assuré",
     accessor: "insured",
-    className: "text-center",
+    className: "text-left px-4 py-2 font-medium",
   },
   {
-    header: "Date début",
-    accessor: "startDate",
+    header: "Type de sinistre",
+    accessor: "sinisterType",
+    className: "text-left px-4",
   },
-  {
-    header: "Date fin ",
-    accessor: "endDate",
-    className: "text-center",
-  },
+
+
   {
     header: "status",
     accessor: "status",
-    className: "text-center",
+    className: "text-left px-4 py-2 font-medium",
   },
   {
     header: "Actions",
     accessor: "actions",
-    className: "text-center",
+    className: "text-center px-4 py-2 font-medium",
   },
 ];
 
-const ClaimList = () => {
+const ClaimsListPage = () => {
      
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -65,21 +63,13 @@ const ClaimList = () => {
       key={item.id}
       className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
     >
-      <td className="px-4 py-2 font-medium text-center">
+      <td className="px-4 py-2 font-medium text-left">
         {item.firstName} {item.lastName}
       </td>
-    
-     
-
-      <td className="px-4 py-2 text-center">
-        {item.hospitalizationStartDate} 
+       <td className="px-4 py-2 text-left">
+        {item.sinisterType}
       </td>
-
-      <td className="px-4 py-2 text-center">
-        {item.hospitalizationEndDate} 
-      </td>
-
-      <td className="px-4 py-2 text-center">
+      <td className="px-4 py-2 text-left">
         {item.status}
       </td>
 
@@ -154,8 +144,8 @@ const ClaimList = () => {
 
           {/* Liste des groups */}
             <div className='card p-4'>
-              {/* Table des utilisateurs */}
-                {/* Table des utilisateurs */}
+              {/* Table des sinistres */}
+        
               {claims && claims.length > 0 ? (
                 <Table columns={columns} renderRow={renderRow} data={claims} />
 
@@ -177,4 +167,4 @@ const ClaimList = () => {
   )
 }
 
-export default  ClaimList;
+export default  ClaimsListPage;

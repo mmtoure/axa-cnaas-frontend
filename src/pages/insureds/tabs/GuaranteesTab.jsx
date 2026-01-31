@@ -1,11 +1,9 @@
 import React from 'react'
+import GarantieCard from '../../../components/GarantieCard'
 
 const GuaranteesTab = ({garanties}) => {
   return (
-    <div>
-       {console.log("Garanties", garanties)
-      }
-    </div>
+   <GarantieCard g={garanties} />
   )
 }
 

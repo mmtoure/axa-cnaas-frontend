@@ -5,6 +5,7 @@ import insuredReducer from '../features/insured/insuredSlice'
 import groupReducer from '../features/group/groupSlice'
 import contractReducer from '../features/contract/contractSlice'
 import claimReducer from '../features/claim/claimSlice'
+import claimDocumentReducer from '../features/claimDocument/claimDocumentSlice'
 
 
 
@@ -17,6 +18,7 @@ export const store = configureStore({
         group: groupReducer,
         contract: contractReducer,
         claim: claimReducer,
+        claimDocument: claimDocumentReducer,
 
         
     }

@@ -1,18 +1,19 @@
 import React from 'react'
-import Dashboard from '../components/Dashboard'
+import Dashboard from '../../components/Dashboard'
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { useDispatch } from 'react-redux';
-import { getAllUsers } from '../features/user/userThunk';
+import { getAllUsers } from '../../features/user/userThunk';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectUsers} from '../features/auth/authSelectors';
-import AddUserForm from '../components/AddUserForm';
-import Modal from '../components/Modal';
-import UsersList from '../components/UsersList';
+import { selectUsers} from '../../features/auth/authSelectors';
+import AddUserForm from '../../components/AddUserForm';
+import Modal from '../../components/Modal';
+import UsersList from '../../components/UsersList';
 
 
-const Utilisateurs = () => {
+
+const UsersListPage = () => {
     const dispatch = useDispatch();
     const usersData = useSelector(selectUsers);
     const [openAddUserModal, setOpenAddUserModal] = useState(false);
@@ -58,4 +59,4 @@ const Utilisateurs = () => {
   )
 }
 
-export default Utilisateurs
+export default UsersListPage
