@@ -7,7 +7,6 @@ const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 const UploadField = ({ label, accept, file, onChange, error }) => {
   const[ previewUrl, setPreviewUrl] = useState(null)
   const[errors, setErrors] = useState([]);
-
   const handleFile = (f) => {
     if (!f) {
     

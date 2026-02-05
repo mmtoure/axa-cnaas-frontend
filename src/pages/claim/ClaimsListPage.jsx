@@ -17,8 +17,8 @@ import EmptyState from '../../components/EmptyState'
 
 const columns = [
   {
-    header: "Assuré",
-    accessor: "insured",
+    header: "Numero Sinistre",
+    accessor: "numeroSinistre",
     className: "text-left px-4 py-2 font-medium",
   },
   {
@@ -64,7 +64,7 @@ const ClaimsListPage = () => {
       className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
     >
       <td className="px-4 py-2 font-medium text-left">
-        {item.firstName} {item.lastName}
+        {item.numeroSinistre}
       </td>
        <td className="px-4 py-2 text-left">
         {item.sinisterType}

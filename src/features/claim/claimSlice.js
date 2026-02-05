@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createClaim, getAllclaims, getclaimById } from "./claimThunk";
+import { createClaim, getAllclaims, getclaimById, createAllclaims } from "./claimThunk";
 
 
 
@@ -63,6 +63,23 @@ const claimSlice = createSlice ({
                 state.currentClaim=action.payload
             })
             .addCase(getclaimById.rejected, (state, action)=>{
+                state.loading=false
+                state.error=action.payload
+            })
+
+                  // fetch one Insured
+            .addCase(createAllclaims.pending, (state)=>{
+                state.loading=true
+                state.error=null
+                state.claims=null
+            })
+            .addCase(createAllclaims.fulfilled, (state, action)=>{
+                state.loading=false
+                state.success=true
+                state.error=null
+                state.claims=action.payload
+            })
+            .addCase(createAllclaims.rejected, (state, action)=>{
                 state.loading=false
                 state.error=action.payload
             })

@@ -21,13 +21,11 @@ const REQUIRED_DOCS = {
   HOSPICASH: [
     { key:"PIECE_IDENTITE", label: "Pièce d’identité" },
     { key:"DECHARGE_HOSPITALISATION", label: "Decharge d’hospitalisation" },
-    { key:"FACTURE_ORDONNACE", label: "Facture d’ordonnance" },
-    { key:"FRAIS_PHARMACEUTIQUES",label:"Frais pharmaceutiques"}
+
   ],
   INVALIDITE: [
     {key:"PIECE_IDENTITE", label: "Pièce d’identité" },
     { key:"RAPPORT_MEDICAL", label: "Rapport médical" },
-    { key:"CERTIFICAT_INVALIDITE", label: "Certificat d’invalidité"},
   ],
   CAPITAL_FUNERAIRE: [
     { key:"PIECE_IDENTITE", label: "Pièce d’identité" },
@@ -80,7 +78,7 @@ const CreateClaim = () => {
     .map((doc)=>doc.label)
     if(missingsDoc.length>0){
       setErrorFile(missingsDoc)
-      toast.error(`Documents manquants : ${missingsDoc.join(", ")}`);
+     return ;
     }
     
 
@@ -173,14 +171,6 @@ const CreateClaim = () => {
                       {...register("hospitalizationEndDate")}
                       error={errors.hospitalizationEndDate?.message}
                     />
-
-                    <Input
-                      label="Structure de santé"
-                      placeholder="Clinique / Hôpital"
-                      {...register("healthStructure")}
-                      error={errors.healthStructure?.message}
-                    />
-
                   </div>
                 )}
 
@@ -229,19 +219,34 @@ const CreateClaim = () => {
               
                 
                 {sinisterType && (
-                      <div className="bg-white rounded-xl p-6 mt-4">
+                    <div className="bg-white rounded-xl p-6 mt-4">
                       {ErrorFiles.length > 0 && (
-                        <div className="bg-red-50 p-2 text-red-700 text-sm">
-                          <h4>Documents obligatoires manquants ({ErrorFiles.length}) :</h4>
-                          {ErrorFiles.map((doc, i) => (
-                            <ul className=' ml-3'>
-                              <li key={i} className=''>
-                                {i+1}:{doc}*
+                        <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700 text-sm">
+                          
+                          <div className="flex items-center gap-2 mb-2 font-semibold">
+                            <span className="text-lg">⚠️</span>
+                            <span>
+                              Documents obligatoires manquants ({ErrorFiles.length})
+                            </span>
+                          </div>
+
+                          <ul className="list-disc ml-6 space-y-1">
+                            {ErrorFiles.map((doc, index) => (
+                              <li key={doc}>
+                                {doc}
+                                <span className="text-red-500">*</span>
                               </li>
-                            </ul>
-                          ))}
+                            ))}
+                          </ul>
+
+                          <p className="text-xs text-red-500 mt-2">
+                            * Veuillez téléverser tous les documents requis pour continuer.
+                          </p>
+                          
+                          
                         </div>
                       )}
+
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                               {REQUIRED_DOCS[sinisterType]?.map((doc) => (
                               <UploadField

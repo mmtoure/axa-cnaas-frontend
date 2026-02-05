@@ -10,8 +10,8 @@ import { Trash2 } from 'lucide-react';
 
 const columns = [
     {
-    header: "Prénom et Nom",
-    accessor: "firstName",
+    header: "Numero Sinistre",
+    accessor: "numeroSinistre",
     className: "text-left px-4",
   },
   {
@@ -19,16 +19,7 @@ const columns = [
     accessor: "sinisterType",
     className: "text-left px-4",
   },
-  {
-    header: "Date début",
-    accessor: "startDate",
-    className: "text-left px-4",
-  },
-  {
-    header: "Date fin ",
-    accessor: "endDate",
-    className: "text-left px-4",
-  },
+
   {
     header: "status",
     accessor: "status",
@@ -52,15 +43,12 @@ const renderRow = (item) => (
       className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
     >
       <td className="px-4 py-2 text-left">
+        {item.numeroSinistre}
+      </td>
+      <td className="px-4 py-2 text-left">
         {item.sinisterType}
       </td>
-      <td className="px-4 py-2 text-left">
-        {formatDate(item.hospitalizationStartDate)} 
-      </td>
-
-      <td className="px-4 py-2 text-left">
-        {formatDate(item.hospitalizationEndDate)} 
-      </td>
+ 
 
       <td className="px-4 py-2 text-left">
         {item.status}

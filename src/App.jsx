@@ -28,6 +28,7 @@ import PrivateLayout from "./layouts/PrivateLayout"
 import PrivateRoute from "./router/PrivateRoute"
 import UsersListPage from "./pages/user/UersListPage"
 import ClaimsListPage from "./pages/claim/ClaimsListPage"
+import CreateMultiClaim from "./pages/claim/CreateMultiClaim"
 
 function App() {
   return (
@@ -45,7 +46,7 @@ function App() {
               <Route path="/insureds/create" element={<CreateInsured />} />
               <Route path="/insureds/:id" element={<InsuredDetails />} />
               <Route path="/insureds/edit/:id" element={<InsuredEdit />} />
-              <Route path="/insureds/:insuredId/claims/new" element={<CreateClaim />} />
+              <Route path="/insureds/:insuredId/claims/new" element={<CreateMultiClaim />} />
 
               {/** Groups routes */}
               <Route path="/groups" element={<GroupList />} />
@@ -61,7 +62,7 @@ function App() {
 
               {/** Claims routes */}
               <Route path="/claims" element={<ClaimsListPage />} />
-              <Route path="/claims/create" element={<CreateClaim />} />
+              <Route path="/claims/create" element={<CreateMultiClaim />} />
               <Route path="/claims/:id" element={<ClaimDetails />} />
               <Route path="/claims/edit/:id" element={<ClaimEdit />} />
 

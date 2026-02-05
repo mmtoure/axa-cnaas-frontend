@@ -92,7 +92,7 @@ const ContractDetails = () => {
           <InfoContractTab contract={contract} />
           )}
           {activeTab === "garanties" && (
-          <GarantiesTab garanties={contract?.garanties} />
+          <GarantiesTab contract={contract} />
           )}
        
     

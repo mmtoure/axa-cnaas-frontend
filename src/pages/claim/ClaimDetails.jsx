@@ -13,6 +13,8 @@ import DocumentsClaimsTab from './tabs/DocumentsClaimsTab';
 import { Clock } from 'lucide-react';
 import StatusBadge from '../../components/StatusBadge';
 import { LucideBadgeCheck } from 'lucide-react';
+import ClaimHeader from '../../components/ClaimHeader';
+import ClaimSteps from '../../components/ClaimSteps';
 
 
 const tabs = [
@@ -37,28 +39,15 @@ const ClaimDetails = () => {
     <Dashboard activeMenu="Sinistres">
     <div className="bg-white p-6 rounded shadow">
      {/** HEADER */}
+        <div className='mb-6'>
+          <ClaimHeader claim={currentClaim} />
+        </div>
 
-      <div className="flex items-center justify-between">
-              <div className='mb-6'>
-                  <h2 className="text-2xl font-semibold">
-                      {currentClaim?.firstName+" "+currentClaim?.lastName}
-                  </h2>
-                      <div className="flex justify-content gap-2 items-center">
-                  <div className="flex items-center gap-2 text-sm text-gray-500 mr-3">
-                    <LucideBadgeCheck className="w-4 h-4" />
-                    Statut: 
-                  </div>
-                  <StatusBadge status={currentClaim?.status} />
-                  
-                </div>
-              </div>
+      {/** STEPS */}
+      <div className='mb-6'>
+        <ClaimSteps status={currentClaim?.status} />
+      </div>
 
-              <button
-                  onClick={() => navigate("/groups")}
-                  className="px-4 py-2 bg-gray-500 text-white rounded text-sm">
-                  Retour
-              </button>
-          </div>
      {/* TABS */}
           <div className="flex gap-2 border-b mb-6">
             {tabs.map(({ key, label, icon: Icon }) => (

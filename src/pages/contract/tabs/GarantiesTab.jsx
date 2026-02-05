@@ -1,15 +1,13 @@
 import React from 'react'
 import GarantieCard from '../../../components/GarantieCard'
 
-const GarantiesTab = ({garanties}) => {
+const GarantiesTab = ({contract}) => {
   return (
     <div>
-        {garanties && garanties.length > 0 ? (
+        {contract ? (
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {garanties.map((garantie) => (
-                <GarantieCard key={garantie.id} g={garantie} />
-            ))}
+          <GarantieCard key={contract.id} g={contract} />
         </div>
 
           ) : (
