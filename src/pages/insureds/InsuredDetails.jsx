@@ -29,7 +29,6 @@ import { PlusCircle } from 'lucide-react';
 const tabs = [
   { key: "info", label: "Infos personnelles", icon: User },
   { key: "contract", label: "Contrat", icon: Book },
-  { key: "guarantees", label: "Garanties", icon: ShieldCheck },
   { key: "claims", label: "Sinistres", icon: AlertTriangle },
 ];
 
@@ -77,7 +76,7 @@ const InsuredDetails = () => {
               <button
                 type="button"
                 aria-label="Créer un nouvel assuré"
-                onClick={() => navigate(`/insureds/${currentInsured.id}/claims/new`)}
+                onClick={() => navigate(`/insureds/${currentInsured.id}/sinistres/new`)}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-md
                         hover:bg-blue-700 transition
                         focus:outline-none focus:ring-2 focus:ring-blue-400">
@@ -119,9 +118,6 @@ const InsuredDetails = () => {
         )}
         {activeTab === "contract" && (
         <ContractTab contract={currentInsured?.contract} />
-        )}
-        {activeTab === "guarantees" && (
-        <GuaranteesTab garanties={currentInsured?.contract?.garanties} />
         )}
         {activeTab === "claims" && (
         <ClaimsTab currentInsured={currentInsured}  />

@@ -1,6 +1,7 @@
 // sidebarData.js
 import { HomeIcon } from 'lucide-react';
 import { HousePlus } from 'lucide-react';
+import { UserStar } from 'lucide-react';
 import { Group } from 'lucide-react';
 import { Home } from 'lucide-react';
 import { Space } from 'lucide-react';
@@ -40,7 +41,7 @@ export const sidebarData = [
         {
     id: '05',
     label: 'Sinistres',
-    path: '/claims',
+    path: '/sinistres',
     icon: Group,
   },
   {
@@ -52,9 +53,9 @@ export const sidebarData = [
   },
   {
     id: '07',
-    label: 'Profiles',
-    path: '/profiles',
-    icon: User,
+    label: 'Partenaires',
+    path: '/partners',
+    icon: UserStar,
   },
 
     {

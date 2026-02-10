@@ -6,6 +6,8 @@ import groupReducer from '../features/group/groupSlice'
 import contractReducer from '../features/contract/contractSlice'
 import claimReducer from '../features/claim/claimSlice'
 import claimDocumentReducer from '../features/claimDocument/claimDocumentSlice'
+import partnerReducer from '../features/partner/partnerSlice'
+import pricingReducer from '../features/partnerPricing/partnerPricingSlice'
 
 
 
@@ -19,6 +21,8 @@ export const store = configureStore({
         contract: contractReducer,
         claim: claimReducer,
         claimDocument: claimDocumentReducer,
+        partner: partnerReducer,
+        pricing: pricingReducer
 
         
     }

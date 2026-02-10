@@ -10,6 +10,7 @@ import { selectUsers} from '../../features/auth/authSelectors';
 import AddUserForm from '../../components/AddUserForm';
 import Modal from '../../components/Modal';
 import UsersList from '../../components/UsersList';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -17,10 +18,10 @@ const UsersListPage = () => {
     const dispatch = useDispatch();
     const usersData = useSelector(selectUsers);
     const [openAddUserModal, setOpenAddUserModal] = useState(false);
+    const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getAllUsers());
-    
   }, [dispatch]);
 
 
@@ -33,7 +34,7 @@ const UsersListPage = () => {
         <div className='flex items-center justify-between mb-4'>
           <h2 className='text-2xl font-semibold'>Liste des utilisateurs</h2>
           <button 
-          onClick={()=>setOpenAddUserModal(true)}
+          onClick={()=> navigate("/users/create")}
             className='add-button flex items-center gap-1 cursor-pointer'>
             <Plus size={15} />
              Ajouter un utilisateur

@@ -25,6 +25,9 @@ const UploadField = ({ label, accept, file, onChange, error }) => {
   };
 
   const isImage = file?.type?.startsWith("image");
+  console.log(file?.type);
+  
+  
 
   return (
     <div className="w-full">

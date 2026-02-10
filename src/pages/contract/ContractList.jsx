@@ -182,23 +182,14 @@ export const ContractList = () => {
               </div>
 
               {/* Button Creation contract */}
-              <button
-                type="button"
-                aria-label="Créer un nouvel assuré"
-                onClick={() => navigate("/contracts/create")}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-md
-                        hover:bg-blue-700 transition
-                        focus:outline-none focus:ring-2 focus:ring-blue-400">
-                <PlusCircle className="w-5 h-5" />
-                Nouvel contrat
-              </button>
+       
             </div>
           </div>
 
-          {/* Liste des groups */}
+          {/* Liste des contracts */}
             <div className='card p-4'>
-              {/* Table des utilisateurs */}
-                {/* Table des utilisateurs */}
+              {/* Table des contracts */}
+                {/* Table des contracts */}
               {contracts && contracts.length > 0 ? (
                 <Table columns={columns} renderRow={renderRow} data={contracts} />
 

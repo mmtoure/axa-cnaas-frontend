@@ -54,11 +54,6 @@ const InsuredPage = () => {
             Nouvel Assuré 
           </button>
         </div>
-
-        {/** Stats */}
-
-        <StatsGrid insureds={insureds} />
-
         {/* Liste des groups */}
         <InsuredList insuredsData={insureds} />
       </div>

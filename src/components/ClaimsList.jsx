@@ -36,6 +36,8 @@ const columns = [
 const ClaimsList = ({claims}) => {
 const navigate = useNavigate();
 const [search, setSearch] = useState("");
+console.log("CLAIMSLIST", claims);
+
 
 const renderRow = (item) => (
     <tr
@@ -57,7 +59,7 @@ const renderRow = (item) => (
       <td className="px-4 py-2 flex items-center justify-center gap-1">
         {/* Voir */}
         <button
-          onClick={() => navigate(`/claims/${item.id}`)}
+          onClick={() => navigate(`/sinistres/${item.id}`)}
           className="p-1 rounded hover:bg-gray-200"
           title="Voir"
         >
@@ -65,7 +67,7 @@ const renderRow = (item) => (
         </button>
         {/* Éditer */}
         <button
-          onClick={() => navigate(`/claims/edit/${item.id}`)}
+          onClick={() => navigate(`/sinistres/edit/${item.id}`)}
           className="p-1 rounded hover:bg-gray-200"
           title="Éditer"
         >

@@ -4,7 +4,7 @@ import Home from "./pages/Home"
 import Assures from "./pages/insureds/Insured"
 import Groupements from "./pages/groups/GroupList"
 import Agences from "./pages/Agences"
-import Profiles from "./pages/Profiles"
+import Profiles from "./pages/partners/PartnersList"
 import Parametres from "./pages/Parametres"
 import CreateInsured from "./pages/insureds/CreateInsured"
 import Insured from "./pages/insureds/Insured"
@@ -29,6 +29,12 @@ import PrivateRoute from "./router/PrivateRoute"
 import UsersListPage from "./pages/user/UersListPage"
 import ClaimsListPage from "./pages/claim/ClaimsListPage"
 import CreateMultiClaim from "./pages/claim/CreateMultiClaim"
+import CreateUser from "./pages/user/CreateUser"
+import Partenaires from "./pages/partners/PartnersList"
+import CreatePartner from "./pages/partners/CreatePartner"
+import PartnersList from "./pages/partners/PartnersList"
+import PartnerDetails from "./pages/partners/PartnerDetails"
+import CreatePricings from "./pages/partners/CreatePricings"
 
 function App() {
   return (
@@ -46,7 +52,7 @@ function App() {
               <Route path="/insureds/create" element={<CreateInsured />} />
               <Route path="/insureds/:id" element={<InsuredDetails />} />
               <Route path="/insureds/edit/:id" element={<InsuredEdit />} />
-              <Route path="/insureds/:insuredId/claims/new" element={<CreateMultiClaim />} />
+              <Route path="/insureds/:insuredId/sinistres/new" element={<CreateMultiClaim />} />
 
               {/** Groups routes */}
               <Route path="/groups" element={<GroupList />} />
@@ -61,16 +67,25 @@ function App() {
               <Route path="/contracts/edit/:id" element={<ContractEdit />} />
 
               {/** Claims routes */}
-              <Route path="/claims" element={<ClaimsListPage />} />
-              <Route path="/claims/create" element={<CreateMultiClaim />} />
-              <Route path="/claims/:id" element={<ClaimDetails />} />
-              <Route path="/claims/edit/:id" element={<ClaimEdit />} />
+              <Route path="/sinistres" element={<ClaimsListPage />} />
+              <Route path="/sinistres/create" element={<CreateMultiClaim />} />
+              <Route path="/sinistres/:id" element={<ClaimDetails />} />
+              <Route path="/sinistres/edit/:id" element={<ClaimEdit />} />
 
               <Route path="/agences" element={<Agences />} />
 
               <Route path="/login" element={<Login />} />
               <Route path="/users" element={<UsersListPage />} />
-              <Route path="/profiles" element={<Profiles />} />
+              <Route path="/users/create" element={<CreateUser />} />
+
+              {/** Partners routes */}
+              <Route path="/partners" element={<PartnersList />} />
+              <Route path="/partners/create" element={<CreatePartner />} />
+              <Route path="/partners/:id" element={<PartnerDetails />} />
+              <Route path="/partners/:id/pricings/create" element={<CreatePricings />} />
+
+
+
               <Route path="/parametres" element={<Parametres />} />
             </Route>
             {/* Default */}

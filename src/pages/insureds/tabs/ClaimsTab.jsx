@@ -26,7 +26,7 @@ const ClaimsTab = ({currentInsured}) => {
           title="Aucun sinistre trouvé"
           description="Commencez par créer un sinistre."
           actionLabel="Créer un sinistre"
-          onAction={() =>navigate(`/insureds/${currentInsured.id}/claims/new`)}  
+          onAction={() =>navigate(`/insureds/${currentInsured.id}/sinistres/new`)}  
         />
     }
     </div>

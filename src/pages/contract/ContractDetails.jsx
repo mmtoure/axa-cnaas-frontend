@@ -1,105 +1,144 @@
 import React from 'react'
 import Dashboard from '../../components/Dashboard'
-import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { UserPlus } from 'lucide-react';
-import { Phone } from 'lucide-react';
 import { getContractById } from '../../features/contract/contractThunk';
-import { ListCheck } from 'lucide-react';
 import { Users } from 'lucide-react';
-import { FileText } from 'lucide-react';
-import InfoRow from '../../components/InfoRow';
-import InfoContractTab from './tabs/InfoContractTab';
-import GarantiesTab from './tabs/GarantiesTab';
-import { KeyIcon } from 'lucide-react';
-import { IdCard } from 'lucide-react';
-import { LucideBadgeCheck } from 'lucide-react';
-import StatusBadge from '../../components/StatusBadge';
+import Card from '../../components/Card';
+import { Banknote } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
+import { BedDouble } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
-const tabs = [
-  { key: "info", label: "Détails contrat", icon: ListCheck },
-  { key: "garanties", label: "Garanties", icon: Users },
-];
+
 const ContractDetails = () => {
-    const { id } = useParams();
-    const [activeTab, setActiveTab] = useState("info");
-    const dispatch = useDispatch()
-    const { contract, loading, error } = useSelector((state) => state.contract);
-    const navigate = useNavigate();
+  const { id } = useParams();
+  const dispatch = useDispatch()
+  const { contract, loading, error } = useSelector((state) => state.contract);
 
-     useEffect(() => {    
-            dispatch(getContractById(id));
-        }, [dispatch, id]);
+  useEffect(() => {
+    dispatch(getContractById(id));
+  }, [dispatch, id]);
 
-    if (loading) return <p className="p-6">Chargement...</p>;
-    if (error) return <p className="p-6 text-red-600">Erreur</p>;
-    if (!contract) return null;
-    return (
-      <Dashboard activeMenu="Contrats">
-      <div className="bg-white p-6 rounded shadow">
-          {/* HEADER */}
-          <div className="flex items-center justify-between">
-              <div className='mb-6'>
-                  <h2 className="text-2xl font-semibold">
-                      {contract.firstName} {contract.lastName}
-                  </h2>
-                  <InfoRow
-                    icon={IdCard}
-                    label="N° police"
-                    value={contract.policeNumber}
-                  />
-                  <div className="flex justify-content gap-2 items-center">
-                  <div className="flex items-center gap-2 text-sm text-gray-500 mr-3">
-                    <LucideBadgeCheck className="w-4 h-4" />
-                    Statut: 
-                  </div>
-                  <StatusBadge status={contract?.status} />
-                  
-                </div>
-              </div>
-              <button
-                  onClick={() => navigate("/contracts")}
-                  className="px-4 py-2 bg-gray-500 text-white rounded text-sm">
-                  Retour
-              </button>
+  if (loading) return <p className="p-6">Chargement...</p>;
+  if (error) return <p className="p-6 text-red-600">Erreur</p>;
+  if (!contract) return null;
+  return (
+    <Dashboard activeMenu="Contrats">
+      <div className="space-y-3">
+
+        {/* HEADER */}
+        <div className="bg-white rounded-lg shadow p-6 flex justify-between items-center">
+          <div>
+            <h2 className="text-xl font-semibold">
+              {contract.policeNumber}
+            </h2>
+            <p className="text-sm opacity-90 flex items-center gap-2 mt-1">
+              <Users size={16} />
+              {contract.firstName} {contract.lastName}
+            </p>
+            <p className="text-sm opacity-80 flex items-center gap-2">
+              <CalendarDays size={16} />
+              {contract.startDate} → {contract.endDate}
+            </p>
           </div>
 
-          {/* TABS */}
-          <div className="flex gap-2 border-b mb-6">
-            {tabs.map(({ key, label, icon: Icon }) => (
-              <button
-                key={key}
-                onClick={() => setActiveTab(key)}
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition
-                  ${
-                    activeTab === key
-                      ? "border-blue-600 text-blue-800"
-                      : "border-transparent text-gray-500 hover:text-gray-700"
-                  }`}
-              >
-                <Icon className="w-4 h-4" />
-                {label}
-              </button>
-            ))}
+          <span className={`px-4 py-1 rounded-full text-sm
+          ${contract.status === "ACTIF"
+              ? "bg-green-100 text-green-700"
+              : "bg-gray-200 text-gray-600"}`}>
+            {contract.status}
+          </span>
+        </div>
+
+        {/* CAPITAL */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <ShieldCheck className="text-blue-600" />
+            <h3 className="font-semibold">Capital</h3>
           </div>
 
-          
-          {/* CONTENT */}
-          {activeTab === "info" && (
-          <InfoContractTab contract={contract} />
-          )}
-          {activeTab === "garanties" && (
-          <GarantiesTab contract={contract} />
-          )}
-       
-    
+          <div className="grid grid-cols-3 gap-4 mb-4">
+            <Card label="Capital Max" value={contract.capitalMax} />
+            <Card label="Déjà versé" value={contract.capitalDejaVerse} />
+            <Card label="Restant" value={contract.capitalMax - contract.capitalDejaVerse} highlight />
+          </div>
+          {/* Progress Bar */}
+          <div className="w-full bg-gray-200 rounded-full h-3">
+            <div
+              className="bg-blue-600 h-3 rounded-full"
+              style={{ width: `${(contract.capitalDejaVerse / contract.capitalMax) * 100}%` }}
+            />
+          </div>
+        </div>
+        {/* HOSPICASH */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <BedDouble className="text-indigo-600" />
+            <h3 className="font-semibold">Hospicash</h3>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-4 mb-4">
+            <Card label="Plafond nuits" value={contract.plafondNuitsParAn} />
+            <Card label="Nuits restantes" value={contract.nuitsRestantes} highlight />
+            <Card label="Montant / nuit" value={contract.montantParNuit} />
+          </div>
+          {/* Progress Bar */}
+          <div className="w-full bg-gray-200 rounded-full h-3">
+            <div
+              className="bg-blue-600 h-3 rounded-full"
+              style={{ width: `${((contract.plafondNuitsParAn - contract.nuitsRestantes) / contract.plafondNuitsParAn) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        {/* PRIMES TABLE */}
+        <div className="bg-white rounded-xl shadow p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Banknote className="text-green-600" />
+            <h3 className="font-semibold">Détail des primes</h3>
+          </div>
+
+          <table className="w-full text-sm border rounded-lg overflow-hidden">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="p-3 text-left">Élément</th>
+                <th className="p-3 text-right">Montant (FCFA)</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr className="border-t">
+                <td className="p-3">Prime HT</td>
+                <td className="p-3 text-right">{contract.montantPrime}</td>
+              </tr>
+
+              <tr className="border-t">
+                <td className="p-3">Frais Accessoires</td>
+                <td className="p-3 text-right">{contract.accessoryCost}</td>
+              </tr>
+
+              <tr className="border-t">
+                <td className="p-3">Taxe</td>
+                <td className="p-3 text-right">{contract.tax}</td>
+              </tr>
+
+              <tr className="border-t bg-blue-50 font-semibold">
+                <td className="p-3">Prime TTC</td>
+                <td className="p-3 text-right">{contract.montantPrimeTTC}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
       </div>
-      </Dashboard>
-    
-    )
+
+    </Dashboard>
+
+  )
 }
 
 export default ContractDetails

@@ -2,11 +2,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../util/api";
 
 export const createUser = createAsyncThunk(
-  'user/create-user',
+  'user/createUser',
   async (userData, { rejectWithValue }) => {
     try {
       const res = await api.post("/create-user",userData)
-      localStorage.setItem("token", res.data.token)
+      //localStorage.setItem("token", res.data.token)
       console.log("create user success",res.data);
       return res.data
       

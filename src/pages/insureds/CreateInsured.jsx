@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { resetState } from '../../features/insured/insuredSlice';
 import { toast } from 'react-toastify';
+import { me } from '../../features/user/userThunk';
 
 
 const CreateInsured = () => {
@@ -19,6 +20,7 @@ const CreateInsured = () => {
 const navigate = useNavigate()
 const dispatch = useDispatch()
 const {loading, success, error} = useSelector((state) => state.insured)
+const {user} = useSelector((state)=>state.user)
 
   const {
     register,
@@ -32,12 +34,12 @@ const {loading, success, error} = useSelector((state) => state.insured)
     lastName: "",
     dateOfBirth: "",
     phoneNumber: "",
+    category: null,
     beneficiary: {
       firstName: "",
       lastName: "",
       dateOfBirth: "",
       phoneNumber: "",
-      lienParente: "",
     },
   },
   });
@@ -59,6 +61,7 @@ useEffect(() => {
     reset();
     navigate("/insureds");
     dispatch(resetState());
+    dispatch(me())
   }
 
   if (error) {
@@ -90,6 +93,30 @@ useEffect(() => {
           <h2 className="text-gray-500 text-lg font-semibold">
             Informations Assuré:
           </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          {console.log("Current", user)
+          }
+          {user?.partnerName === "LG" && (
+              <div className="w-full">
+                  <label className="block text-sm text-gray-500 mb-1">
+                      Catégorie
+                  </label>
+                  <select
+                      {...register("category")}
+                      className="w-full text-sm border border-gray-300 rounded-md px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                      <option value="">-- Sélectionner --</option>
+                      <option value="STANDARD">Standard</option>
+                      <option value="CLASSIC">Classic</option>
+                      <option value="PREMIUM">Premium</option>
+                  </select>
+                  {errors.sinisterType && (
+                      <p className="text-xs text-red-600 mt-1">{errors.category.message}</p>
+                  )}
+              </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -161,14 +188,6 @@ useEffect(() => {
             label="Téléphone"
             {...register("beneficiary.phoneNumber")}
             error={errors.beneficiary?.phoneNumber?.message}
-          />
-        </div>
-
-        <div className="mt-4">
-          <Input
-            label="Lien de parenté"
-            {...register("beneficiary.lienParente")}
-            error={errors.beneficiary?.lienParente?.message}
           />
         </div>
       </div>

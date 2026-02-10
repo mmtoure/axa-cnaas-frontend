@@ -9,7 +9,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getGroupById } from '../../features/group/groupThunk';
 import { Phone } from 'lucide-react';
 import InfoRow from '../../components/InfoRow';
-import InfoTab from './tabs/InfoTab';
 import InsuredListTab from './tabs/InsuredListTab';
 import ContractTab from './tabs/ContractTab';
 import { Users } from 'lucide-react';
@@ -19,16 +18,17 @@ import { Users2 } from 'lucide-react';
 
 
 const tabs = [
-  { key: "info", label: "Info. Groupement", icon: ListCheck },
-  { key: "insureds", label: "Assurés", icon: Users },
+  { key: "insureds", label: "Liste des assurés", icon: Users },
   { key: "contract", label: "Contrat", icon: FileText },
 ];
 const GroupDetails = () => {
     const { id } = useParams();
-    const [activeTab, setActiveTab] = useState("info");
+    const [activeTab, setActiveTab] = useState("insureds");
     const dispatch = useDispatch()
     const { group, loading, error } = useSelector((state) => state.group);
     const navigate = useNavigate();
+
+    
 
      useEffect(() => {    
             dispatch(getGroupById(id));
@@ -48,22 +48,19 @@ const GroupDetails = () => {
                   </h2>
                   <InfoRow
                     icon={UserPlus}
-                    label="Représentant"
+                    label="Représentant: "
                     value={group.firstName+" "+group.lastName}
                   />
                   <InfoRow
                     icon={Phone}
-                    label="Téléphon "
+                    label="Téléphone: "
                     value={group.phoneNumber}
                   />
                   <InfoRow
                     icon={Users2}
                     label="Nombre d'assurés"
                     value={group.insureds?.length || 0}
-                  />
-
-      
-                  
+                  />  
               </div>
               <button
                   onClick={() => navigate("/groups")}
@@ -78,7 +75,7 @@ const GroupDetails = () => {
               <button
                 key={key}
                 onClick={() => setActiveTab(key)}
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition
+                className={`flex items-center gap-2 px-4 py-2 text-md font-medium border-b-2 transition
                   ${
                     activeTab === key
                       ? "border-blue-600 text-blue-800"
@@ -90,12 +87,7 @@ const GroupDetails = () => {
               </button>
             ))}
           </div>
-
-          
           {/* CONTENT */}
-          {activeTab === "info" && (
-          <InfoTab group={group} />
-          )}
           {activeTab === "insureds" && (
           <InsuredListTab insureds={group?.insureds} />
           )}

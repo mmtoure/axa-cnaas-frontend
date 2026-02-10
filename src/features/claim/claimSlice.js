@@ -44,6 +44,7 @@ const claimSlice = createSlice ({
                 state.error=null
             })
             .addCase(getAllclaims.fulfilled, (state, action)=>{
+            
                 state.loading=false
                 state.claims=action.payload
             })
@@ -52,7 +53,7 @@ const claimSlice = createSlice ({
                 state.error=action.payload
             })
         
-        // fetch one Insured
+        // fetch one claim
             .addCase(getclaimById.pending, (state)=>{
                 state.loading=true
                 state.error=null
@@ -67,7 +68,7 @@ const claimSlice = createSlice ({
                 state.error=action.payload
             })
 
-                  // fetch one Insured
+            // create malti claims
             .addCase(createAllclaims.pending, (state)=>{
                 state.loading=true
                 state.error=null

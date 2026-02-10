@@ -117,24 +117,18 @@ const CreateMultiClaim = () => {
     });
   });
 
-  dispatch(createAllclaims(formData));
+  dispatch(createAllclaims(formData))
+  .unwrap()
+  .then(() => {
+    toast.success("Sinistre créé avec succès");
+    navigate(`/insureds/${insuredId}`, { replace: true });
+  })
+  .catch((err) => {
+    toast.error(err.message);
+  });
 
   };
 
-  useEffect(() => {
-
-    if (success) {
-      toast.success("Sinistre créé avec succès");
-      reset();
-      navigate({ pathname: "/claims" });
-      dispatch(resetState());
-    }
-
-    if (error) {
-
-      toast.error(error);
-    }
-  }, [success, error, dispatch, navigate, reset, insuredId]);
   return (
     <Dashboard activeMenu="Sinistres">
       <div className="bg-opacity-95 backdrop-blur-sm p-4 rounded-lg max-h-[90vh] overflow-y-auto">
@@ -298,7 +292,7 @@ const CreateMultiClaim = () => {
                 <div className="flex justify-end gap-2">
                   <button
                     type="button"
-                    onClick={() => navigate("/claims")}
+                    onClick={() => navigate("/sinistres")}
                     className="px-6 py-2 bg-gray-500 text-white rounded"
                   >
                     Annuler
