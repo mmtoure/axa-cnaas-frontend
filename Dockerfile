@@ -1,16 +1,14 @@
-# Stage 1 - Build
-FROM node:18-alpine as build
+FROM node:20-slim
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable # Active pnpm nativement
+
 WORKDIR /app
-
-
-# Copie des fichiers de dépendances
 COPY package.json pnpm-lock.yaml ./
-
-# Installation stricte (équivalent de npm ci)
 RUN pnpm install --frozen-lockfile
 
-# Copie du reste du code
 COPY . .
+RUN pnpm build
 
 # Stage 2 - Nginx
 FROM nginx:alpine
