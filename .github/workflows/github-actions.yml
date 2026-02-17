@@ -40,7 +40,6 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/frontend-axa-cnaas:latest
-          docker compose -f docker-compose.yml up -d --remove-orphans
       - name: Pull and restart frontend only
         run: |
           cd ../api-axa-cnaas/
