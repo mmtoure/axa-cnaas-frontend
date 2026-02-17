@@ -2,8 +2,6 @@
 FROM node:18-alpine as build
 WORKDIR /app
 
-# Installation de pnpm
-RUN npm install -g pnpm
 
 # Copie des fichiers de dépendances
 COPY package.json pnpm-lock.yaml ./
