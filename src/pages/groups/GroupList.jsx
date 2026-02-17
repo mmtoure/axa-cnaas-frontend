@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { generateContractByGroup, getAllGroups } from '../../features/group/groupThunk'
-import { Plus } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Search } from 'lucide-react'
 import { PlusCircle } from 'lucide-react'
@@ -31,7 +30,7 @@ const columns = [
     header: "Téléphone",
     accessor: "phoneNumber",
     className: "text-left px-2"
-    
+
   },
   {
     header: "Nombre assurés",
@@ -48,7 +47,7 @@ const columns = [
 
 const GroupList = () => {
   const dispatch = useDispatch()
-  const {groups, generateContract, loading, error} = useSelector((state) => state.group)
+  const { groups, generateContract, loading, error } = useSelector((state) => state.group)
   const navigate = useNavigate()
   const [search, setSearch] = useState("");
 
@@ -72,23 +71,11 @@ const GroupList = () => {
     console.log("Insured supprimé");
 
   }
-  const handleGenerateContractByGroup11 = async (groupId) => {
-    const response = await dispatch(generateContractByGroup(groupId));
-    if(response.meta.requestStatus === "fulfilled") {
-      const blob = new Blob([response.payload], { type: "application/pdf" });
-      const url = window.URL.createObjectURL(blob);
-      window.open(url, "_blank");
-      setTimeout(() => window.URL.revokeObjectURL(url), 1000);
-    }
 
-    console.log("Génération du contrat", groupId);
-  }
-
-    const handleGenerateContractByGroup = async (groupId) => {
+  const handleGenerateContractByGroup = async (groupId) => {
     const res = await api.get(`/groups/${groupId}/pdf`, {
       responseType: "blob"
     });
-
     const url = window.URL.createObjectURL(res.data);
     window.open(url, "_blank");
   };
@@ -116,18 +103,18 @@ const GroupList = () => {
       </td>
 
       <td className="px-4 py-2 flex items-center justify-center gap-1">
-      
+
 
         {/* Voir */}
-     <button
-        type="button"
-        onClick={() => navigate(`/groups/${item.id}`)}
-        className="p-2 rounded-lg bg-green-50 hover:bg-green-100
+        <button
+          type="button"
+          onClick={() => navigate(`/groups/${item.id}`)}
+          className="p-2 rounded-lg bg-green-50 hover:bg-green-100
                   transition hover:scale-105"
-        aria-label="Voir le contrat"
-      >
-        <Eye className="w-4 h-4 text-green-600" />
-      </button>
+          aria-label="Voir le contrat"
+        >
+          <Eye className="w-4 h-4 text-green-600" />
+        </button>
 
         {/* Éditer */}
         <button
@@ -147,7 +134,7 @@ const GroupList = () => {
           <Trash2 className="w-4 h-4 text-red-600" />
         </button>
 
-          {/* Générer le contrat */}
+        {/* Générer le contrat */}
         <button
           onClick={() => handleGenerateContractByGroup(item.id)}
           className="p-1 rounded hover:bg-gray-200"
@@ -159,50 +146,58 @@ const GroupList = () => {
     </tr>
   );
   return (
-    <div className='space-y-6'>
-      <Dashboard activeMenu="Groupements">
-          <div className="bg-white bg-opacity-95 backdrop-blur-sm p-8 max-h-[90vh] overflow-y-auto rounded-lg shadow-lg">
+    <Dashboard activeMenu="Groupements">
+          <div className="p-2">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-lg font-semibold text-gray-700">
+          Gestion des groupements
+        </h3>
 
-          {/* Header */}
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-lg font-semibold text-gray-700">
-              Gestion des groupements
-            </h3>
-            <div className='flex items-center justify-content gap-2'>
-              {/* Search */}
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Rechercher un assuré..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="pl-9 pr-3 py-2 bg-gray-100 rounded-md text-sm
-                          placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                />
-                <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
-              </div>
-
-              {/* Button Creation group */}
-              <button
-                type="button"
-                aria-label="Créer un nouvel assuré"
-                onClick={() => navigate("/groups/create")}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-md
+        {/* Button Creation group */}
+        <button
+          type="button"
+          aria-label="Créer un nouvel assuré"
+          onClick={() => navigate("/groups/create")}
+          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-md
                         hover:bg-blue-700 transition
                         focus:outline-none focus:ring-2 focus:ring-blue-400">
-                <PlusCircle className="w-5 h-5" />
-                Créer un groupement
-              </button>
-            </div>
+          <PlusCircle className="w-5 h-5" />
+          Créer un groupement
+        </button>
+      </div>
+      <div className="bg-white bg-opacity-95 backdrop-blur-sm p-8 max-h-[90vh] overflow-y-auto rounded-lg shadow-lg">
+        <div className='flex items-center justify-between gap-2'>
+          <div className="text-gray-700 flex items-center">
+          <span>Total groupements: </span>
+          <span className="ml-2 text-lamaPurple">
+            {filteredGroups.length} 
+          </span>
+          <span className="ml-4 text-gray-500 italic">
+            (Filtrés: {filteredGroups.length})
+          </span>
+        </div>
+          {/* Search */}
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Rechercher un assuré..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-9 pr-3 py-2 bg-gray-100 rounded-md text-sm
+                          placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            />
+            <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
           </div>
+        </div>
 
           {/* Liste des groups */}
-            <div className='card p-4'>
-              {/* Table des utilisateurs */}
-              {filteredGroups && filteredGroups.length > 0 ? (
-                <Table columns={columns} renderRow={renderRow} data={filteredGroups} />
+          <div className='card p-4'>
+            {/* Table des utilisateurs */}
+            {filteredGroups && filteredGroups.length > 0 ? (
+              <Table columns={columns} renderRow={renderRow} data={filteredGroups} />
 
-              ) :
+            ) :
               (
                 <EmptyState
                   title="Aucun groupement trouvé"
@@ -210,10 +205,11 @@ const GroupList = () => {
                 />
               )}
 
-            </div>
           </div>
-      </Dashboard>
-    </div>
+        </div>
+        </div>
+      
+    </Dashboard>
   )
 }
 

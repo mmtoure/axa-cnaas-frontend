@@ -62,8 +62,8 @@ const ContractDetails = () => {
 
           <div className="grid grid-cols-3 gap-4 mb-4">
             <Card label="Capital Max" value={contract.capitalMax} />
-            <Card label="Déjà versé" value={contract.capitalDejaVerse} />
-            <Card label="Restant" value={contract.capitalMax - contract.capitalDejaVerse} highlight />
+            <Card label="Montant déjà versé" value={contract.capitalDejaVerse} />
+            <Card label="Capital restant" value={contract.capitalMax - contract.capitalDejaVerse} highlight />
           </div>
           {/* Progress Bar */}
           <div className="w-full bg-gray-200 rounded-full h-3">

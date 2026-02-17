@@ -83,3 +83,19 @@ export const generateContractByInsured = createAsyncThunk(
        
   }
 )
+
+export const getInsureds = createAsyncThunk(
+    "insured/getInsureds",
+    async ({ page = 0, size = 10 }, { rejectWithValue }) => {
+        try {
+            const res = await api.get(
+                `insureds?page=${page}&size=${size}`
+            );
+            return res.data;
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message || "Erreur pagination"
+            );
+        }
+    }
+);

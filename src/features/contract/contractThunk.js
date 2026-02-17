@@ -1,15 +1,15 @@
-import { createAsyncThunk} from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../util/api";
 
-export const getAllContracts =createAsyncThunk(
+export const getAllContracts = createAsyncThunk(
     'contract/getAllContracts',
     async (_, { rejectWithValue }) => {
         try {
-            const res = await api.get("/contracts")
-            console.log("fetch all contracts success",res.data);
+            const res = await api.get("/contracts/all")
+            console.log("fetch all contracts success", res.data);
             return res.data
 
-            
+
         } catch (error) {
             if (error.response && error.response.data.message) {
                 return rejectWithValue(error.response.data.message)
@@ -22,15 +22,15 @@ export const getAllContracts =createAsyncThunk(
 
 )
 
-export const getContractById =createAsyncThunk(
+export const getContractById = createAsyncThunk(
     'contract/getContractById',
     async (contractId, { rejectWithValue }) => {
         try {
             const res = await api.get(`/contracts/${contractId}`)
-            console.log("fetch contract success",res.data);
+            console.log("fetch contract success", res.data);
             return res.data
 
-            
+
         } catch (error) {
             if (error.response && error.response.data.message) {
                 return rejectWithValue(error.response.data.message)
@@ -42,18 +42,18 @@ export const getContractById =createAsyncThunk(
     }
 
 )
-export const generateContractPdf =createAsyncThunk(
+export const generateContractPdf = createAsyncThunk(
     'contract/generateContractPdf',
     async (contractId, { rejectWithValue }) => {
         try {
-        const response = await api.get(`/contracts/${contractId}/pdf`, {
-            responseType: "blob",
-        });
+            const response = await api.get(`/contracts/${contractId}/pdf`, {
+                responseType: "blob",
+            });
 
-        console.log("generate contract pdf success",response.data);
-        return response.data
-            
-        } 
+            console.log("generate contract pdf success", response.data);
+            return response.data
+
+        }
         catch (error) {
             if (error.response && error.response.data.message) {
                 return rejectWithValue(error.response.data.message)
@@ -64,3 +64,18 @@ export const generateContractPdf =createAsyncThunk(
 
     }
 )
+export const getContracts = createAsyncThunk(
+    "contract/getContracts",
+    async ({ page = 0, size = 10 }, { rejectWithValue }) => {
+        try {
+            const res = await api.get(
+                `contracts?page=${page}&size=${size}`
+            );
+            return res.data;
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message || "Erreur pagination"
+            );
+        }
+    }
+);

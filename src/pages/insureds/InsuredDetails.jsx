@@ -33,64 +33,62 @@ const tabs = [
 ];
 
 const InsuredDetails = () => {
-    const { id } = useParams();
-    const [activeTab, setActiveTab] = useState("info");
-    const dispatch = useDispatch()
-    const { currentInsured, loading, error } = useSelector((state) => state.insured);
-    const navigate = useNavigate();
+  const { id } = useParams();
+  const [activeTab, setActiveTab] = useState("info");
+  const dispatch = useDispatch()
+  const { currentInsured, loading, error } = useSelector((state) => state.insured);
+  const navigate = useNavigate();
 
-    useEffect(() => {    
-        dispatch(getInsuredById(id));
-    }, [dispatch, id]);
+  useEffect(() => {
+    dispatch(getInsuredById(id));
+  }, [dispatch, id]);
 
   if (loading) return <p className="p-6">Chargement...</p>;
   if (error) return <p className="p-6 text-red-600">Erreur</p>;
   if (!currentInsured) return null;
   return (
-    <Dashboard activeMenu="Assurés">
-      <div className="bg-white p-6 rounded shadow">
+   <Dashboard activeMenu="Assurés">
+      <div className="p-2">
+      <div className="bg-white p-4 rounded shadow">
 
         {/* HEADER */}
         <div className="flex items-center justify-between">
-            <div className='mb-6'>
-                <h2 className="text-2xl font-semibold">
-                    {currentInsured.firstName} {currentInsured.lastName}
-                </h2>
-                <InfoRow
-                  icon={Phone}
-                  label="Téléphone"
-                  value={currentInsured.phoneNumber}
-                />
-                <div className="flex justify-content gap-2 items-center">
-                  <div className="flex items-center gap-2 text-sm text-gray-500 mr-3">
-                    <LucideBadgeCheck className="w-4 h-4" />
-                    Statut: 
-                  </div>
-                  <StatusBadge status={currentInsured?.status} />
-                  
-                </div>
-                
+          <div className='mb-6'>
+            <h2 className="text-2xl font-semibold">
+              {currentInsured.firstName} {currentInsured.lastName}
+            </h2>
+            <InfoRow
+              icon={Phone}
+              label="Téléphone"
+              value={currentInsured.phoneNumber}
+            />
+            <div className="flex justify-content gap-2 items-center">
+              <div className="flex items-center gap-2 text-sm text-gray-500 mr-3">
+                <LucideBadgeCheck className="w-4 h-4" />
+                Statut:
+              </div>
+              <StatusBadge status={currentInsured?.status} />
             </div>
-            <div className='flex items-center gap-2'>
+          </div>
+
+          <div className='flex items-center gap-2'>
             {/* Button Creation sinistre */}
-              <button
-                type="button"
-                aria-label="Créer un nouvel assuré"
-                onClick={() => navigate(`/insureds/${currentInsured.id}/sinistres/new`)}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-md
+            <button
+              type="button"
+              aria-label="Créer un nouvel assuré"
+              onClick={() => navigate(`/insureds/${currentInsured.id}/sinistres/new`)}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-md
                         hover:bg-blue-700 transition
                         focus:outline-none focus:ring-2 focus:ring-blue-400">
-                <PlusCircle className="w-5 h-5" />
-                  Déclarer un sinistre
-              </button>
-              <button
-                onClick={() => navigate("/insureds")}
-                className="px-4 py-2 bg-gray-500 text-white rounded text-sm">
-                Retour
+              <PlusCircle className="w-5 h-5" />
+              Déclarer un sinistre
             </button>
-
-            </div>
-         
+            <button
+              onClick={() => navigate("/insureds")}
+              className="px-4 py-2 bg-gray-500 text-white rounded text-sm">
+              Retour
+            </button>
+          </div>
         </div>
 
         {/* TABS */}
@@ -100,10 +98,9 @@ const InsuredDetails = () => {
               key={key}
               onClick={() => setActiveTab(key)}
               className={`flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition
-                ${
-                  activeTab === key
-                    ? "border-blue-600 text-blue-800"
-                    : "border-transparent text-gray-500 hover:text-gray-700"
+                ${activeTab === key
+                  ? "border-blue-600 text-blue-800"
+                  : "border-transparent text-gray-500 hover:text-gray-700"
                 }`}
             >
               <Icon className="w-4 h-4" />
@@ -114,20 +111,18 @@ const InsuredDetails = () => {
 
         {/* CONTENT */}
         {activeTab === "info" && (
-        <PersonalInfoTab insured={currentInsured} />
+          <PersonalInfoTab insured={currentInsured} />
         )}
         {activeTab === "contract" && (
-        <ContractTab contract={currentInsured?.contract} />
+          <ContractTab contract={currentInsured?.contract} />
         )}
         {activeTab === "claims" && (
-        <ClaimsTab currentInsured={currentInsured}  />
+          <ClaimsTab currentInsured={currentInsured} />
         )}
-
-
-
       </div>
+       </div>
     </Dashboard>
-   
+
   )
 }
 export default InsuredDetails

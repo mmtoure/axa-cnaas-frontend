@@ -41,11 +41,7 @@ const columns = [
     accessor: "beneficiary",
     className: "text-left px-2"
   },
-   {
-    header: "Categorie",
-    accessor: "category",
-    className: "text-left px-2"
-  },
+   
   {
     header: "Actions",
     accessor: "actions",
@@ -122,9 +118,7 @@ const InsuredList = ({insuredsData}) => {
           <span className="text-gray-400 italic">Aucun</span>
         )}
       </td>
-        <td className="px-2 py-2 text-left">
-        {item.category}
-      </td>
+       
 
       {/* Actions */}
       <td className="px-2 py-2 text-left">
@@ -168,7 +162,7 @@ const InsuredList = ({insuredsData}) => {
   );
   return (
   
-      <div className="bg-white bg-opacity-95 backdrop-blur-sm p-6 max-h-[90vh] overflow-y-auto rounded-lg border border-gray-200 shadow-lg">
+      <div className="">
         {/* Header */}
         <div className="flex items-center justify-between">  
         <div className="text-gray-700 flex items-center">
