@@ -2,11 +2,17 @@
 FROM node:18-alpine as build
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install
+# Installation de pnpm
+RUN npm install -g pnpm
 
+# Copie des fichiers de dépendances
+COPY package.json pnpm-lock.yaml ./
+
+# Installation stricte (équivalent de npm ci)
+RUN pnpm install --frozen-lockfile
+
+# Copie du reste du code
 COPY . .
-RUN npm run build
 
 # Stage 2 - Nginx
 FROM nginx:alpine
