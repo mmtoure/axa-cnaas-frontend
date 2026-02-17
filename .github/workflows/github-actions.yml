@@ -41,3 +41,8 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/frontend-axa-cnaas:latest
           docker compose -f docker-compose.yml up -d --remove-orphans
+      - name: Pull and restart frontend only
+        run: |
+          cd ../api-axa-cnaas/
+          docker compose pull frontend-axa-cnaas
+          docker compose up -d frontend-axa-cnaas
