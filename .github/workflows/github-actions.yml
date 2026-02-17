@@ -40,8 +40,3 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/frontend-axa-cnaas:latest
-      - name: Pull and restart frontend only
-        run: |
-          cd ../api-axa-cnaas/
-          docker compose pull frontend-axa-cnaas
-          docker compose up -d frontend-axa-cnaas
