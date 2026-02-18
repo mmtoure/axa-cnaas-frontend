@@ -109,8 +109,9 @@ const PartnersList = () => {
     </tr>
   );
   return (
-      <div className='ml-3 p-6'>
+     
       <Dashboard activeMenu="Partenaires">
+         <div className='ml-3 p-6'>
       
           {/* Header */}
           <div className="flex items-center justify-between mb-2">
@@ -166,8 +167,9 @@ const PartnersList = () => {
 
           </div>
         </div>
+         </div>
       </Dashboard >
-      </div>
+     
   )
 }
 
