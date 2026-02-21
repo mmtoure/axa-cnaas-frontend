@@ -8,6 +8,7 @@ import claimReducer from '../features/claim/claimSlice'
 import claimDocumentReducer from '../features/claimDocument/claimDocumentSlice'
 import partnerReducer from '../features/partner/partnerSlice'
 import pricingReducer from '../features/partnerPricing/partnerPricingSlice'
+import dashboardReducer from "../features/dashboard/dashboardSlice";
 
 
 
@@ -22,7 +23,8 @@ export const store = configureStore({
         claim: claimReducer,
         claimDocument: claimDocumentReducer,
         partner: partnerReducer,
-        pricing: pricingReducer
+        pricing: pricingReducer,
+        dashboard: dashboardReducer,
 
         
     }

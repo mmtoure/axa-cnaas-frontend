@@ -3,7 +3,7 @@ import Dashboard from '../../components/Dashboard'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { generateContractByGroup, getAllGroups } from '../../features/group/groupThunk'
+import { generateContractByGroup, getAllGroups, getGroups } from '../../features/group/groupThunk'
 import { useNavigate } from 'react-router-dom'
 import { Search } from 'lucide-react'
 import { PlusCircle } from 'lucide-react'
@@ -14,6 +14,7 @@ import Table from '../../components/Table'
 import EmptyState from '../../components/EmptyState'
 import { FileText } from 'lucide-react'
 import api from '../../util/api'
+import { Pagination } from '../../components/Pagination'
 
 const columns = [
   {
@@ -47,15 +48,22 @@ const columns = [
 
 const GroupList = () => {
   const dispatch = useDispatch()
-  const { groups, generateContract, loading, error } = useSelector((state) => state.group)
+  const { groups, content, totalPages, currentPage } = useSelector((state) => state.group)
   const navigate = useNavigate()
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     dispatch(getAllGroups())
+    dispatch(getGroups({ page: 0, size: 10 }));
   }, [dispatch])
 
-  const filteredGroups = groups.filter((group) => {
+
+
+  const handlePageChange = page => {
+    dispatch(getGroups({ page, size: 10 }));
+  };
+
+  const filteredGroups = content?.filter((group) => {
     const term = search.toLowerCase();
 
     return (
@@ -147,68 +155,79 @@ const GroupList = () => {
   );
   return (
     <Dashboard activeMenu="Groupements">
-          <div className="p-2">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-lg font-semibold text-gray-700">
-          Gestion des groupements
-        </h3>
+      <div className="p-2">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-lg font-semibold text-gray-700">
+            Gestion des groupements
+          </h3>
 
-        {/* Button Creation group */}
-        <button
-          type="button"
-          aria-label="Créer un nouvel assuré"
-          onClick={() => navigate("/groups/create")}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-md
+          {/* Button Creation group */}
+          <button
+            type="button"
+            aria-label="Créer un nouvel assuré"
+            onClick={() => navigate("/groups/create")}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-md
                         hover:bg-blue-700 transition
                         focus:outline-none focus:ring-2 focus:ring-blue-400">
-          <PlusCircle className="w-5 h-5" />
-          Créer un groupement
-        </button>
-      </div>
-      <div className="bg-white bg-opacity-95 backdrop-blur-sm p-8 max-h-[90vh] overflow-y-auto rounded-lg shadow-lg">
-        <div className='flex items-center justify-between gap-2'>
-          <div className="text-gray-700 flex items-center">
-          <span>Total groupements: </span>
-          <span className="ml-2 text-lamaPurple">
-            {filteredGroups.length} 
-          </span>
-          <span className="ml-4 text-gray-500 italic">
-            (Filtrés: {filteredGroups.length})
-          </span>
+            <PlusCircle className="w-5 h-5" />
+            Créer un groupement
+          </button>
         </div>
-          {/* Search */}
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Rechercher un assuré..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 pr-3 py-2 bg-gray-100 rounded-md text-sm
+        <div className="bg-white bg-opacity-95 backdrop-blur-sm p-8 max-h-[90vh] overflow-y-auto rounded-lg shadow-lg">
+          <div className='flex items-center justify-between gap-2'>
+            <div className="text-gray-700 flex items-center">
+              <span>Total groupements: </span>
+              <span className="ml-2 text-lamaPurple">
+                {filteredGroups.length}
+              </span>
+              <span className="ml-4 text-gray-500 italic">
+                (Filtrés: {filteredGroups.length})
+              </span>
+            </div>
+            {/* Search */}
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Rechercher un assuré..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-9 pr-3 py-2 bg-gray-100 rounded-md text-sm
                           placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
-            />
-            <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+              />
+              <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+            </div>
           </div>
-        </div>
 
-          {/* Liste des groups */}
+          {/* Liste des contracts */}
           <div className='card p-4'>
-            {/* Table des utilisateurs */}
-            {filteredGroups && filteredGroups.length > 0 ? (
-              <Table columns={columns} renderRow={renderRow} data={filteredGroups} />
+            {/* Table des contracts */}
+            {content && content.length > 0 ? (
+              <>
+                {console.log("CONTENT", content)}
 
+                <Table columns={columns} renderRow={renderRow} data={content} />
+
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </>
             ) :
               (
                 <EmptyState
-                  title="Aucun groupement trouvé"
-                  description="Commencez par créer un groupement."
+                  title="Aucun contrat trouvé"
+                  description="Commencez par créer un contrat."
                 />
+
               )}
+
 
           </div>
         </div>
-        </div>
-      
+      </div>
+
     </Dashboard>
   )
 }

@@ -2,6 +2,11 @@
 import { HomeIcon } from 'lucide-react';
 import { HousePlus } from 'lucide-react';
 import { UserStar } from 'lucide-react';
+import { FolderCheckIcon } from 'lucide-react';
+import { FolderCodeIcon } from 'lucide-react';
+import { FileWarning } from 'lucide-react';
+import { File } from 'lucide-react';
+import { UsersRound } from 'lucide-react';
 import { Group } from 'lucide-react';
 import { Home } from 'lucide-react';
 import { Space } from 'lucide-react';
@@ -18,31 +23,37 @@ export const sidebarData = [
     label: 'Dashboard',
     path: '/dashboard',
     icon: LayoutDashboard,
+    roles: ["ADMIN", "USER"]
   },
-   {
+  {
     id: '02',
     label: 'Assurés',
     path: '/insureds',
-    icon: Users,
+    icon: User,
+    roles: ["ADMIN", "USER"]
+
   },
-    {
+  {
     id: '03',
     label: 'Groupements',
     path: '/groups',
-    icon: Group,
+    icon: Users,
+    roles: ["ADMIN", "USER"]
   },
-      {
+  {
     id: '04',
     label: 'Contracts',
     path: '/contracts',
-    icon: Group,
+    icon: FolderCheckIcon,
+    roles: ["ADMIN", "USER"]
   },
 
-        {
+  {
     id: '05',
     label: 'Sinistres',
     path: '/sinistres',
-    icon: Group,
+    icon: FileWarning ,
+    roles: ["ADMIN", "USER"]
   },
   {
     id: '06',
@@ -56,13 +67,16 @@ export const sidebarData = [
     label: 'Partenaires',
     path: '/partners',
     icon: UserStar,
+    roles: ["ADMIN"]
   },
 
-    {
+  {
     id: '08',
     label: 'Agences',
     path: '/agences',
     icon: Home,
+    roles: ["ADMIN"]
+
   },
 
   {
@@ -70,9 +84,10 @@ export const sidebarData = [
     label: 'Paramètres',
     path: '/parametres',
     icon: Settings,
+    roles: ["ADMIN"]
   },
 
- 
 
-  
+
+
 ];

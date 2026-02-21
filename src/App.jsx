@@ -42,7 +42,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           {/* Protected */}
           <Route element={<PrivateRoute />}>
               <Route path="/dashboard" element={<Home />} />
@@ -89,8 +89,8 @@ function App() {
               <Route path="/parametres" element={<Parametres />} />
             </Route>
             {/* Default */}
-            <Route path="/" element={<Navigate to="/dashboard" />} />
-            <Route path="*" element={<Navigate to="/dashboard" />} />
+            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

@@ -1,19 +1,10 @@
-import { useDispatch } from "react-redux";
 import MenuBar from "./MenuBar"
 import Sidebar from "./Sidebar"
-import { useEffect } from "react";
-import { me } from "../features/user/userThunk";
 import Breadcrumb from "./Breadcrumb";
 
+
 const Dashboard = ({children,activeMenu}) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-  if (localStorage.getItem("token")) {
-    dispatch(me());
-  }
-}, [dispatch]);
-
+ 
  
 
   return (

@@ -1,52 +1,49 @@
+import { CheckCircle } from 'lucide-react'
+import { Users } from 'lucide-react'
+import { User2 } from 'lucide-react'
+import { FolderOpen } from 'lucide-react'
 import { ArrowRight } from 'lucide-react'
 import React from 'react'
+import KpiCard from './KpiCard'
+import { User } from 'lucide-react'
+import { Users2 } from 'lucide-react'
 
-const StatsGrid = () => {
+const StatsGrid = ({data}) => {
   return (
+      <div className="p-2 space-y-4">
 
-    <div className='my-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4'>
+            <h1 className="text-2xl font-bold text-gray-500">
+              KPI assurance inclusive AXA/CNAAS 
+            </h1>
 
-        <div className='bg-white/80 backdrop-blur-xl rounded-xl p-3 border border-gray-200 hover:shadow-xl hover:shadow-slate-200/20 transition-all duration-300 group'>
-            <div className='flex flex-col items-start justify-between'>
-                    <p className='text-sm font-medium text-slate-600 mb-2'>Total assurés</p>
-                    <p className='text-3xl font-bold text-slate-800 dark:text-white mb-2'>
-                        100
-                    </p>
+            <div className="grid md:grid-cols-4 gap-6">
+              <KpiCard
+                title="Assurés Actifs"
+                value={data?.nbInsureds}
+                icon={User2}
+                color="bg-blue-100 text-blue-600"
+              />
+              <KpiCard
+                title="Groupements"
+                  value={data?.nbGroups}
+                icon={Users2}
+                color="bg-red-100 text-red-600"
+              />
+              <KpiCard
+                title="Sinistres Ouverts"
+                value={data?.openClaims}
+                icon={FolderOpen}
+                color="bg-yellow-100 text-yellow-600"
+              />
+              <KpiCard
+                title="Sinistres Payés"
+                value={data?.acceptedClaims}
+                icon={CheckCircle}
+                color="bg-green-100 text-green-600"
+              />
+           
             </div>
-             
-        </div>
-
-        <div className='bg-white/80 backdrop-blur-xl rounded-xl p-3 border border-gray-200 hover:shadow-xl hover:shadow-slate-200/20 transition-all duration-300 group'>
-            <div className='flex flex-col items-start justify-between'>
-                    <p className='text-sm font-medium text-slate-600 mb-2'>Assurés actifs</p>
-                    <p className='text-3xl font-bold text-slate-800 dark:text-white mb-2'>
-                        100
-                    </p>
-            </div>
-             
-        </div>
-
-         <div className='bg-white/80 backdrop-blur-xl rounded-xl p-3 border border-gray-200 hover:shadow-xl hover:shadow-slate-200/20 transition-all duration-300 group'>
-            <div className='flex flex-col items-start justify-between'>
-                    <p className='text-sm font-medium text-slate-600 mb-2'>Assurés inactifs</p>
-                    <p className='text-3xl font-bold text-slate-800 dark:text-white mb-2'>
-                        10
-                    </p>
-            </div>
-             
-        </div>
-
-        <div className='bg-white/80 backdrop-blur-xl rounded-xl p-3 border border-gray-200 hover:shadow-xl hover:shadow-slate-200/20 transition-all duration-300 group'>
-            <div className='flex flex-col items-start justify-between'>
-                    <p className='text-sm font-medium text-slate-600 mb-2'>Souscriptions du mois</p>
-                    <p className='text-3xl font-bold text-slate-800 dark:text-white mb-2'>
-                        100
-                    </p>
-            </div>
-             
-        </div>
-        
-    </div>
+          </div>
   )
 }
 

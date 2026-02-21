@@ -1,8 +1,8 @@
 const StatusBadge = ({ status }) => {
   const styles = {
     ACTIF: "bg-green-100 text-green-700",
-    EXPIRE: "bg-orange-100 text-orange-700",
-    ANNULE: "bg-red-100 text-red-700",
+    EN_COURS: "bg-orange-100 text-orange-700",
+    INACTIVE: "bg-red-100 text-red-700",
   };
 
   return (

@@ -195,7 +195,6 @@ export const ContractList = () => {
         {/* Liste des contracts */}
         <div className='card p-4'>
           {/* Table des contracts */}
-          {/* Table des contracts */}
           {contracts && contracts.length > 0 ? (
             <>
             {console.log("CONTENT", content)}

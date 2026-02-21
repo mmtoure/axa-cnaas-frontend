@@ -1,8 +1,8 @@
 const RoleBadge = ({ role }) => {
   const styles = {
     ADMIN: "bg-red-500",
-    moderator: "bg-green-500",
-    CHEF_AGENCE: "bg-blue-500",
+    MANAGER: "bg-green-500",
+    USER: "bg-blue-500",
   };
 
   return (
