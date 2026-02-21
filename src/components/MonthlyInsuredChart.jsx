@@ -21,8 +21,8 @@ const MonthlyInsuredChart = ({ insuredByMonth, year = 2026 }) => {
 
     return (
         <div className="p-2 space-y-4">
-            <div class="grid grid-cols-3 gap-4">
-                <div class="col-span-2">
+            <div className="grid grid-cols-3 gap-4">
+                <div className="col-span-2">
                     <div className="bg-white p-6 rounded-xl shadow-md">
                         <h2 className="text-lg font-semibold mb-4">
                             📊 Assurés vs Sinistres ({year})
@@ -53,7 +53,7 @@ const MonthlyInsuredChart = ({ insuredByMonth, year = 2026 }) => {
                         </ResponsiveContainer>
                     </div>
                 </div>
-                <div class="...">05</div>
+                <div className="...">05</div>
             </div>
         </div>
 

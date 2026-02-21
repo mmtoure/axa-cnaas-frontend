@@ -36,9 +36,9 @@ const TableRecentClaims = ({ recentClaims }) => {
                         </thead>
                         <tbody>
                             {recentClaims?.length > 0 && (
-                                recentClaims.map((item) => (
+                                recentClaims.map((item, index) => (
 
-                                    <tr className='border border-slate-200/50  hover:bg-slate-50/50 transition-colors'>
+                                    <tr key={index} className='border border-slate-200/50  hover:bg-slate-50/50 transition-colors'>
                                         <td className="text-left p-1">
                                             <span className='text-sm font-medium text-blue'>{item.numeroSinistre}</span>
                                         </td>
