@@ -7,6 +7,8 @@ import React from 'react'
 import KpiCard from './KpiCard'
 import { User } from 'lucide-react'
 import { Users2 } from 'lucide-react'
+import { UserLock } from 'lucide-react'
+import { XCircle } from 'lucide-react'
 
 const StatsGrid = ({data}) => {
   return (
@@ -24,16 +26,38 @@ const StatsGrid = ({data}) => {
                 color="bg-blue-100 text-blue-600"
               />
               <KpiCard
-                title="Groupements"
+                title="Assurés Inactifs"
+                  value={0}
+                icon={UserLock}
+                color="bg-blue-100 text-red-600"
+              />
+              <KpiCard
+                title="Groupements Actifs"
                   value={data?.nbGroups}
                 icon={Users2}
                 color="bg-red-100 text-red-600"
               />
               <KpiCard
+                title="Groupements Inactifs"
+                  value={0}
+                icon={Users2}
+                color="bg-red-100 text-red-600"
+              />
+           
+            </div>
+            <div className="grid md:grid-cols-4 gap-6">
+              <KpiCard
                 title="Sinistres Ouverts"
                 value={data?.openClaims}
                 icon={FolderOpen}
                 color="bg-yellow-100 text-yellow-600"
+              />
+           
+              <KpiCard
+                title="Sinistres Validés"
+                value={0}
+                icon={CheckCircle}
+                color="bg-blue-100 text-green-600"
               />
               <KpiCard
                 title="Sinistres Payés"
@@ -41,6 +65,13 @@ const StatsGrid = ({data}) => {
                 icon={CheckCircle}
                 color="bg-green-100 text-green-600"
               />
+              <KpiCard
+                title="Sinistres Rejetés"
+                value={0}
+                icon={XCircle}
+                color="bg-red-100 text-red-600"
+              />
+           
            
             </div>
           </div>

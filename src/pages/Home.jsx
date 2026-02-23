@@ -25,13 +25,19 @@ const Home = () => {
       <Dashboard activeMenu="Dashboard">
 
         <StatsGrid data={data} />
-        <MonthlyInsuredChart insuredByMonth={data?.insuredByMonth} />
+      
         <div className="p-2 space-y-4">
-          <div className="w-full flex items-center justify-content gap-4">
-            <TableRecentInsureds recentInsureds={data?.recentInsureds} />
-            <TableRecentClaims recentClaims={data?.recentClaims} />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className='lg:col-span-2'>
+            <MonthlyInsuredChart insuredByMonth={data?.insuredByMonth} />
+            </div>
+            <div className='lg:col-span-1 gap-2 flex flex-col'>
+              <TableRecentInsureds recentInsureds={data?.recentInsureds} />
+              <TableRecentClaims recentClaims={data?.recentClaims} />
+            </div>
           </div>
         </div>
+      
       </Dashboard>
     </div>
   )

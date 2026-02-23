@@ -1,5 +1,6 @@
 import React from 'react'
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import TableRecentInsureds from './TableRecentInsureds';
 
 
 const MonthlyInsuredChart = ({ insuredByMonth, year = 2026 }) => {
@@ -20,42 +21,39 @@ const MonthlyInsuredChart = ({ insuredByMonth, year = 2026 }) => {
     });
 
     return (
-        <div className="p-2 space-y-4">
-            <div className="grid grid-cols-3 gap-4">
-                <div className="col-span-2">
-                    <div className="bg-white p-6 rounded-xl shadow-md">
-                        <h2 className="text-lg font-semibold mb-4">
-                            📊 Assurés vs Sinistres ({year})
-                        </h2>
-                        <ResponsiveContainer width="100%" height={300}>
-                            <BarChart
-                                data={data}
-                                barCategoryGap="50%"
-                                barGap={4}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Legend />
-                                <Bar
-                                    dataKey="insured"
-                                    name="Assurés créés"
-                                    fill="#6366F1"
-                                    barSize={16}
-                                    radius={[6, 6, 0, 0]} />
-                                <Bar
-                                    dataKey="claim"
-                                    name="Sinistres ouverts"
-                                    fill="#EF4444"
-                                    barSize={16}
-                                    radius={[6, 6, 0, 0]} />
-                            </BarChart>
-                        </ResponsiveContainer>
-                    </div>
-                </div>
-                <div className="...">05</div>
+    
+
+            <div className="bg-white p-6 rounded-xl shadow-md">
+                <h2 className="text-lg font-semibold mb-4">
+                    📊 Assurés vs Sinistres ({year})
+                </h2>
+                <ResponsiveContainer width="100%" height={300}>
+                    <BarChart
+                        data={data}
+                        barCategoryGap="50%"
+                        barGap={4}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar
+                            dataKey="insured"
+                            name="Assurés créés"
+                            fill="#340BE5"
+                            barSize={16}
+                            radius={[6, 6, 0, 0]} />
+                        <Bar
+                            dataKey="claim"
+                            name="Sinistres ouverts"
+                            fill="#BEBBFC"
+                            barSize={16}
+                            radius={[6, 6, 0, 0]} />
+                    </BarChart>
+                </ResponsiveContainer>
             </div>
-        </div>
+        
+
 
     )
 }

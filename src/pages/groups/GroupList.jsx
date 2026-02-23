@@ -179,10 +179,10 @@ const GroupList = () => {
             <div className="text-gray-700 flex items-center">
               <span>Total groupements: </span>
               <span className="ml-2 text-lamaPurple">
-                {filteredGroups.length}
+                {filteredGroups?.length}
               </span>
               <span className="ml-4 text-gray-500 italic">
-                (Filtrés: {filteredGroups.length})
+                (Filtrés: {filteredGroups?.length})
               </span>
             </div>
             {/* Search */}
