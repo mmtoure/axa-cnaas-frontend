@@ -1,6 +1,6 @@
 import React from 'react'
 import Dashboard from '../../components/Dashboard'
-import { useForm } from 'react-hook-form'
+import { get, useForm } from 'react-hook-form'
 import { userSchema } from '../../validations/userSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { User2 } from 'lucide-react';
@@ -11,6 +11,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createUser } from '../../features/user/userThunk';
 import { toast } from 'react-toastify';
+import { use } from 'react';
+import { getAllPartners } from '../../features/partner/partnerThunk';
 
 const CreateUser = () => {
     const navigate = useNavigate();
@@ -31,14 +33,20 @@ const CreateUser = () => {
             email: "",
             password: "",
             partnerId: "",
+            roleName: ""
 
 
         },
     });
+
+    useEffect(() => {
+        dispatch(getAllPartners());
+    }, [dispatch]);
+
     const onSubmit = (data) => {
         console.log("USER DATA", data);
         
-        dispatch(createUser(data))
+       dispatch(createUser(data))
          .unwrap()
           .then(() => {
             toast.success("Utilisateur créé avec succès");
@@ -46,7 +54,7 @@ const CreateUser = () => {
           })
           .catch((err) => {
             toast.error(err.message);
-          });
+        });
 
     }
 
@@ -77,6 +85,8 @@ const CreateUser = () => {
                                             Informations Utilisateur:
                                         </h2>
                                     </div>
+
+                                    
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                                         <Input
@@ -124,6 +134,22 @@ const CreateUser = () => {
                                             </select>
                                             {errors.partnerId && (
                                                 <p className="text-xs text-red-600 mt-1">{errors.partnerId.message}</p>
+                                            )}
+                                        </div>
+                                        <div className="w-full">
+                                            <label className="block text-sm text-gray-500 mb-1">
+                                                ROLE:
+                                            </label>
+                                            <select name="roleName" id="roleName"
+                                                {...register("roleName")}
+                                                className="w-full text-sm border border-gray-300 rounded-md px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            >
+                                                <option value="">-- Sélectionner --</option>
+                                                <option value="ADMIN">Admin</option>
+                                                <option value="USER">User</option>
+                                            </select>
+                                            {errors.roleName && (
+                                                <p className="text-xs text-red-600 mt-1">{errors.roleName.message}</p>
                                             )}
                                         </div>
                                     </div>

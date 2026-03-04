@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { me } from '../features/user/userThunk';
 import { assets } from '../assets/assets';
+import { PlusCircle } from 'lucide-react';
 
 const MenuBar = ({ activeMenu }) => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
@@ -35,24 +36,20 @@ const MenuBar = ({ activeMenu }) => {
 
   return (
     <div className='flex items-center justify-between gap-2 bg-white border border-b border-gray-200/50 backdrop-blur-[2px] px-4 py-4 sm:px-7 sticky top-0 z-30'>
-      {/** Left side - Menu button and title */}
-      <div className='flex items-center gap-5'>
-        <button
-          className='block lg:hidden text-black hover:bg-gray-100 p-1 rounded transition-colors'
-          onClick={() => setOpenSideMenu(!openSideMenu)}
-        >
-          {openSideMenu ? (
-            <X className='text-2xl' />
-
-          ) : (
-            <Menu className='text-2xl' />
-          )}
-        </button>
-        <div className='flex items-center gap-2'>
-          <img src={assets.logo_axa} alt="Logo AXA" className='w-12 h-12' />
-        </div>
-      </div>
-
+       {/* Left side - Hamburger + logo */}
+  <div className="flex items-center gap-5">
+    <button
+      className="block lg:hidden p-2 rounded-full hover:scale-110 hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-400 transition-all duration-300"
+      onClick={() => setOpenSideMenu(!openSideMenu)}
+    >
+      {openSideMenu ? <X className="text-2xl text-white" /> : <Menu className="text-2xl text-white" />}
+    </button>
+    <img
+      src={assets.logo_axa}
+      alt="Logo AXA"
+      className="w-12 h-12 hover:animate-spin-slow transition-all duration-500"
+    />
+  </div>
 
       {/** Rignt side - Avatar photo */}
       <div className='relative' ref={dropDownRef}>
@@ -71,12 +68,10 @@ const MenuBar = ({ activeMenu }) => {
               <div className='flex items-center gap-3'>
                 <div className='flex items-center justify-center w-8 h-8 rounded-full bg-gray-100'>
                   <User className='text-purple-700 h-4 w-4' />
-                  {console.log("CurrentUser", currentUser)
-                  }
                 </div>
                 <div className='flex-1 min-w-0'>
                   <p className="text-sm font-medium text-gray-800 truncate">
-                    {currentUser ? currentUser.fullName : 'Guest User'}
+                    {currentUser ? currentUser.firstName + " " + currentUser.lastName : 'Guest User'}
                   </p>
                   <p className="text-xs text-gray-500 truncate">
                     {currentUser ? currentUser.email : 'No Email'}

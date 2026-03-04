@@ -30,9 +30,6 @@ const UploadField = ({ label, accept, file, onChange, error }) => {
       <label className="block text-sm font-medium text-gray-600 mb-1">
         {label}
       </label>
-
-   
-
       {/* Preview */}
       {file? (
 
@@ -40,8 +37,7 @@ const UploadField = ({ label, accept, file, onChange, error }) => {
          
             {isImage ? 
                 (
-                    <img src={previewUrl} alt="Preview" />
-
+                  <img src={previewUrl} alt="Preview" />
                 ):(
                     <iframe
                         src={previewUrl}

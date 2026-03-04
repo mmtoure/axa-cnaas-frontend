@@ -13,11 +13,6 @@ import { XCircle } from 'lucide-react'
 const StatsGrid = ({data}) => {
   return (
       <div className="p-2 space-y-4">
-
-            <h1 className="text-2xl font-bold text-gray-500">
-              KPI assurance inclusive AXA/CNAAS 
-            </h1>
-
             <div className="grid md:grid-cols-3 gap-6">
               <KpiCard
                 title="Total Assurés"

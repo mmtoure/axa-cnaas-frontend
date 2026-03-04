@@ -25,4 +25,5 @@ export const userSchema = z.object({
     .string()
     .min(1, "Partenaire requis")
     .transform((val) =>Number(val)),
+  roleName: z.enum(["ADMIN", "USER"]),
 });
