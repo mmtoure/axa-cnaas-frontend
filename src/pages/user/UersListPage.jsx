@@ -47,7 +47,7 @@ const UsersListPage = () => {
         </div>
 
         {/* Liste des utilisateurs */}
-        <div className='bg-white rounded-lg'>
+        <div className='min-h-screen bg-white rounded-lg'>
           <UsersList usersData={usersData} />
         </div>
       </div>

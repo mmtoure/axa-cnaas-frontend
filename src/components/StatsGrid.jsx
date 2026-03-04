@@ -18,60 +18,27 @@ const StatsGrid = ({data}) => {
               KPI assurance inclusive AXA/CNAAS 
             </h1>
 
-            <div className="grid md:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-3 gap-6">
               <KpiCard
-                title="Assurés Actifs"
+                title="Total Assurés"
                 value={data?.nbInsureds}
                 icon={User2}
                 color="bg-blue-100 text-blue-600"
               />
+        
               <KpiCard
-                title="Assurés Inactifs"
-                  value={0}
-                icon={UserLock}
-                color="bg-blue-100 text-red-600"
-              />
-              <KpiCard
-                title="Groupements Actifs"
+                title="Total Groupements"
                   value={data?.nbGroups}
                 icon={Users2}
                 color="bg-red-100 text-red-600"
               />
               <KpiCard
-                title="Groupements Inactifs"
-                  value={0}
-                icon={Users2}
-                color="bg-red-100 text-red-600"
-              />
-           
-            </div>
-            <div className="grid md:grid-cols-4 gap-6">
-              <KpiCard
-                title="Sinistres Ouverts"
+                title="Total Sinistres"
                 value={data?.openClaims}
                 icon={FolderOpen}
                 color="bg-yellow-100 text-yellow-600"
               />
-           
-              <KpiCard
-                title="Sinistres Validés"
-                value={0}
-                icon={CheckCircle}
-                color="bg-blue-100 text-green-600"
-              />
-              <KpiCard
-                title="Sinistres Payés"
-                value={data?.acceptedClaims}
-                icon={CheckCircle}
-                color="bg-green-100 text-green-600"
-              />
-              <KpiCard
-                title="Sinistres Rejetés"
-                value={0}
-                icon={XCircle}
-                color="bg-red-100 text-red-600"
-              />
-           
+          
            
             </div>
           </div>

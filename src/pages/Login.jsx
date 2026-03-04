@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AlarmCheckIcon } from 'lucide-react';
 import { AlertTriangleIcon } from 'lucide-react';
+import { assets } from '../assets/assets';
 
 const Login = () => {
     const[email, setEmail] = useState('');
@@ -30,15 +31,56 @@ const Login = () => {
     };
   return (
 
-    <div className='h-screen w-full bg-gray-100 flex justify-center items-center overflow-hidden'>
-        <div className="relative z-10 w-full max-w-md px-6">
-         <div className="bg-white bg-opacity-95 backdrop-blur-sm p-8 rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
-            <h3 className="text-2xl font-semibold text-black text-center mb-2">
-                Welcome Back
-            </h3>
-            <p className="text-sm text-slate-700 text-center mb-6">
-                Please login to your account
-            </p>
+ <div className="min-h-screen flex">
+        {/* LEFT SIDE — Branding & Inclusive Insurance */}
+<div className="hidden lg:flex w-1/2 bg-gradient-to-br from-white to-gray-200 text-gray-800 p-12 flex-col justify-center">
+        {/* Logos */}
+        <div className="flex items-center gap-6 mb-10">
+          <img src={assets.logo_axa} alt="AXA" className="h-12" />
+          <div className="w-px h-10 bg-gray-700" />
+          <img src={assets.logo_cnaas} alt="CNAAS" className="h-12" />
+        </div>
+
+        <h1 className="text-4xl font-bold leading-tight mb-6">
+          L’assurance inclusive pour tous
+        </h1>
+
+        <p className="text-lg opacity-90 mb-6">
+          Grâce au partenariat entre AXA et CNAAS,
+          nous rendons l’assurance accessible aux populations,
+          aux PME et aux travailleurs informels.
+        </p>
+
+        <ul className="space-y-3 text-gray-700">
+          <li>✔ Protection santé abordable</li>
+          <li>✔ Assurance agricole et microfinance</li>
+          <li>✔ Couverture adaptée aux réalités locales</li>
+          <li>✔ Digitalisation des souscriptions</li>
+        </ul>
+
+        <div className="mt-10 text-sm opacity-70">
+          Une solution innovante pour renforcer la résilience financière.
+        </div>
+      </div>
+
+           {/* RIGHT SIDE — Login Form */}
+      <div className="flex flex-1 items-center justify-center bg-gray-50 px-6">
+
+        <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl">
+
+          {/* Logos mobile */}
+          <div className="lg:hidden flex justify-center gap-6 mb-6">
+            <img src={assets.logo_axa} alt="AXA" className="h-10" />
+            <img src={assets.logo_cnaas} alt="CNAAS" className="h-10" />
+          </div>
+
+          <h2 className="text-2xl font-bold text-gray-800 mb-2 text-center">
+            Connexion
+          </h2>
+
+          <p className="text-gray-500 text-sm text-center mb-6">
+            Accédez à votre espace partenaire
+          </p>
               {error && (
           <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-md mb-4 flex items-center justify-content gap-2">
             <AlertTriangleIcon className='w-4 h-4' />
@@ -73,11 +115,14 @@ const Login = () => {
                     </button>
 
             </form> 
-         </div>
+         <div className="mt-6 text-center text-sm text-gray-500">
+            © 2026 AXA & CNAAS — Assurance Inclusive
+          </div>
+
         </div>
-       
+      </div>
     </div>
-  )
+  );
 }
 
 export default Login

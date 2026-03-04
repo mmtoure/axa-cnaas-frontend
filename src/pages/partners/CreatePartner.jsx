@@ -12,6 +12,8 @@ import { resetState } from '../../features/insured/insuredSlice';
 import { toast } from 'react-toastify';
 import { partnerSchema } from '../../validations/partnerSchema';
 import { createPartner } from '../../features/partner/partnerThunk';
+import { useState } from 'react';
+import UploadField from '../../components/UplaodFile';
 
 
 const CreatePartner = () => {
@@ -19,6 +21,10 @@ const CreatePartner = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { loading, success, error } = useSelector((state) => state.partner)
+  const [file, setFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+
 
   const {
     register,
@@ -36,9 +42,23 @@ const CreatePartner = () => {
   });
 
 
+
   const onSubmit = async (data) => {
-    console.log("creation assuré", data);
-    dispatch(createPartner(data))
+    console.log("creation partenaire", data);
+
+    const formData = new FormData();
+    formData.append(
+      "partner",
+      new Blob([JSON.stringify({
+        ...data
+    
+      })], { type: "application/json" })
+    );
+    if (file) {
+      formData.append("logoPartner", file);
+    }
+    
+   dispatch(createPartner(formData))
       .unwrap()
       .then(() => {
         toast.success("Partenaire créé avec succès");
@@ -60,8 +80,6 @@ const CreatePartner = () => {
         <p className="text-sm text-slate-700 mb-6">
           Entrer les informations pour la création d'un partenaire
         </p>
-
-
         <div className="w-full md:w-2/3 bg-opacity-95 backdrop-blur-sm my-4">
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -76,6 +94,18 @@ const CreatePartner = () => {
                     <h2 className="text-gray-500 text-lg font-semibold">
                       Informations Assuré:
                     </h2>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                    <UploadField
+                      key={"partnerLogo"}
+                      label={"Logo du partenaire"}
+                      accept=".jpg,.jpeg,.png"
+                      file={file}
+                      onChange={(file) =>
+                        setFile(file)
+                      }
+                      error={errors?.documents?.["partnerLogo"]?.message}
+                    />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">

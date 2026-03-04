@@ -35,10 +35,13 @@ import CreatePartner from "./pages/partners/CreatePartner"
 import PartnersList from "./pages/partners/PartnersList"
 import PartnerDetails from "./pages/partners/PartnerDetails"
 import CreatePricings from "./pages/partners/CreatePricings"
+import PartnerListCard from "./pages/partners/PartnerListCard"
+import GroupPage from "./pages/groups/GroupPage"
+import Report from "./pages/Report"
 
 function App() {
   return (
-    <>
+    <div className="h-screen">
       <BrowserRouter>
         <Routes>
           
@@ -46,6 +49,8 @@ function App() {
           {/* Protected */}
           <Route element={<PrivateRoute />}>
               <Route path="/dashboard" element={<Home />} />
+              <Route path="/reports" element={<Report />} />
+
 
               {/** Insureds routes */}
               <Route path="/insureds" element={<InsuredPage />} />
@@ -55,7 +60,7 @@ function App() {
               <Route path="/insureds/:insuredId/sinistres/new" element={<CreateMultiClaim />} />
 
               {/** Groups routes */}
-              <Route path="/groups" element={<GroupList />} />
+              <Route path="/groups" element={<GroupPage />} />
               <Route path="/groups/create" element={<CreateGroupement />} />
               <Route path="/groups/:id" element={<GroupDetails />} />
               <Route path="/groups/edit/:id" element={<GroupEdit />} />
@@ -79,7 +84,7 @@ function App() {
               <Route path="/users/create" element={<CreateUser />} />
 
               {/** Partners routes */}
-              <Route path="/partners" element={<PartnersList />} />
+              <Route path="/partners" element={<PartnerListCard />} />
               <Route path="/partners/create" element={<CreatePartner />} />
               <Route path="/partners/:id" element={<PartnerDetails />} />
               <Route path="/partners/:id/pricings/create" element={<CreatePricings />} />
@@ -94,7 +99,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <ToastContainer />
-    </>
+    </div>
     
   )
 }

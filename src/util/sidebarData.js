@@ -55,15 +55,25 @@ export const sidebarData = [
     icon: FileWarning ,
     roles: ["ADMIN", "USER"]
   },
-  {
+
+    {
     id: '06',
+    label: 'Reports',
+    path: '/reports',
+    icon: Home,
+    roles: ["ADMIN"]
+
+  },
+
+  {
+    id: '07',
     label: 'Utilisateurs',
     path: '/users',
     icon: Users,
     roles: ['ADMIN'],
   },
   {
-    id: '07',
+    id: '08',
     label: 'Partenaires',
     path: '/partners',
     icon: UserStar,
@@ -71,7 +81,7 @@ export const sidebarData = [
   },
 
   {
-    id: '08',
+    id: '09',
     label: 'Agences',
     path: '/agences',
     icon: Home,
@@ -80,7 +90,7 @@ export const sidebarData = [
   },
 
   {
-    id: '09',
+    id: '10',
     label: 'Paramètres',
     path: '/parametres',
     icon: Settings,
