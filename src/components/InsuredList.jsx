@@ -3,23 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { Trash2 } from 'lucide-react'
 import { Eye } from 'lucide-react'
 import { Edit } from 'lucide-react'
-
-
 import { FileText } from 'lucide-react'
-
-import { useState } from 'react'
-
-
-
-import { Search } from 'lucide-react'
-
-import { PlusCircle } from 'lucide-react'
-
 import Table from './Table'
 import EmptyState from './EmptyState'
 import { formatDate } from '../util/helper'
-
 import api from '../util/api'
+
 const columns = [
   {
     header: "Assuré",
@@ -52,24 +41,9 @@ const columns = [
 
 
 const InsuredList = ({insuredsData}) => {
-  
-
-  const [search, setSearch] = useState("");
   const navigate = useNavigate();
-
-
-
   
- const filteredInsureds = insuredsData.filter((insured) => {
-  const term = search.toLowerCase();
-
-  return (
-      insured.firstName?.toLowerCase().includes(term) ||
-      insured.lastName?.toLowerCase().includes(term) ||
-      insured.phoneNumber?.includes(term)
-    );
-  });
-
+  // Générer le contrat d'un assuré en PDF
   const handleGenerateContract = async (insuredId) => {
     const res = await api.get(`/insureds/${insuredId}/pdf`, {
       responseType: "blob"
@@ -78,8 +52,8 @@ const InsuredList = ({insuredsData}) => {
     const url = window.URL.createObjectURL(res.data);
     window.open(url, "_blank");
   };
-  
 
+  // Supprimer un assuré (fonction fictive pour l'instant)
   const handleDelete =() =>{
     console.log("Groupement supprimé");
   }
@@ -162,40 +136,12 @@ const InsuredList = ({insuredsData}) => {
   );
   return (
   
-      <div className="">
-        {/* Header */}
-        <div className="flex items-center justify-between">  
-        <div className="text-gray-700 flex items-center">
-          <span>Total assurés: </span>
-          <span className="ml-2 text-lamaPurple">
-            {insuredsData.length} 
-          </span>
-          <span className="ml-4 text-gray-500 italic">
-            (Filtrés: {filteredInsureds.length})
-          </span>
-        </div>
-        <div className="flex items-center justify-between gap-2">
-            {/* Search */}
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Rechercher un assuré..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-9 pr-3 py-2 bg-gray-100 rounded-md text-sm
-                        placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
-              />
-              <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
-            </div>
-
-          </div>
-        </div>
-
+      <div className="p-1">
         {/* Liste des groups */}
         <div className='card p-2'>
           {/* Table des utilisateurs */}
-          {filteredInsureds && filteredInsureds.length > 0 ? (
-            <Table columns={columns} renderRow={renderRow} data={filteredInsureds} />
+          {insuredsData && insuredsData.length > 0 ? (
+            <Table columns={columns} renderRow={renderRow} data={insuredsData} />
 
           ) :
           (

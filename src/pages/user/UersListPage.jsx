@@ -29,7 +29,6 @@ const UsersListPage = () => {
 
     <Dashboard activeMenu="Utilisateurs">
       <div className='p-2'>
-
         {/* Bouton pour ajouter un utilisateur */}
         <div className='flex items-center justify-between mb-4'>
           <h2 className='text-2xl font-semibold'>Liste des utilisateurs</h2>

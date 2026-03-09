@@ -44,11 +44,11 @@ const MenuBar = ({ activeMenu }) => {
     >
       {openSideMenu ? <X className="text-2xl text-white" /> : <Menu className="text-2xl text-white" />}
     </button>
-    <img
-      src={assets.logo_axa}
-      alt="Logo AXA"
-      className="w-12 h-12 hover:animate-spin-slow transition-all duration-500"
-    />
+     <div className="flex items-center gap-2 mb-2">
+             <img src={assets.logo_axa} alt="AXA" className="h-10" />
+             <div className="w-px h-10 bg-gray-700" />
+             <img src={assets.logo_cnaas} alt="CNAAS" className="h-10" />
+           </div>
   </div>
 
       {/** Rignt side - Avatar photo */}

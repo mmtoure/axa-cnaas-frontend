@@ -23,14 +23,14 @@ export const sidebarData = [
     label: 'Dashboard',
     path: '/dashboard',
     icon: LayoutDashboard,
-    roles: ["ADMIN", "USER"]
+    roles: ["ADMIN", "MANAGER", "USER"]
   },
   {
     id: '02',
     label: 'Assurés',
     path: '/insureds',
     icon: User,
-    roles: ["ADMIN", "USER"]
+    roles: ["ADMIN", "MANAGER", "USER"]
 
   },
   {
@@ -38,14 +38,14 @@ export const sidebarData = [
     label: 'Groupements',
     path: '/groups',
     icon: Users,
-    roles: ["ADMIN", "USER"]
+    roles: ["ADMIN", "MANAGER", "USER"]
   },
   {
     id: '04',
     label: 'Contracts',
     path: '/contracts',
     icon: FolderCheckIcon,
-    roles: ["ADMIN", "USER"]
+    roles: ["ADMIN", "MANAGER", "USER"]
   },
 
   {
@@ -53,16 +53,7 @@ export const sidebarData = [
     label: 'Sinistres',
     path: '/sinistres',
     icon: FileWarning ,
-    roles: ["ADMIN", "USER"]
-  },
-
-    {
-    id: '06',
-    label: 'Reports',
-    path: '/reports',
-    icon: Home,
-    roles: ["ADMIN"]
-
+    roles: ["ADMIN", "MANAGER", "USER"]
   },
 
   {
@@ -70,7 +61,7 @@ export const sidebarData = [
     label: 'Utilisateurs',
     path: '/users',
     icon: Users,
-    roles: ['ADMIN'],
+    roles: ['ADMIN', 'MANAGER'],
   },
   {
     id: '08',

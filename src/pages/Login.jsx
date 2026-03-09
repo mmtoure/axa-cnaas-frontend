@@ -51,13 +51,6 @@ const Login = () => {
           aux PME et aux travailleurs informels.
         </p>
 
-        <ul className="space-y-3 text-gray-700">
-          <li>✔ Protection santé abordable</li>
-          <li>✔ Assurance agricole et microfinance</li>
-          <li>✔ Couverture adaptée aux réalités locales</li>
-          <li>✔ Digitalisation des souscriptions</li>
-        </ul>
-
         <div className="mt-10 text-sm opacity-70">
           Une solution innovante pour renforcer la résilience financière.
         </div>

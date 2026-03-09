@@ -145,7 +145,7 @@ const CreateUser = () => {
                                                 className="w-full text-sm border border-gray-300 rounded-md px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                             >
                                                 <option value="">-- Sélectionner --</option>
-                                                <option value="ADMIN">Admin</option>
+                                                <option value="MANAGER">Manager</option>
                                                 <option value="USER">User</option>
                                             </select>
                                             {errors.roleName && (

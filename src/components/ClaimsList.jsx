@@ -7,6 +7,7 @@ import { Edit } from 'lucide-react';
 import { Eye } from 'lucide-react';
 import { formatDate } from '../util/helper';
 import { Trash2 } from 'lucide-react';
+import EmptyState from './EmptyState';
 
 const columns = [
     {
@@ -90,9 +91,9 @@ const renderRow = (item) => (
  const filteredClaims = claims.filter((claim) => {
   const term = search.toLowerCase();
   return (
-      claim.hospitalizationStartDate?.toLowerCase().includes(term) ||
-      claim.hospitalizationEndDate?.toLowerCase().includes(term) ||
-      claim.sinisterType?.includes(term)
+      claim.sinisterType?.toLowerCase().includes(term) ||
+      claim.numeroSinistre?.toLowerCase().includes(term) ||
+      claim.status?.toLowerCase().includes(term)
     );
   });
 
