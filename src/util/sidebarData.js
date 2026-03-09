@@ -87,8 +87,4 @@ export const sidebarData = [
     icon: Settings,
     roles: ["ADMIN"]
   },
-
-
-
-
 ];
