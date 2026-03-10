@@ -3,12 +3,12 @@ import { createInsured, getAllInsureds, getInsuredById, generateContractByInsure
 
 
 const initialFilters = {
-  startDate: "",
-  endDate: "",
+    startDate: "",
+    endDate: "",
 };
 const insuredSlice = createSlice({
     name: "insured",
-    
+
     initialState: {
         loading: false,
         error: null,
@@ -31,16 +31,15 @@ const insuredSlice = createSlice({
         },
         setFilters: (state, action) => {
             state.filters = { ...state.filters, ...action.payload };
-    },
-     resetFilters: (state) => {
-      state.filters = initialFilters;
-    }
+        },
+        resetFilters: (state) => {
+            state.filters = initialFilters;
+        }
 
     },
     extraReducers: (builder) => {
         builder
             //création d'assuré
-
             .addCase(createInsured.pending, (state) => {
                 state.loading = true
                 state.error = null
@@ -114,26 +113,42 @@ const insuredSlice = createSlice({
                 state.error = action.payload
             })
 
-               // delete Insured
-            .addCase(deleteInsured.pending, (state)=>{
-                state.loading=true
-                state.error=null
-                state.currentInsured=null
-            })
-            .addCase(deleteInsured.fulfilled, (state, action)=>{
-                state.loading=false
-                state.currentInsured=action.payload
-            })
-            .addCase(deleteInsured.rejected, (state, action)=>{
-                state.loading=false
-                state.error=action.payload
-            })
+        // delete Insured
 
-            // filter insureds
-             builder.addCase(fetchInsureds.fulfilled, (state, action) => {
-      state.list = action.payload;
-    });
+        builder
+            .addCase(deleteInsured.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(deleteInsured.fulfilled, (state, action) => {
+                state.loading = false;
+                // supprime l'assuré de la liste
+                state.list = state.list.filter(
+                    insured => insured.id !== action.payload.id
+                );
+                console.log("Deleted insured ID:", action.payload);
+                
+            })
+            .addCase(deleteInsured.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
 
+        // filter insureds
+        builder.addCase(fetchInsureds.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        });
+
+        builder.addCase(fetchInsureds.fulfilled, (state, action) => {
+            state.loading = false;
+            state.list = action.payload;
+        });
+
+        builder.addCase(fetchInsureds.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        });
     }
 })
 export const { setFilters, resetFilters } = insuredSlice.actions;

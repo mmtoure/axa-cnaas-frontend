@@ -40,7 +40,7 @@ const columns = [
 
 
 
-const InsuredList = ({insuredsData}) => {
+const InsuredList = ({insuredsData, onDelete}) => {
   const navigate = useNavigate();
   
   // Générer le contrat d'un assuré en PDF
@@ -116,7 +116,7 @@ const InsuredList = ({insuredsData}) => {
           </button>
 
           <button
-            onClick={() => handleDelete(item.id)}
+            onClick={() => onDelete(item.id)}
             className="p-1 rounded hover:bg-gray-200"
             title="Supprimer"
           >

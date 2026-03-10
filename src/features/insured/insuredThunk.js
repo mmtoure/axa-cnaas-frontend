@@ -69,7 +69,7 @@ export const deleteInsured = createAsyncThunk(
         try {
             const res = await api.delete(`/insureds/${insuredId}`)
             console.log("delete insured success",res.data);
-            return res.data
+            return { id: insuredId };
 
         }
        catch (error) {
