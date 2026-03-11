@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getAllGroups, getGroups } from '../../features/group/groupThunk';
+import { deleteGroup, getAllGroups, getGroups } from '../../features/group/groupThunk';
 import GroupCard from '../../components/GroupCard';
 import Dashboard from '../../components/Dashboard';
 import { PlusCircle } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const GroupPage = () => {
   const dispatch = useDispatch()
@@ -19,10 +20,32 @@ const GroupPage = () => {
     dispatch(getAllGroups())
     dispatch(getGroups({ page: 0, size: 10 }));
   }, [dispatch])
+
+  const handleDelete = (id) => {
+    console.log("Deleting insured with ID:", id);
+    Swal.fire({
+      title: "Supprimer ?",
+      text: "Cette action est irréversible",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Oui, supprimer"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteGroup(id)).then(() => {
+          Swal.fire(
+            "Supprimé!",
+            "Le groupement a été supprimé.",
+            "success"
+          );
+        });
+      }
+    });
+  };
+
   return (
     <Dashboard activeMenu="Groupements">
-    <div className="p-4 min-h-screen">
-       <div className="flex items-center justify-between mb-2">
+      <div className="p-4 min-h-screen">
+        <div className="flex items-center justify-between mb-2">
           <h3 className="text-lg font-semibold text-gray-700">
             Gestion des groupements
           </h3>
@@ -40,12 +63,12 @@ const GroupPage = () => {
           </button>
         </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {groups.map((group) => (
-          <GroupCard key={group.id} group={group} />
-        ))}
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {groups.map((group) => (
+            <GroupCard key={group.id} group={group} onDelete={handleDelete} />
+          ))}
+        </div>
       </div>
-    </div>
     </Dashboard>
   );
 };

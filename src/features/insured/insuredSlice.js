@@ -126,7 +126,7 @@ const insuredSlice = createSlice({
                 state.list = state.list.filter(
                     insured => insured.id !== action.payload.id
                 );
-                console.log("Deleted insured ID:", action.payload);
+                console.log("Deleted insured ID:", action.payload.id);
                 
             })
             .addCase(deleteInsured.rejected, (state, action) => {

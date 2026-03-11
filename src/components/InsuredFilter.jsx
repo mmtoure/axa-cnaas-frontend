@@ -32,23 +32,23 @@ const InsuredFilter = () => {
     const handleDelete = (id) => {
         console.log("Deleting insured with ID:", id);
         Swal.fire({
-    title: "Supprimer ?",
-    text: "Cette action est irréversible",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: "Oui, supprimer"
-  }).then((result) => {
-    if (result.isConfirmed) {
-      dispatch(deleteInsured(id)).then(() => {
-        Swal.fire(
-          "Supprimé!",
-          "L'assuré a été supprimé.",
-          "success"
-        );
-      });
-    }
-  });
-};
+            title: "Supprimer ?",
+            text: "Cette action est irréversible",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Oui, supprimer"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteInsured(id)).then(() => {
+                    Swal.fire(
+                        "Supprimé!",
+                        "L'assuré a été supprimé.",
+                        "success"
+                    );
+                });
+            }
+        });
+    };
     useEffect(() => {
         console.log("Current filters in component:", filters);
         dispatch(fetchInsureds(filters));

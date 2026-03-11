@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createGroup, getAllGroups, getGroupById, generateContractByGroup, getGroups } from "./groupThunk";
+import { createGroup, getAllGroups, getGroupById, generateContractByGroup, getGroups,deleteGroup } from "./groupThunk";
 
 const groupSlice = createSlice ({
     name: "group",
@@ -98,6 +98,20 @@ const groupSlice = createSlice ({
                 state.loading = false
                 state.error = action.payload
             })
+
+            // delete group
+            .addCase(deleteGroup.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(deleteGroup.fulfilled, (state, action) => {
+                state.loading = false
+                state.groups = state.groups.filter(group => group.id !== action.payload.id);
+            })
+            .addCase(deleteGroup.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.payload
+            }); 
     }
 
 

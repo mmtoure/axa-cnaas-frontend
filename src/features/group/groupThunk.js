@@ -98,3 +98,25 @@ export const getGroups = createAsyncThunk(
         }
     }
 );
+
+export const deleteGroup = createAsyncThunk(
+    'group/deleteGroup',
+    async (groupId, { rejectWithValue }) =>{
+      console.log("ID",groupId);
+      
+        try {
+            const res = await api.delete(`/groups/${groupId}`)
+            console.log("delete group success",res.data);
+            return { id: groupId };
+
+        }
+       catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message)
+      } else {
+        return rejectWithValue(error.message || "delete group  failed")
+      }
+    }
+       
+  }
+)
