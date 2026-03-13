@@ -6,6 +6,7 @@ import { MoreVertical } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Edit } from "lucide-react";
 import { Trash2 } from "lucide-react";
+import Loader from "./Loader";
 
 
 
@@ -15,6 +16,7 @@ const GroupCard = ({ group, onDelete }) => {
   const menuRef = useRef(null);
   const insuredCount = group.insureds?.length || 0;
   const partnerName = group.insureds?.[0]?.partner?.name || "Non défini";
+  const [loading, setLoading] = useState(false);
 
    useEffect(() => {
     const handleClickOutside = (event) => {
@@ -31,15 +33,24 @@ const GroupCard = ({ group, onDelete }) => {
   }, [isOpen]);
 
   const handleGenerateContractByGroup = async (groupId) => {
+    try {
+    setLoading(true);
     const res = await api.get(`/groups/${groupId}/pdf`, {
       responseType: "blob"
     });
     const url = window.URL.createObjectURL(res.data);
     window.open(url, "_blank");
+    } catch (err) {
+      alert("Erreur lors de la génération du contrat", err.message);
+    } finally {
+      setLoading(false);
+    }
   };
+  
 
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-6 flex flex-col justify-between relative">
+    <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 p-4 flex flex-col justify-between relative">
+      {loading && <Loader text="Génération de la fiche d’adhésion en cours..." />}
       {/* Menu Kebab en haut à droite */}
       <div className="absolute top-4 right-2" ref={menuRef}>
         <button 
@@ -107,7 +118,7 @@ const GroupCard = ({ group, onDelete }) => {
 
       {/* Action */}
       <div className="mt-6 flex items-center justify-center">
-        <button className="w-full bg-blue-900 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+        <button className="w-full bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-700 transition"
         onClick={() => navigate(`/groups/${group.id}`)}
         >
           Voir détails

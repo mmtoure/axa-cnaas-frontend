@@ -25,6 +25,8 @@ import StatusBadge from '../../components/StatusBadge';
 import { LucideBadgeCheck } from 'lucide-react';
 import InfoRow from '../../components/InfoRow';
 import { PlusCircle } from 'lucide-react';
+import { User2 } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 const tabs = [
   { key: "info", label: "Infos personnelles", icon: User },
@@ -61,6 +63,16 @@ const InsuredDetails = () => {
               icon={Phone}
               label="Téléphone"
               value={currentInsured.phoneNumber}
+            />
+            <InfoRow
+              icon={User2}
+              label="Créé par"
+              value={currentInsured.user.firstName+" "+currentInsured.user.lastName}
+            />
+            <InfoRow
+              icon={Calendar}
+              label="Créé le"
+              value={new Date(currentInsured.createdAt).toLocaleDateString() }
             />
             <div className="flex justify-content gap-2 items-center">
               <div className="flex items-center gap-2 text-sm text-gray-500 mr-3">

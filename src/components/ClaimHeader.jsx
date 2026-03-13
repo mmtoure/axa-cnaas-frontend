@@ -1,3 +1,5 @@
+import StatusBar from "./StatusBar";
+
 const ClaimHeader = ({ claim }) => (
   <div className="flex justify-between items-center mb-4">
     <div>
@@ -6,12 +8,16 @@ const ClaimHeader = ({ claim }) => (
       </h2>
       <p className="text-sm text-gray-500">
         Prénom et Nom: {claim?.firstName} {claim?.lastName}
-
+      </p>
+      <p className="text-sm text-gray-500">
+        Téléphone: {claim?.phoneNumber}
       </p>
       <p className="text-sm text-gray-500">
         Déclaré le {new Date(claim?.createdAt).toLocaleDateString("fr-FR")}
       </p>
+     
     </div>
+
 
     <span className={`px-3 py-1 rounded-full text-sm font-medium
       ${claim?.status === "ACCEPTE" && "bg-green-100 text-green-700"}

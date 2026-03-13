@@ -70,11 +70,7 @@ const PersonalInfoTab = ({ insured }) => {
               value={formatDate(beneficiary.dateOfBirth)}
             />
 
-            <InfoRow
-              icon={HeartHandshake}
-              label="Lien de parenté"
-              value={beneficiary.lienParente}
-            />
+            
           </>
         ) : (
           <p className="text-sm text-gray-400 italic">

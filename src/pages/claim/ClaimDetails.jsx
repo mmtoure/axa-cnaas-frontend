@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getclaimById } from '../../features/claim/claimThunk';
+import { getclaimById, rejectClaim, validateClaim } from '../../features/claim/claimThunk';
 import InfoClaimsTab from './tabs/InfoClaimsTab';
 import DocumentsClaimsTab from './tabs/DocumentsClaimsTab';
 import { Clock } from 'lucide-react';
@@ -15,6 +15,7 @@ import StatusBadge from '../../components/StatusBadge';
 import { LucideBadgeCheck } from 'lucide-react';
 import ClaimHeader from '../../components/ClaimHeader';
 import ClaimSteps from '../../components/ClaimSteps';
+import StatusBar from '../../components/StatusBar';
 
 
 const tabs = [
@@ -32,8 +33,17 @@ const ClaimDetails = () => {
   useEffect(()=>{
 
     dispatch(getclaimById(id))
+    
 
   }, [dispatch, id])
+
+  const handleValidateClaim = (claimId) => () => {
+    dispatch(validateClaim(claimId))
+  }
+
+  const handleRejectClaim = (claimId) => () => {
+    dispatch(rejectClaim(claimId))
+  } 
 
   return (
     <Dashboard activeMenu="Sinistres">
@@ -44,8 +54,20 @@ const ClaimDetails = () => {
         </div>
 
       {/** STEPS */}
-      <div className='mb-6'>
-        <ClaimSteps status={currentClaim?.status} />
+      <div className='mb-6 w-1/2'>
+       <StatusBar status={currentClaim?.status} />
+      </div>
+      {/** ACTION BUTTONS */}
+      <div className="mb-6">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={handleValidateClaim(id)}
+        >
+          Valider
+        </button>
+        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
+        onClick={handleRejectClaim(currentClaim?.id)}>
+          Rejeter
+        </button>
       </div>
 
      {/* TABS */}

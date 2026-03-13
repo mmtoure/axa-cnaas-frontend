@@ -20,7 +20,7 @@ import {
 export const sidebarData = [
   {
     id: '01',
-    label: 'Dashboard',
+    label: 'Tableau de bord',
     path: '/dashboard',
     icon: LayoutDashboard,
     roles: ["ADMIN", "MANAGER", "USER"]
@@ -42,7 +42,7 @@ export const sidebarData = [
   },
   {
     id: '04',
-    label: 'Contracts',
+    label: 'Contrats',
     path: '/contracts',
     icon: FolderCheckIcon,
     roles: ["ADMIN", "MANAGER", "USER"]

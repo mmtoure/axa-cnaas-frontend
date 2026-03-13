@@ -15,6 +15,7 @@ import * as XLSX from "xlsx";
 import { cleanRow, validateRow } from '../../util/excelUtils';
 import { LoaderCircle } from 'lucide-react';
 import UploadField from '../../components/UplaodFile';
+import { date } from 'zod';
 
 
 
@@ -71,6 +72,7 @@ const CreateGroupement = () => {
         firstName: data.firstName,
         lastName: data.lastName,
         phoneNumber: data.phoneNumber,
+        dateOfBirth: data.dateOfBirth,
       })], { type: "application/json" })
     );
 

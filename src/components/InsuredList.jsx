@@ -8,6 +8,8 @@ import Table from './Table'
 import EmptyState from './EmptyState'
 import { formatDate } from '../util/helper'
 import api from '../util/api'
+import { useState } from 'react'
+import Loader from './Loader'
 
 const columns = [
   {
@@ -42,21 +44,28 @@ const columns = [
 
 const InsuredList = ({insuredsData, onDelete}) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   
   // Générer le contrat d'un assuré en PDF
-  const handleGenerateContract = async (insuredId) => {
-    const res = await api.get(`/insureds/${insuredId}/pdf`, {
+  const handleGenerateContract = async (insured) => {
+    try {
+      setLoading(true); 
+    const res = await api.get(`/insureds/${insured.id}/pdf`, {
       responseType: "blob"
     });
 
     const url = window.URL.createObjectURL(res.data);
-    window.open(url, "_blank");
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "fiche_adhesion_individuelle_" + insured.firstName+ " " + insured.lastName + ".pdf";
+    a.click();
+    } catch (err) {
+      alert("Erreur lors de la génération du contrat", err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Supprimer un assuré (fonction fictive pour l'instant)
-  const handleDelete =() =>{
-    console.log("Groupement supprimé");
-  }
   const renderRow = (item) => (
     <tr
       key={item.id}
@@ -124,7 +133,7 @@ const InsuredList = ({insuredsData, onDelete}) => {
           </button>
 
           <button
-            onClick={() => handleGenerateContract(item.id)}
+            onClick={() => handleGenerateContract(item)}
             className="p-1 rounded hover:bg-gray-200"
             title="Generer contrat"
           >
@@ -137,7 +146,7 @@ const InsuredList = ({insuredsData, onDelete}) => {
   return (
   
       <div className="p-1">
-        {/* Liste des groups */}
+        {loading && <Loader text="Génération de la fiche d’adhésion en cours..." />}
         <div className='card p-2'>
           {/* Table des utilisateurs */}
           {insuredsData && insuredsData.length > 0 ? (

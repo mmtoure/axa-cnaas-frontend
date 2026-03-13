@@ -74,7 +74,7 @@ const ClaimsListPage = () => {
           {/* Liste des groups */}
             <div className='card p-4'>
               {/* Table des sinistres */}
-              {console.log(claims.length)}
+              
               
               {claims && claims.length > 0 ? (
                 <ClaimsList claims={claims} />

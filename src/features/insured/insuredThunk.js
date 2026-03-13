@@ -4,6 +4,8 @@ import api from "../../util/api";
 export const createInsured = createAsyncThunk(
  'insured/create-insured',
   async (insuredData, { rejectWithValue }) => {
+    console.log("Data",insuredData);
+    
     try {
       const res = await api.post("/insureds",insuredData)
       console.log("create insured success",res.data);

@@ -15,6 +15,7 @@ import { Users } from 'lucide-react';
 import Dashboard from '../../components/Dashboard';
 import { UserPlus } from 'lucide-react';
 import { Users2 } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 
 const tabs = [
@@ -48,13 +49,23 @@ const GroupDetails = () => {
                   </h2>
                   <InfoRow
                     icon={UserPlus}
-                    label="Représentant: "
+                    label="Représentant"
                     value={group.firstName+" "+group.lastName}
                   />
                   <InfoRow
                     icon={Phone}
-                    label="Téléphone: "
+                    label="Téléphone"
                     value={group.phoneNumber}
+                  />
+                   <InfoRow
+                    icon={UserPlus}
+                    label="Créé par"
+                    value={group.user.firstName+" "+group.user.lastName}
+                  />
+                  <InfoRow
+                    icon={Calendar}
+                    label="Créé le"
+                    value={new Date(group.createdAt).toLocaleDateString() }
                   />
                   <InfoRow
                     icon={Users2}

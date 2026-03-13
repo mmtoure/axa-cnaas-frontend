@@ -16,6 +16,8 @@ import EmptyState from '../../components/EmptyState'
 import { FileText } from 'lucide-react'
 import { LucideFileText } from 'lucide-react'
 import { Pagination } from '../../components/Pagination'
+import { tr } from 'zod/locales'
+import Loader from '../../components/Loader'
 
 const columns = [
   {
@@ -60,6 +62,7 @@ export const ContractList = () => {
   const navigate = useNavigate()
   const [search, setSearch] = useState("");
   const { contracts, content, totalPages, currentPage } = useSelector((state) => state.contract);
+  const [loading, setLoading] = useState(false);
 
 
 
@@ -79,17 +82,28 @@ export const ContractList = () => {
   }
 
   const generatePdf = async (contractId) => {
-    console.log("ID", contractId);
+    try {
+      setLoading(true);
     const res = await dispatch(generateContractPdf(contractId));
     if (res.meta.requestStatus === "fulfilled") {
       const blob = new Blob([res.payload], { type: "application/pdf" });
       const url = window.URL.createObjectURL(blob);
-
-      window.open(url, "_blank"); // 👉 ouvre PDF
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "fiche_adhesion_groupement.pdf";
+      a.click();
 
       setTimeout(() => window.URL.revokeObjectURL(url), 1000);
 
     }
+  }
+    catch (err) {
+      alert("Erreur lors de la génération du contrat", err.message);
+    }
+    finally {
+      setLoading(false);
+    } 
+
 
 
 
@@ -164,10 +178,11 @@ export const ContractList = () => {
   );
 
   return (
-    <Dashboard activeMenu="Contracts">
+    <Dashboard activeMenu="Contrats">
+
       <div className="bg-white rounded-lg shadow-sm p-6 m-3">
 
-
+      {loading && <Loader text="Génération de la fiche d’adhésion en cours..." /> }
         {/* Header */}
         <div className="flex items-center justify-between mb-2">
           <h3 className="text-lg font-semibold text-gray-700">

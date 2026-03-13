@@ -26,7 +26,7 @@ const Home = () => {
   return (
     <div className='space-y-4'>
 
-      <Dashboard activeMenu="Dashboard">
+      <Dashboard activeMenu="Tableau de bord">
 
         <div className="p-2 space-y-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gray-500">
@@ -40,7 +40,7 @@ const Home = () => {
                  hover:from-blue-600 hover:to-purple-600 transform hover:scale-105 transition-all duration-300
                  flex items-center gap-2">
       <UserPlus className="h-5 w-5 animate-bounce" />
-      Subscription individuelle
+      Souscription individuelle
     </button>
 
     <button
@@ -49,7 +49,7 @@ const Home = () => {
              hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400
              transform hover:scale-105 transition-all duration-300 flex items-center gap-2">
   <Users className="h-5 w-5 animate-pulse" />
-  Subscription collective
+  Souscription groupement
 </button>
   </div>
         </div>

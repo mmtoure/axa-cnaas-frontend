@@ -41,19 +41,9 @@ const Login = () => {
           <img src={assets.logo_cnaas} alt="CNAAS" className="h-12" />
         </div>
 
-        <h1 className="text-4xl font-bold leading-tight mb-6">
-          L’assurance inclusive pour tous
+        <h1 className="text-xl font-bold leading-tight mb-6">
+          Ensemble, innovons pour une protection accessible à tous.
         </h1>
-
-        <p className="text-lg opacity-90 mb-6">
-          Grâce au partenariat entre AXA et CNAAS,
-          nous rendons l’assurance accessible aux populations,
-          aux PME et aux travailleurs informels.
-        </p>
-
-        <div className="mt-10 text-sm opacity-70">
-          Une solution innovante pour renforcer la résilience financière.
-        </div>
       </div>
 
            {/* RIGHT SIDE — Login Form */}
@@ -84,7 +74,7 @@ const Login = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
                 
                     <Input 
-                        label="Email Address" 
+                        label="Adresse e-mail" 
                         type="email"
                         placeholder="name@example.com"
                         value={email}
@@ -92,7 +82,7 @@ const Login = () => {
                        
                     />
                     <Input
-                        label="Password"
+                        label="Mot de passe"
                         type="password"
                         placeholder="*********"
                         value={password}
@@ -109,7 +99,7 @@ const Login = () => {
 
             </form> 
          <div className="mt-6 text-center text-sm text-gray-500">
-            © 2026 AXA & CNAAS — Assurance Inclusive
+            © 2026 AXA — Assurance Inclusive
           </div>
 
         </div>

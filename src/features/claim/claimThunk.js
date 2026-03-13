@@ -83,3 +83,46 @@ export const createAllclaims =createAsyncThunk(
   }
 
 )
+
+export const validateClaim =createAsyncThunk(
+    'claim/validateClaim',
+    async (claimId, { rejectWithValue }) => {
+      console.log("claimId",claimId);
+      
+        try {
+            const res = await api.get(`/claims/${claimId}/valider`)
+            console.log("fetch claim success",res.data);
+            return res.data
+
+            
+        } catch (error) {
+            if (error.response && error.response.data.message) {
+                return rejectWithValue(error.response.data.message)
+            } else {
+                return rejectWithValue(error.message || "fetch contract failed")
+            }
+        }
+
+    }
+
+)
+export const rejectClaim =createAsyncThunk(
+    'claim/rejectClaim',
+    async (claimId, { rejectWithValue }) => {
+        try {
+            const res = await api.get(`/claims/${claimId}/rejeter`)
+            console.log("fetch claim success",res.data);
+            return res.data
+
+            
+        } catch (error) {
+            if (error.response && error.response.data.message) {
+                return rejectWithValue(error.response.data.message)
+            } else {
+                return rejectWithValue(error.message || "fetch contract failed")
+            }
+        }
+
+    }
+
+)

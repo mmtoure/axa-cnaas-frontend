@@ -24,16 +24,6 @@ const InfoClaimsTab = ({claim}) => {
             {claim?.sinisterType}
           </p>
         </div>
-    
-
-      {claim?.compensationAmount && (
-        <div>
-          <span className="text-gray-500">Montant :</span>
-          <p className="font-semibold text-blue-700">
-            {claim?.compensationAmount.toLocaleString()} CFA
-          </p>
-        </div>
-      )}
     </div>
     <div className="grid grid-cols-2 gap-4 text-sm mb-3">
       <div>
@@ -47,14 +37,15 @@ const InfoClaimsTab = ({claim}) => {
           <p>
             {formatDate(claim?.hospitalizationStartDate)} → {formatDate(claim?.hospitalizationEndDate)}
           </p>
+         
         </div>
       )}
 
-      {claim?.compensationAmount && (
+      {claim?.numberNuitsHospitalisation && (
         <div>
-          <span className="text-gray-500">Montant :</span>
+          <span className="text-gray-500">Nombre de jours à indemniser :</span>
           <p className="font-semibold text-blue-700">
-            {claim?.compensationAmount.toLocaleString()} CFA
+            {claim?.numberNuitsHospitalisation} jours
           </p>
         </div>
       )}

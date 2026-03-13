@@ -72,7 +72,7 @@ useEffect(() => {
  <Dashboard activeMenu="Assurés">
   <div className="bg-opacity-95 backdrop-blur-sm p-8 rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
     <h3 className="text-2xl font-semibold text-black mb-2">
-        Souscription individullle
+        Souscription individuelle
     </h3>
     <p className="text-sm text-slate-700 mb-6">
         Entrer les informations pour la création d'un assuré
@@ -158,7 +158,7 @@ useEffect(() => {
         <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>
           <User2 className='w-4 h-4' />
           <h2 className="text-gray-500 text-lg font-semibold">
-            Informations Bénéficiaire:
+            Bénéficiaire <i>en cas de décès</i>:
           </h2>
         </div>
 

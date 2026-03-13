@@ -2,16 +2,16 @@ import { Link, useLocation } from "react-router-dom";
 import { ChevronRight, Home } from "lucide-react";
 
 const routeLabels = {
-  dashboard: "Dashboard",
+  dashboard: "Tableau de bord",
   insureds: "Assurés",
   create: "Créer",
   edit: "Modifier",
-  groups: "Groupes",
+  groups: "Groupements",
   contracts: "Contrats",
   claims: "Sinistres",
   new: "Nouveau",
   agences: "Agences",
-  utilisateurs: "Utilisateurs",
+  users: "Utilisateurs",
   profiles: "Profils",
   parametres: "Paramètres",
 };
