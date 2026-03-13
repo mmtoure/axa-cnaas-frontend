@@ -88,9 +88,11 @@ export const ContractList = () => {
     if (res.meta.requestStatus === "fulfilled") {
       const blob = new Blob([res.payload], { type: "application/pdf" });
       const url = window.URL.createObjectURL(blob);
+
+      window.open(url, "_blank");
       const a = document.createElement("a");
       a.href = url;
-      a.download = "fiche_adhesion_groupement.pdf";
+      a.download = "fiche_adhesion_individuelle.pdf";
       a.click();
 
       setTimeout(() => window.URL.revokeObjectURL(url), 1000);

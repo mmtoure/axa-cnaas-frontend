@@ -47,17 +47,18 @@ const InsuredList = ({insuredsData, onDelete}) => {
   const [loading, setLoading] = useState(false);
   
   // Générer le contrat d'un assuré en PDF
-  const handleGenerateContract = async (insured) => {
+  const handleGenerateContract = async (insuredId) => {
     try {
       setLoading(true); 
-    const res = await api.get(`/insureds/${insured.id}/pdf`, {
+    const res = await api.get(`/insureds/${insuredId}/pdf`, {
       responseType: "blob"
     });
 
     const url = window.URL.createObjectURL(res.data);
+    window.open(url, "_blank");
     const a = document.createElement("a");
     a.href = url;
-    a.download = "fiche_adhesion_individuelle_" + insured.firstName+ " " + insured.lastName + ".pdf";
+    a.download = "fiche_adhesion_individuelle.pdf";
     a.click();
     } catch (err) {
       alert("Erreur lors de la génération du contrat", err.message);
@@ -133,7 +134,7 @@ const InsuredList = ({insuredsData, onDelete}) => {
           </button>
 
           <button
-            onClick={() => handleGenerateContract(item)}
+            onClick={() => handleGenerateContract(item.id)}
             className="p-1 rounded hover:bg-gray-200"
             title="Generer contrat"
           >
