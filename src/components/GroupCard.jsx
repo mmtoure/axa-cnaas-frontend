@@ -7,6 +7,7 @@ import { useState, useRef, useEffect } from "react";
 import { Edit } from "lucide-react";
 import { Trash2 } from "lucide-react";
 import Loader from "./Loader";
+import StatusBadge from "./StatusBadge";
 
 
 
@@ -92,14 +93,6 @@ const GroupCard = ({ group, onDelete }) => {
       <div className="mt-4 space-y-2 text-sm text-gray-600">
         <p>📞 {group.phoneNumber}</p>
         <p>👥 {insuredCount} assuré(s)</p>
-        <p>🏢 {partnerName}</p>
-      </div>
-
-      {/* Status */}
-      <div className="mt-4">
-        <span className="px-3 py-1 text-xs rounded-full bg-green-100 text-green-600">
-          Actif
-        </span>
       </div>
 
        {/* Générer le contrat */}

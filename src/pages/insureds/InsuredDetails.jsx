@@ -49,7 +49,7 @@ const InsuredDetails = () => {
   if (error) return <p className="p-6 text-red-600">Erreur</p>;
   if (!currentInsured) return null;
   return (
-   <Dashboard activeMenu="Assurés">
+
       <div className="p-2">
       <div className="bg-white p-4 rounded shadow">
 
@@ -133,7 +133,7 @@ const InsuredDetails = () => {
         )}
       </div>
        </div>
-    </Dashboard>
+
 
   )
 }

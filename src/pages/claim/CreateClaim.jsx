@@ -105,7 +105,7 @@ const CreateClaim = () => {
     }
   }, [success, error, dispatch, navigate, reset, insuredId]);
   return (
-    <Dashboard activeMenu="Sinistres">
+ 
       <div className="bg-opacity-95 backdrop-blur-sm p-4 rounded-lg max-h-[90vh] overflow-y-auto">
         <h3 className="text-2xl font-semibold text-black mb-2">
           Déclaration de sinistre
@@ -286,7 +286,7 @@ const CreateClaim = () => {
           </form>
         </div>
       </div>
-    </Dashboard>
+   
   )
 }
 

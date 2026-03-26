@@ -154,7 +154,7 @@ const GroupList = () => {
     </tr>
   );
   return (
-    <Dashboard activeMenu="Groupements">
+
       <div className="p-2">
         {/* Header */}
         <div className="flex items-center justify-between mb-2">
@@ -228,7 +228,7 @@ const GroupList = () => {
         </div>
       </div>
 
-    </Dashboard>
+  
   )
 }
 

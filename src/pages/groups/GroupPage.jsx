@@ -43,7 +43,7 @@ const GroupPage = () => {
   };
 
   return (
-    <Dashboard activeMenu="Groupements">
+ 
       <div className="p-4 min-h-screen">
         <div className="flex items-center justify-between mb-2">
           <h3 className="text-lg font-semibold text-gray-700">
@@ -69,7 +69,7 @@ const GroupPage = () => {
           ))}
         </div>
       </div>
-    </Dashboard>
+
   );
 };
 

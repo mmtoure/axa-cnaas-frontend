@@ -110,7 +110,7 @@ const PartnersList = () => {
   );
   return (
      
-      <Dashboard activeMenu="Partenaires">
+   
          <div className='ml-3 p-6'>
       
           {/* Header */}
@@ -168,7 +168,7 @@ const PartnersList = () => {
           </div>
         </div>
          </div>
-      </Dashboard >
+ 
      
   )
 }

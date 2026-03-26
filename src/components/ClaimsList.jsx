@@ -8,6 +8,7 @@ import { Eye } from 'lucide-react';
 import { formatDate } from '../util/helper';
 import { Trash2 } from 'lucide-react';
 import EmptyState from './EmptyState';
+import StatusBadge from './StatusBadge';
 
 const columns = [
     {
@@ -54,7 +55,7 @@ const renderRow = (item) => (
  
 
       <td className="px-4 py-2 text-left">
-        {item.status}
+        <StatusBadge status={item.status} />
       </td>
 
       <td className="px-4 py-2 flex items-center justify-center gap-1">

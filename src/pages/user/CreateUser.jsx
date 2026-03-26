@@ -61,7 +61,7 @@ const CreateUser = () => {
 
 
     return (
-        <Dashboard activeMenu="Utilisateurs">
+  
             <div className="p-5">
                 <h3 className="text-2xl font-semibold text-black mb-2">
                     Création d'un utilsateur
@@ -178,7 +178,7 @@ const CreateUser = () => {
                     </form>
                 </div>
             </div>
-        </Dashboard>
+    
     )
 }
 

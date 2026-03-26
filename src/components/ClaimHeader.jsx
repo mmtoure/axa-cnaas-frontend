@@ -1,3 +1,4 @@
+import StatusBadge from "./StatusBadge";
 import StatusBar from "./StatusBar";
 
 const ClaimHeader = ({ claim }) => (
@@ -19,13 +20,7 @@ const ClaimHeader = ({ claim }) => (
     </div>
 
 
-    <span className={`px-3 py-1 rounded-full text-sm font-medium
-      ${claim?.status === "ACCEPTE" && "bg-green-100 text-green-700"}
-      ${claim?.status === "EN_COURS" && "bg-blue-100 text-blue-700"}
-      ${claim?.status === "REJETE" && "bg-red-100 text-red-700"}
-    `}>
-      {claim?.status}
-    </span>
+  <StatusBadge status={claim?.status} />
   </div>
 );
 export default ClaimHeader

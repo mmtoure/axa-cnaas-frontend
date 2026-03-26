@@ -68,7 +68,7 @@ const CreatePricings = () => {
 
 
     return (
-        <Dashboard activeMenu="Assurés">
+    
             <div className="bg-opacity-95 backdrop-blur-sm p-8 rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
                 <h3 className="text-2xl font-semibold text-black mb-2">
                     Création d'un partenaire
@@ -193,7 +193,7 @@ const CreatePricings = () => {
                     </form>
                 </div>
             </div>
-        </Dashboard>
+     
     )
 }
 

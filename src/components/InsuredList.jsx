@@ -40,8 +40,6 @@ const columns = [
   },
 ];
 
-
-
 const InsuredList = ({insuredsData, onDelete}) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

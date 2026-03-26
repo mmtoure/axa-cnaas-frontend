@@ -3,6 +3,10 @@ const StatusBadge = ({ status }) => {
     ACTIF: "bg-green-100 text-green-700",
     EN_COURS: "bg-orange-100 text-orange-700",
     INACTIVE: "bg-red-100 text-red-700",
+    ACCEPTE: "bg-red-100 text-red-700",
+    PAYE: "bg-green-300 text-red-700",
+    REJETE: "bg-red-500 text-red-700",
+
   };
 
   return (

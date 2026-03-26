@@ -25,9 +25,6 @@ const Home = () => {
 
   return (
     <div className='space-y-4'>
-
-      <Dashboard activeMenu="Tableau de bord">
-
         <div className="p-2 space-y-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gray-500">
             Bienvenue sur votre tableau de bord AXA/CNAAS 
@@ -67,8 +64,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-      
-      </Dashboard>
     </div>
   )
 }

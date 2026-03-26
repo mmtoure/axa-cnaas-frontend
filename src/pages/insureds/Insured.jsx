@@ -34,7 +34,7 @@ const insuredsData = useSelector((state)=> state.insured.insureds)
   );
 });
 return (
-<Dashboard activeMenu="Assurés">
+
   <div className="bg-white rounded-lg shadow-sm p-6 m-3">
     
     {/* Header */}
@@ -86,7 +86,7 @@ return (
     </Modal>
 
   </div>
-</Dashboard>
+
   )
 }
 

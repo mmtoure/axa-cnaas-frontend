@@ -26,7 +26,7 @@ const ContractDetails = () => {
   if (error) return <p className="p-6 text-red-600">Erreur</p>;
   if (!contract) return null;
   return (
-    <Dashboard activeMenu="Contrats">
+   
       <div className="space-y-3">
 
         {/* HEADER */}
@@ -135,8 +135,6 @@ const ContractDetails = () => {
 
 
       </div>
-
-    </Dashboard>
 
   )
 }

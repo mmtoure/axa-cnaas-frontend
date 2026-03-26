@@ -27,7 +27,7 @@ const UsersListPage = () => {
 
   return (
 
-    <Dashboard activeMenu="Utilisateurs">
+ 
       <div className='p-2'>
         {/* Bouton pour ajouter un utilisateur */}
         <div className='flex items-center justify-between mb-4'>
@@ -50,7 +50,7 @@ const UsersListPage = () => {
           <UsersList usersData={usersData} />
         </div>
       </div>
-    </Dashboard>
+
   )
 }
 

@@ -69,7 +69,7 @@ useEffect(() => {
   }
 }, [success, error, dispatch, navigate, reset]);
   return (
- <Dashboard activeMenu="Assurés">
+
   <div className="bg-opacity-95 backdrop-blur-sm p-8 rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
     <h3 className="text-2xl font-semibold text-black mb-2">
         Souscription individuelle
@@ -214,7 +214,7 @@ useEffect(() => {
   </form>
 </div>
  </div>
-</Dashboard>
+
   )
 }
 

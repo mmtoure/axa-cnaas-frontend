@@ -46,7 +46,7 @@ const ClaimDetails = () => {
   } 
 
   return (
-    <Dashboard activeMenu="Sinistres">
+ 
     <div className="bg-white p-6 rounded shadow">
      {/** HEADER */}
         <div className='mb-6'>
@@ -100,7 +100,7 @@ const ClaimDetails = () => {
        
     
       </div>
-    </Dashboard>
+   
   )
 }
 

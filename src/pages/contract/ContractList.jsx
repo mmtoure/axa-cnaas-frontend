@@ -18,6 +18,7 @@ import { LucideFileText } from 'lucide-react'
 import { Pagination } from '../../components/Pagination'
 import { tr } from 'zod/locales'
 import Loader from '../../components/Loader'
+import StatusBadge from '../../components/StatusBadge'
 
 const columns = [
   {
@@ -132,7 +133,7 @@ export const ContractList = () => {
       </td>
 
       <td className="px-4 py-2 text-center">
-        {item.status}
+        <StatusBadge status={item.status} />
       </td>
       <td className="px-4 py-2 text-center">
         {item?.typeContract}
@@ -180,7 +181,7 @@ export const ContractList = () => {
   );
 
   return (
-    <Dashboard activeMenu="Contrats">
+
 
       <div className="bg-white rounded-lg shadow-sm p-6 m-3">
 
@@ -236,8 +237,5 @@ export const ContractList = () => {
 
         </div>
       </div>
-
-
-    </Dashboard>
   )
 }

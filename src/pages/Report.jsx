@@ -4,9 +4,9 @@ import InsuredFilter from '../components/InsuredFilter'
 
 const Report = () => {
   return (
-    <Dashboard activeMenu="Reports">
+    <div>
         <InsuredFilter />
-    </Dashboard>
+    </div>
   )
 }
 

@@ -103,7 +103,7 @@ const CreateGroupement = () => {
 
 
   return (
-    <Dashboard activeMenu="Groupements">
+   
 
       <div className="bg-opacity-95 backdrop-blur-sm p-8 max-h-[90vh] overflow-y-auto">
         <h3 className="text-2xl font-semibold text-black mb-2">
@@ -229,7 +229,7 @@ const CreateGroupement = () => {
         </form>
       </div>
 
-    </Dashboard>
+
   )
 }
 

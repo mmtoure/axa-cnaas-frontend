@@ -18,7 +18,7 @@ const PartnerListCard = () => {
     dispatch(getAllPartners())
   }, [dispatch])
    return (
-     <Dashboard activeMenu="Partenaires">
+ 
     <div className="p-4 min-h-screen">
         
      {/* Header */}
@@ -46,7 +46,7 @@ const PartnerListCard = () => {
         ))}
       </div>
     </div>
-    </Dashboard>
+
   );
 };
 

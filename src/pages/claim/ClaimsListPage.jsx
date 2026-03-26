@@ -59,7 +59,7 @@ const ClaimsListPage = () => {
 
 
   return (
-    <Dashboard activeMenu="Sinistres">
+   
         <div className="bg-white bg-opacity-95 backdrop-blur-sm p-8 max-h-[90vh] overflow-y-auto rounded-lg shadow-lg">
         
 
@@ -91,9 +91,7 @@ const ClaimsListPage = () => {
 
             </div>
           </div>
-       
-
-    </Dashboard>
+      
   )
 }
 

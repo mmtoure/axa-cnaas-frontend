@@ -7,7 +7,7 @@ import InsuredFilter from '../../components/InsuredFilter'
 const InsuredPage = () => {
   const navigate = useNavigate();
   return (
-    <Dashboard activeMenu="Assurés">
+   
       <div className='p-2'>
         {/* Bouton pour ajouter un assuré */}
         <div className='flex items-center justify-between mb-2'>
@@ -31,7 +31,7 @@ const InsuredPage = () => {
           
         </div>
       </div>
-    </Dashboard>
+    
 
   )
 }

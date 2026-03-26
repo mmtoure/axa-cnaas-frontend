@@ -25,7 +25,7 @@ const PartnerDetails = () => {
         
 
   return (
-    <Dashboard activeMenu="Partenaires">
+  
         <div className="bg-white p-6 rounded shadow">
           {/* HEADER */}
             <div className="flex items-center justify-between">
@@ -73,7 +73,7 @@ const PartnerDetails = () => {
 
             </div>
         
-    </Dashboard>
+
   )
 }
 

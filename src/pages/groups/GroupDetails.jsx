@@ -39,7 +39,7 @@ const GroupDetails = () => {
     if (error) return <p className="p-6 text-red-600">Erreur</p>;
     if (!group) return null;
     return (
-      <Dashboard activeMenu="Groupements">
+ 
       <div className="bg-white p-6 rounded shadow">
           {/* HEADER */}
           <div className="flex items-center justify-between">
@@ -107,7 +107,7 @@ const GroupDetails = () => {
           )}
     
       </div>
-      </Dashboard>
+ 
     
     )
 }
