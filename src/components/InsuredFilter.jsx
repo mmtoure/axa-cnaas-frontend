@@ -70,62 +70,77 @@ const InsuredFilter = () => {
     };
     return (
         <div>
-            <div className='p-4 flex justify-between items-center mb-2'>
-                <div className="flex flex-col md:flex-row md:items-end gap-2">
+            <div className="p-4 flex flex-col gap-4 md:flex-row md:justify-between md:items-end mb-2">
+
+                {/* Filters */}
+                <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+
                     {/* Date début */}
-                    <div className="flex flex-col">
+                    <div className="flex flex-col w-full sm:w-auto">
                         <label className="text-sm text-gray-600">Date début</label>
                         <input
                             type="date"
-                            className="border rounded-lg p-2"
+                            className="border rounded-lg p-2 w-full"
                             name="startDate"
                             value={filters?.startDate}
                             onChange={handleChange}
                         />
                     </div>
+
                     {/* Date fin */}
-                    <div className="flex flex-col">
+                    <div className="flex flex-col w-full sm:w-auto">
                         <label className="text-sm text-gray-600">Date fin</label>
                         <input
                             type="date"
-                            className="border rounded-lg p-2"
+                            className="border rounded-lg p-2 w-full"
                             name="endDate"
                             value={filters?.endDate}
                             onChange={handleChange}
                         />
                     </div>
+
                     {/* Search */}
-                    <div className="relative">
+                    <div className="relative w-full sm:w-64 mt-5">
                         <input
                             type="text"
                             placeholder="Rechercher un assuré..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="pl-9 pr-3 py-2 bg-gray-100 rounded-md text-sm
-                            placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            className="w-full pl-9 pr-3 py-3 bg-gray-100 rounded-md text-sm
+        placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
                         />
                         <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
                     </div>
+
                 </div>
 
                 {/* Boutons */}
-                <div className="flex gap-2">
-                    <button onClick={handleReset}
-                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+
+                    <button
+                        onClick={handleReset}
+                        className="w-full sm:w-auto flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+                    >
                         Reset
                     </button>
-                    {/* Export */}
+
                     <button
                         onClick={handleExport}
-                        className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
+                        className="w-full sm:w-auto flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
                     >
                         <FileSpreadsheet size={18} />
                         Export Excel
                     </button>
+
                 </div>
+
             </div>
-            {/* Liste des assurés */}
-            <InsuredList insuredsData={filteredInsureds} onDelete={handleDelete} />
+
+            {/* Liste */}
+            <InsuredList
+                insuredsData={filteredInsureds}
+                onDelete={handleDelete}
+            />
         </div>
 
     );

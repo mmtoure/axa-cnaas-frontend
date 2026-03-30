@@ -29,26 +29,24 @@ const columns = [
   {
     header: "Numéro police",
     accessor: "policeNumber",
+     className: "hidden md:table-cell text-center",
   },
   {
     header: "Date début",
     accessor: "startDate",
+    className: "hidden md:table-cell text-center",
   },
   {
     header: "Date fin ",
     accessor: "endDate",
-    className: "text-center",
+    className: "hidden md:table-cell text-center",
   },
   {
     header: "status",
     accessor: "status",
     className: "text-center",
   },
-  {
-    header: "Souscription",
-    accessor: "typeContract",
-    className: "text-center",
-  },
+
   {
     header: "Actions",
     accessor: "actions",
@@ -120,24 +118,22 @@ export const ContractList = () => {
       <td className="px-4 py-2 font-medium text-left">
         {item.firstName} {item.lastName}
       </td>
-      <td className="px-4 py-2 font-medium text-center">
+      <td className="hidden md:table-cell px-4 py-2 font-medium text-center">
         {item.policeNumber}
       </td>
 
-      <td className="px-4 py-2 text-center">
+      <td className="hidden md:table-cell px-4 py-2 text-center">
         {item.startDate}
       </td>
 
-      <td className="px-4 py-2 text-center">
+      <td className="hidden md:table-cell px-4 py-2 text-center">
         {item.endDate}
       </td>
 
       <td className="px-4 py-2 text-center">
         <StatusBadge status={item.status} />
       </td>
-      <td className="px-4 py-2 text-center">
-        {item?.typeContract}
-      </td>
+     
 
       <td className="px-4 py-2 flex items-center justify-center gap-1">
         {/* PDF */}
@@ -157,24 +153,6 @@ export const ContractList = () => {
           aria-label="Voir le contrat"
         >
           <Eye className="w-4 h-4 text-green-600" />
-        </button>
-
-        {/* Éditer */}
-        <button
-          onClick={() => navigate(`/contracts/edit/${item.id}`)}
-          className="p-1 rounded hover:bg-gray-200"
-          title="Éditer"
-        >
-          <Edit className="w-4 h-4 text-blue-600" />
-        </button>
-
-        {/* Supprimer */}
-        <button
-          onClick={() => handleDelete(item.id)}
-          className="p-1 rounded hover:bg-gray-200"
-          title="Supprimer"
-        >
-          <Trash2 className="w-4 h-4 text-red-600" />
         </button>
       </td>
     </tr>

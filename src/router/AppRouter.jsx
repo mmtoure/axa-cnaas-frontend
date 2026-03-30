@@ -47,6 +47,7 @@ const AppRouter = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route element={<PrivateRoute />}>
             <Route element={<Layout />}>
               {/* Protected */}
@@ -93,6 +94,7 @@ const AppRouter = () => {
           </Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
 
     </div>
   )

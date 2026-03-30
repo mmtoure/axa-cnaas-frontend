@@ -43,9 +43,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 <div className="flex items-center justify-between p-5">
                     <div className={`md:block ${isOpen ? "block" : "hidden"}` }>
                         <h2 className={`text-xl font-bold`}>
-                            FAGURU
+                            FAGURU:v1.0                
                         </h2>
-                          <span>(Test)</span>
+                          <span className="text-red-500 text-sm text-semibold">(test)</span>
                     </div>
                     <button
                         className="block md:hidden"

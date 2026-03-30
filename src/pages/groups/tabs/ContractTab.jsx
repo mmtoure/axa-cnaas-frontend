@@ -24,6 +24,8 @@ const ContractTab = ({ group }) => {
   return (
 
     <div className="space-y-6">
+      {console.log("Contract", contract)
+      }
       {/* PRIMES TABLE */}
       <div className="bg-white rounded-xl shadow p-6 mb-4">
         <div className='lg:flex lg:items-center lg:justify-between mb-4'>
@@ -34,7 +36,7 @@ const ContractTab = ({ group }) => {
           {/* Générer le contrat */}
           <button
             type="button"
-            onClick={()=>handleGenerateContractByGroup(group.id)}
+            onClick={()=>handleGenerateContractByGroup(group?.id)}
             className="p-2 rounded-lg bg-green-50 hover:bg-green-100
                   transition hover:scale-105 flex items-center gap-1 border border-gray-200"
             aria-label="Voir le contrat"
@@ -58,26 +60,26 @@ const ContractTab = ({ group }) => {
             </tr>
             <tr className="border-t">
               <td className="p-3">Prime HT</td>
-              <td className="p-3 text-right">{contract.montantPrime}</td>
+              <td className="p-3 text-right">{contract?.montantPrime}</td>
             </tr>
 
             <tr className="border-t">
               <td className="p-3">Frais Accessoires</td>
-              <td className="p-3 text-right">{contract.accessoryCost}</td>
+              <td className="p-3 text-right">{contract?.accessoryCost}</td>
             </tr>
 
             <tr className="border-t">
               <td className="p-3">Taxe</td>
-              <td className="p-3 text-right">{contract.tax}</td>
+              <td className="p-3 text-right">{contract?.tax}</td>
             </tr>
 
             <tr className="border-t">
               <td className="p-3">Prime TTC</td>
-              <td className="p-3 text-right">{contract.montantPrimeTTC}</td>
+              <td className="p-3 text-right">{contract?.montantPrimeTTC}</td>
             </tr>
             <tr className="border-t bg-blue-50 font-semibold">
               <td className="p-3">Montant total des primes</td>
-              <td className="p-3 text-right">{contract.montantPrimeTTC * nbAssures} CFA</td>
+              <td className="p-3 text-right">{contract?.montantPrimeTTC * nbAssures} CFA</td>
             </tr>
           </tbody>
         </table>

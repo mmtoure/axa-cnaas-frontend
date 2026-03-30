@@ -20,17 +20,17 @@ const columns = [
   {
     header: "Téléphone",
     accessor: "phoneNumber",
-    className: "text-left px-2",
+    className: "hidden md:table-cell text-left px-2",
   },
   {
     header: "Date de naissance",
     accessor: "dateOfBirth",
-    className: "text-left px-2",
+    className: "hidden md:table-cell text-left px-2",
   },
   {
     header: "Bénéficiaire",
     accessor: "beneficiary",
-    className: "text-left px-2"
+    className: "hidden md:table-cell text-left px-2"
   },
    
   {
@@ -76,17 +76,17 @@ const InsuredList = ({insuredsData, onDelete}) => {
       </td>
 
       {/* Téléphone */}
-      <td className="px-2 py-2 text-left">
+      <td className="hidden md:table-cell px-2 py-2 text-left">
         {item.phoneNumber}
       </td>
 
       {/* Date naissance */}
-      <td className="px-2 py-2 text-left">
+      <td className="hidden md:table-cell px-2 py-2 text-left">
         {formatDate(item.dateOfBirth)}
       </td>
 
       {/* Bénéficiaire */}
-      <td className="px-2 py-2 text-left">
+      <td className="hidden md:table-cell px-2 py-2 text-left">
         {item.beneficiary ? (
           <div className="flex flex-col">
             <span className="font-medium">

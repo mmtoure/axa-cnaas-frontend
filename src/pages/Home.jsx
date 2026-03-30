@@ -25,45 +25,43 @@ const Home = () => {
 
   return (
     <div className='space-y-4'>
-        <div className="p-2 space-y-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-500">
-            Bienvenue sur votre tableau de bord AXA/CNAAS 
-          </h1>
-          {/* Center - Action buttons with gradient hover */}
-  <div className="flex items-center gap-4">
-    <button
-      onClick={() => navigate("/insureds/create")}
-      className="px-5 py-3 bg-gradient-to-r from-blue-900 to-purple-700 text-white rounded-md shadow-md
+      <div className="flex items-center justify-between">
+        
+        {/* Center - Action buttons with gradient hover */}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => navigate("/insureds/create")}
+            className="px-5 py-3 bg-gradient-to-r from-blue-900 to-purple-700 text-white rounded-md shadow-md
                  hover:from-blue-600 hover:to-purple-600 transform hover:scale-105 transition-all duration-300
                  flex items-center gap-2">
-      <UserPlus className="h-5 w-5 animate-bounce" />
-      Souscription individuelle
-    </button>
+            <UserPlus className="h-5 w-5 animate-bounce" />
+            Souscription individuelle
+          </button>
 
-    <button
-  onClick={() => navigate("/groups/create")}
-  className="px-5 py-3 bg-green-600 text-white rounded-lg shadow-md border border-gray-200
+          <button
+            onClick={() => navigate("/groups/create")}
+            className="px-5 py-3 bg-green-600 text-white rounded-lg shadow-md border border-gray-200
              hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400
              transform hover:scale-105 transition-all duration-300 flex items-center gap-2">
-  <Users className="h-5 w-5 animate-pulse" />
-  Souscription groupement
-</button>
-  </div>
+            <Users className="h-5 w-5 animate-pulse" />
+            Souscription groupement
+          </button>
         </div>
+      </div>
 
-        <StatsGrid data={data} />
-      
-        <div className="p-2 space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div className='lg:col-span-2'>
+      <StatsGrid data={data} />
+
+      <div className="p-2 space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className='lg:col-span-2'>
             <MonthlyInsuredChart insuredByMonth={data?.insuredByMonth} />
-            </div>
-            <div className='lg:col-span-1 gap-2 flex flex-col'>
-              <TableRecentInsureds recentInsureds={data?.recentInsureds} />
-              <TableRecentClaims recentClaims={data?.recentClaims} />
-            </div>
+          </div>
+          <div className='lg:col-span-1 gap-2 flex flex-col'>
+            <TableRecentInsureds recentInsureds={data?.recentInsureds} />
+            <TableRecentClaims recentClaims={data?.recentClaims} />
           </div>
         </div>
+      </div>
     </div>
   )
 }

@@ -54,7 +54,7 @@ const InsuredDetails = () => {
       <div className="bg-white p-4 rounded shadow">
 
         {/* HEADER */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3">
           <div className='mb-6'>
             <h2 className="text-2xl font-semibold">
               {currentInsured.firstName} {currentInsured.lastName}
@@ -83,7 +83,7 @@ const InsuredDetails = () => {
             </div>
           </div>
 
-          <div className='flex items-center gap-2'>
+          <div className='flex items-center gap-2 mb-3'>
             {/* Button Creation sinistre */}
             <button
               type="button"
