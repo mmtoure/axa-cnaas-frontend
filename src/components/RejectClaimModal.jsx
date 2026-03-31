@@ -13,7 +13,7 @@ const RejectClaimModal = ({isOpen, onClose, claimId, onRejected}) => {
     console.log({claimId, reason});
     
    dispatch(rejectClaim({
-      id: claimId,
+      claimId: claimId,
       rejectReason: reason
     }));
     onClose();

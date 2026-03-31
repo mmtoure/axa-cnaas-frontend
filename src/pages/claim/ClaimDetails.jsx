@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getclaimById, rejectClaim, validateClaim } from '../../features/claim/claimThunk';
+import { getclaimById, paidClaim, rejectClaim, validateClaim } from '../../features/claim/claimThunk';
 import InfoClaimsTab from './tabs/InfoClaimsTab';
 import DocumentsClaimsTab from './tabs/DocumentsClaimsTab';
 import { Clock } from 'lucide-react';
@@ -16,6 +16,8 @@ import { LucideBadgeCheck } from 'lucide-react';
 import ClaimHeader from '../../components/ClaimHeader';
 import ClaimSteps from '../../components/ClaimSteps';
 import StatusBar from '../../components/StatusBar';
+import { selectCurrentUser } from '../../features/auth/authSelectors';
+import RejectClaimModal from '../../components/RejectClaimModal';
 
 
 const tabs = [
@@ -29,6 +31,9 @@ const ClaimDetails = () => {
   const [activeTab, setActiveTab] = useState("info");
   const dispatch = useDispatch();
   const {currentClaim, loading, success, error} = useSelector((state) => state.claim);
+  const currentUser = useSelector(selectCurrentUser);
+  const [modalOpen, setModalOpen] = useState(false);
+
 
   useEffect(()=>{
 
@@ -37,13 +42,20 @@ const ClaimDetails = () => {
 
   }, [dispatch, id])
 
+  const openModal = (id) => {
+    console.log("ID",id);
+  setModalOpen(true);
+};
+
   const handleValidateClaim = (claimId) => () => {
     dispatch(validateClaim(claimId))
   }
 
-  const handleRejectClaim = (claimId) => () => {
-    dispatch(rejectClaim(claimId))
-  } 
+  const handlePaidClaim = (claimId) => () => {
+    dispatch(paidClaim(claimId))
+  }
+
+
 
   return (
  
@@ -54,21 +66,53 @@ const ClaimDetails = () => {
         </div>
 
       {/** STEPS */}
-      <div className='mb-6 w-1/2'>
+      <div className='mb-6 ml-6 w-1/2'>
        <StatusBar status={currentClaim?.status} />
       </div>
       {/** ACTION BUTTONS */}
-      <div className="mb-6">
+      {currentUser?.role?.name==="ADMIN" && (
+
+        currentClaim?.status === "EN_COURS"? (
+          <div className="mb-6">
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={handleValidateClaim(id)}
         >
-          Valider
+          VALIDER
         </button>
-        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
-        onClick={handleRejectClaim(currentClaim?.id)}>
-          Rejeter
-        </button>
+        <button
+        onClick={() => openModal(id)}
+        className="bg-red-500 text-white px-3 py-1 rounded"
+      >
+        Rejeter
+      </button>
+
+      <RejectClaimModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        claimId={id}
+        onRejected={() => {
+          // Optionally, you can refresh the claim details after rejection
+          dispatch(getclaimById(id));
+        }}
+      />
       </div>
+
+         ): (
+           currentClaim?.status === "ACCEPTE" && (
+            <div className="mb-6">
+            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            onClick={handlePaidClaim(id)}
+            >
+              PAYER
+            </button>
+            </div>
+
+           )
+         )
+           
+
+      ) }
+   
 
      {/* TABS */}
           <div className="flex gap-2 border-b mb-6">

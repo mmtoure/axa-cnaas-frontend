@@ -18,18 +18,20 @@ import UploadField from '../../components/UplaodFile';
 import { useState } from 'react';
 
 const REQUIRED_DOCS = {
-  HOSPICASH: [
-    { key:"PIECE_IDENTITE", label: "Pièce d’identité" },
-    { key:"DECHARGE_HOSPITALISATION", label: "Decharge d’hospitalisation" },
-
+   HOSPICASH: [
+    { key: "PIECE_IDENTITE_RECTO_HOSPICASH", label: "Pièce d’identité recto hospicash" },
+    { key: "PIECE_IDENTITE_VERSO_HOSPICASH", label: "Pièce d’identité verso hospicash" },
+    { key: "DECHARGE_HOSPITALISATION", label: "Decharge d’hospitalisation" },
   ],
   INVALIDITE: [
-    {key:"PIECE_IDENTITE", label: "Pièce d’identité" },
-    { key:"RAPPORT_MEDICAL", label: "Rapport médical" },
+    { key: "PIECE_IDENTITE_RECTO_INVALIDITE", label: "Pièce d’identité recto invalidite" },
+    { key: "PIECE_IDENTITE_VERSO_INVALIDITE", label: "Pièce d’identité verso invalidite" },
+    { key: "CERTIFICAT_INVALIDITE", label: "Certificat d’invalidité" },
   ],
   CAPITAL_FUNERAIRE: [
-    { key:"PIECE_IDENTITE", label: "Pièce d’identité" },
-    { key:"CERTIFICAT_DECES", label: "Certificat de décès"},
+    { key: "PIECE_IDENTITE_RECTO_FUNERAIRE", label: "Pièce d’identité recto funéraire" },
+    { key: "PIECE_IDENTITE_VERSO_FUNERAIRE", label: "Pièce d’identité verso funéraire" },
+    { key: "CERTIFICAT_DECES", label: "Certificat de décès" },
   ],
 };
 

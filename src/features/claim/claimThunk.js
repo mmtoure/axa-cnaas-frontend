@@ -108,9 +108,9 @@ export const validateClaim =createAsyncThunk(
 )
 export const rejectClaim =createAsyncThunk(
     'claim/rejectClaim',
-    async (claimId, { rejectWithValue }) => {
+    async ({claimId, rejectReason}, { rejectWithValue }) => {
         try {
-            const res = await api.get(`/claims/${claimId}/rejeter`)
+            const res = await api.put(`/claims/${claimId}/rejeter`, { rejectReason })
             console.log("fetch claim success",res.data);
             return res.data
 
@@ -125,4 +125,39 @@ export const rejectClaim =createAsyncThunk(
 
     }
 
+)
+
+export const deleteClaim =createAsyncThunk(
+    'claim/deleteClaim',
+    async (claimId, { rejectWithValue }) => {
+        try {
+            const res = await api.delete(`/claims/${claimId}`)
+            console.log("delete claim success",res.data);
+            return res.data
+        } catch (error) {
+            if (error.response && error.response.data.message) {
+                return rejectWithValue(error.response.data.message)
+            } else {
+                return rejectWithValue(error.message || "delete claim failed")
+            }
+        }
+
+    }   
+)
+export const paidClaim = createAsyncThunk(
+  'claim/paidClaim',
+   async (claimId, { rejectWithValue }) => {
+        try {
+            const res = await api.get(`/claims/${claimId}/payer`)
+            console.log("paid claim success",res.data);
+            return res.data
+        } catch (error) {
+            if (error.response && error.response.data.message) {
+                return rejectWithValue(error.response.data.message)
+            } else {
+                return rejectWithValue(error.message || "paid claim failed")
+            }
+        }
+
+    }   
 )
