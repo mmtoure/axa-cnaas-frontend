@@ -1,6 +1,8 @@
 import axios from "axios";
+//export const BASE_URL = "http://localhost:8080";
+export const BASE_URL = "http://172.20.90.39:8082";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+
 export const API_BASE = `${BASE_URL}/api/v1.0`;
 export const FILE_BASE = `${BASE_URL}/api/files`;
 
