@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom"
-import { menuConfig } from "../config/menu.config"
+import { menuConfig } from "../config/menu.config.js"
 import { X } from "lucide-react"
 import { Menu, LogOut } from "lucide-react"
 import { useSelector } from "react-redux"

@@ -102,9 +102,12 @@ const InsuredDetails = () => {
             </button>
           </div>
         </div>
+      </div>
+
+       <div className="mt-3 mb-3 bg-white p-2 rounded shadow">
 
         {/* TABS */}
-        <div className="flex gap-2 border-b mb-6">
+        <div className="flex gap-2">
           {tabs.map(({ key, label, icon: Icon }) => (
             <button
               key={key}
@@ -120,6 +123,9 @@ const InsuredDetails = () => {
             </button>
           ))}
         </div>
+    </div>
+
+       <div className="mb-4 bg-white p-4 rounded shadow">
 
         {/* CONTENT */}
         {activeTab === "info" && (

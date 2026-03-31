@@ -73,7 +73,7 @@ const ClaimDetails = () => {
       {currentUser?.role?.name==="ADMIN" && (
 
         currentClaim?.status === "EN_COURS"? (
-          <div className="mb-6">
+          <div className="mb-6 flex gap-2">
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={handleValidateClaim(id)}
         >
@@ -81,9 +81,9 @@ const ClaimDetails = () => {
         </button>
         <button
         onClick={() => openModal(id)}
-        className="bg-red-500 text-white px-3 py-1 rounded"
+        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
       >
-        Rejeter
+        REJETER
       </button>
 
       <RejectClaimModal

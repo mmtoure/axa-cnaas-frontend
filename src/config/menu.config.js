@@ -9,7 +9,7 @@ import { File } from 'lucide-react';
 import { UsersRound } from 'lucide-react';
 import { Group } from 'lucide-react';
 import { Home } from 'lucide-react';
-import { Space } from 'lucide-react';
+import { Space, Boxes } from 'lucide-react';
 import {
   LayoutDashboard,
   Users,
@@ -37,7 +37,7 @@ export const menuConfig = [
     id: '03',
     label: 'Groupements',
     path: '/groups',
-    icon: Users,
+    icon: Boxes,
     roles: ["ADMIN", "MANAGER", "USER"]
   },
   {
