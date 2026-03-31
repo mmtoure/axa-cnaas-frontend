@@ -66,20 +66,10 @@ export const getclaimById =createAsyncThunk(
 export const createAllclaims =createAsyncThunk(
     'claim/createAllClaims',
     async (allClaimData, { rejectWithValue }) => {
-    try {
-      const res = await api.post("/claims/create-all",allClaimData)
+        console.log("allClaimData", allClaimData);
+    const res = await api.post("/claims/create-all",allClaimData)
       console.log("create claim success",res.data);
       return res.data
-      
-    } catch (error) {
-      if (error.response && error.response.data.message) {
-        console.log("Error", error.message)
-        
-        return rejectWithValue(error.response.data.message)
-      } else {
-        return rejectWithValue(error.message || "create claim failed")
-      }
-    }
   }
 
 )

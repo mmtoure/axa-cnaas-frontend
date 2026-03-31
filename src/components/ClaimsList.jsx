@@ -66,7 +66,8 @@ const ClaimsList = () => {
             "Supprimé!",
             "Le sinistre a été supprimé.",
             "success"
-          );
+          );          
+          dispatch(getAllclaims());
         });
       }
     });
@@ -85,12 +86,9 @@ const ClaimsList = () => {
       <td className="px-4 py-2 text-left">
         {item.sinisterType}
       </td>
-
-
       <td className="px-4 py-2 text-left">
         <StatusBadge status={item.status} />
       </td>
-
       <td className="px-4 py-2 flex items-center justify-center gap-1">
         {/* Voir */}
         <button
@@ -100,7 +98,22 @@ const ClaimsList = () => {
         >
           <Eye className="w-4 h-4 text-green-600" />
         </button>
-        {/* Éditer */}
+       
+
+       
+        {item.status==="EN_COURS" && (
+
+          <div className="flex items-center justify-center gap-1">
+          {/* Supprimer */}
+          <button
+          onClick={() => { handleDelete(item.id) }}
+          className="p-1 rounded hover:bg-gray-200"
+          title="Supprimer"
+        >
+          <Trash2 className="w-4 h-4 text-red-600" />
+        </button>
+
+         {/* Éditer */}
         <button
           onClick={() => navigate(`/sinistres/edit/${item.id}`)}
           className="p-1 rounded hover:bg-gray-200"
@@ -109,14 +122,11 @@ const ClaimsList = () => {
           <Edit className="w-4 h-4 text-blue-600" />
         </button>
 
-        {/* Supprimer */}
-        <button
-          onClick={() => { handleDelete(item.id) }}
-          className="p-1 rounded hover:bg-gray-200"
-          title="Supprimer"
-        >
-          <Trash2 className="w-4 h-4 text-red-600" />
-        </button>
+          </div>
+          
+
+          )}
+        
       </td>
     </tr>
   );
@@ -134,7 +144,7 @@ const ClaimsList = () => {
   return (
     <div>
       {/* HEADER */}
-      <div className='flex items-center justify-between gap-2'>
+      <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2'>
 
         <div className=''>
           <h1 className='text-2xl font-semibold text-gray-700'>Liste des sinistres</h1>
@@ -155,9 +165,9 @@ const ClaimsList = () => {
         </div>
       </div>
 
-      <div className='card p-4'>
+      <div className='card'>
         {/* Table des sinistres */}
-        {filteredClaims && filteredClaims.length > 0 ? (
+        {filteredClaims && filteredClaims?.length > 0 ? (
           <Table columns={columns} renderRow={renderRow} data={filteredClaims} />
         ) :
           (

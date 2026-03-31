@@ -142,6 +142,7 @@ const claimSlice = createSlice ({
             .addCase(deleteClaim.fulfilled, (state, action)=>{
                 state.loading=false
                 state.success=true
+                if (!state.claims) return;
                 state.claims=state.claims.filter((claim) => claim.id !== action.payload.id);
             })
             .addCase(deleteClaim.rejected, (state, action)=>{

@@ -68,7 +68,17 @@ const CreateMultiClaim = () => {
     name: "claims",
   });
 
+  const toggleClaim = (type, checked) => {
+    const index = fields.findIndex((f) => f.type === type);
 
+    if (checked && index === -1) {
+      append({ type, enabled: true });
+    }
+
+    if (!checked && index !== -1) {
+      remove(index);
+    }
+  };
 
 
   const onSubmit = async (data) => {
@@ -110,7 +120,7 @@ const CreateMultiClaim = () => {
       });
     });
 
-   dispatch(createAllclaims(formData))
+    dispatch(createAllclaims(formData))
       .unwrap()
       .then(() => {
         toast.success("Sinistre créé avec succès");

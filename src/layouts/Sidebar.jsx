@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import { menuConfig } from "../config/menu.config"
 import { X } from "lucide-react"
-import { Menu } from "lucide-react"
+import { Menu, LogOut } from "lucide-react"
 import { useSelector } from "react-redux"
 import { selectCurrentUser } from "../features/auth/authSelectors.js"
 import { useDispatch } from "react-redux"
@@ -23,6 +23,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       const filteredMenu = menuConfig.filter(item =>
         item.roles.some(role => currentUser.role.name.includes(role))
       );
+
+      const logout = () => {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      }
     
     return (
         <>
@@ -82,6 +87,22 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                         )
                     })}
                 </nav>
+                <div className="absolute bottom-0 w-full">
+                    <button
+                        onClick={logout}
+                        className={`flex items-center p-4 w-full transition-all
+                  hover:bg-red-700
+                  ${isOpen ? "justify-start" : "justify-center"} md:justify-start`}
+                    >
+                        <LogOut size={22} /> 
+                        <span className={`ml-4 whitespace-nowrap transition-all
+                  ${isOpen ? "opacity-100" : "opacity-0 w-0 overflow-hidden"}
+                  md:opacity-100 md:w-auto`}
+                        >
+                            Logout
+                        </span>
+                    </button>
+                </div>
             </div>
         </>
     )
