@@ -73,6 +73,11 @@ const InsuredList = ({insuredsData, onDelete}) => {
       {/* Assuré */}
       <td className="px-2 py-2 text-left">
         {item.firstName} {item.lastName}
+        {item.category && (
+          <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+            {item.category}
+          </span>
+        )}
       </td>
 
       {/* Téléphone */}

@@ -40,11 +40,11 @@ const columns = [
 ];
 
 
-const ClaimsList = () => {
+const ClaimsList = ({claims}) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const dispatch = useDispatch()
-  const { claims } = useSelector((state) => state.claim);
+  //const { claims } = useSelector((state) => state.claim);
 
   useEffect(() => {
     dispatch(getAllclaims())

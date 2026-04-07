@@ -8,6 +8,8 @@ import ClaimsList from '../../../components/ClaimsList';
 const ClaimsTab = ({currentInsured}) => {
   const claims = currentInsured?.claims || [];
   const navigate = useNavigate();
+
+ 
     if (!currentInsured) return null;
 
  
@@ -15,7 +17,7 @@ const ClaimsTab = ({currentInsured}) => {
     <div>
       {currentInsured.claims && currentInsured.claims.length > 0 ? (
       <div className="bg-white rounded-lg shadow p-6 mt-6">
-     
+     {  console.log("CURRENT INSURED CLAIMS", claims)}
 
       <ClaimsList claims={claims} />
     </div>

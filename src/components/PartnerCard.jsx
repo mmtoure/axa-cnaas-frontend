@@ -10,7 +10,7 @@ const PartnerCard = ({ partner }) => {
       <div className="flex justify-center mb-4">
         {partner.logoPartner ? (
           <img
-            src={`http://localhost:8080/api/v1.0${partner.logoPartner}`}
+            src={`http://localhost:8080/api/v1.0${partner?.logoPartner}`}
             alt={partner.name}
             className="h-20 object-contain"
           />

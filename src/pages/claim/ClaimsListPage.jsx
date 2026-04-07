@@ -34,7 +34,7 @@ const ClaimsListPage = () => {
               
               
               {claims && claims.length > 0 ? (
-                <ClaimsList />
+                <ClaimsList claims={claims} />
 
               ) :
               (

@@ -6,6 +6,7 @@ export const insuredSchema = z.object({
   dateOfBirth: z.string().min(1, "Date de naissance requise"),
   phoneNumber: z.string().min(9, "Téléphone invalide"),
   category: z.string().nullable(),
+  identityCardNumber: z.string().nullable(),
   
 
   beneficiary: z.object({

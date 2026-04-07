@@ -11,7 +11,7 @@ const DocumentsClaimsTab = ({ documents }) => {
   {documents.map(doc => (
     <FileViewer
       key={doc.id}
-      fileUrl={`${FILE_BASE}/claims/${doc.id}`}
+      fileUrl={`http://localhost:8080/api/v1.0${doc?.filePath}`}
       label={doc.type}
       fileName={doc.fileName}
       id={doc.id}

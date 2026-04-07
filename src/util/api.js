@@ -1,10 +1,13 @@
 import axios from "axios";
-//export const BASE_URL = "http://localhost:8080";
-export const BASE_URL = "http://172.20.90.39:8082";
+export const BASE_URL = "http://localhost:8080";
+//export const BASE_URL = "http://172.20.90.39:8082";
 
 
 export const API_BASE = `${BASE_URL}/api/v1.0`;
 export const FILE_BASE = `${BASE_URL}/api/files`;
+
+console.log("FILE_BASE", FILE_BASE);
+
 
 const api= axios.create({
     baseURL: API_BASE,

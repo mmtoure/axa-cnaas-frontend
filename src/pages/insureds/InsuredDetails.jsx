@@ -57,17 +57,17 @@ const InsuredDetails = () => {
         <div className="flex flex-col gap-3">
           <div className='mb-6'>
             <h2 className="text-2xl font-semibold">
-              {currentInsured.firstName} {currentInsured.lastName}
+              {currentInsured?.firstName} {currentInsured.lastName}
             </h2>
             <InfoRow
               icon={Phone}
               label="Téléphone"
-              value={currentInsured.phoneNumber}
+              value={currentInsured?.phoneNumber}
             />
             <InfoRow
               icon={User2}
               label="Créé par"
-              value={currentInsured.user.firstName+" "+currentInsured.user.lastName}
+              value={currentInsured?.user?.firstName+" "+currentInsured?.user?.lastName}
             />
             <InfoRow
               icon={Calendar}

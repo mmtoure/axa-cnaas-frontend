@@ -20,9 +20,14 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     
         if (!currentUser) return null;
     
-      const filteredMenu = menuConfig.filter(item =>
-        item.roles.some(role => currentUser.role.name.includes(role))
-      );
+      const filteredMenu = menuConfig.filter(item =>{
+        return (
+            item.roles?.some(role => currentUser.role.name.includes(role)) 
+            && item.partner?.some(partner => currentUser.partnerName.includes(partner))
+        )
+      }
+      )
+      
 
       const logout = () => {
         localStorage.removeItem("token");

@@ -12,6 +12,7 @@ import Modal from '../../components/Modal';
 import UsersList from '../../components/UsersList';
 import { useNavigate } from 'react-router-dom';
 import { PlusCircle } from 'lucide-react';
+import UserCard from '../../components/UserCard';
 
 
 
@@ -46,9 +47,11 @@ const UsersListPage = () => {
         </div>
 
         {/* Liste des utilisateurs */}
-        <div className='min-h-screen bg-white rounded-lg'>
-          <UsersList usersData={usersData} />
-        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  {usersData?.map((user) => (
+    <UserCard key={user.id} user={user} />
+  ))}
+</div>
       </div>
 
   )

@@ -4,14 +4,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getDocumentClaimById } from "../features/claimDocument/claimDocumentThunk";
 
-const FileViewer = ({ fileUrl, label, fileName, id }) => {
+const FileViewer = ({ fileUrl, label, fileName,}) => {
 
-    const dispatch = useDispatch();
-    const {claimDocument, loading, success, error} = useSelector((state)=>state.claimDocument)
-
-    useEffect(()=>{
-        dispatch(getDocumentClaimById(id))
-    },[dispatch,id])
 
   if (!fileUrl) {
     return (

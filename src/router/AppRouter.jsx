@@ -26,6 +26,7 @@ import InsuredPage from "../pages/insureds/InsuredPage"
 import PrivateLayout from "../layouts/PrivateLayout"
 import PrivateRoute from "../router/PrivateRoute"
 import UsersListPage from "../pages/user/UersListPage"
+import UserDetails from "../pages/user/UserDetails"
 import ClaimsListPage from "../pages/claim/ClaimsListPage"
 import CreateMultiClaim from "../pages/claim/CreateMultiClaim"
 import CreateUser from "../pages/user/CreateUser"
@@ -48,11 +49,13 @@ const AppRouter = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Login />} />
+          {/* Protected */}
           <Route element={<PrivateRoute />}>
             <Route element={<Layout />}>
-              {/* Protected */}
+              
               <Route path="/dashboard" element={<Home />} />
               <Route path="/reports" element={<Report />} />
+
               {/** Insureds routes */}
               <Route path="/insureds" element={<InsuredPage />} />
               <Route path="/insureds/create" element={<CreateInsured />} />
@@ -77,12 +80,11 @@ const AppRouter = () => {
               <Route path="/sinistres/create" element={<CreateMultiClaim />} />
               <Route path="/sinistres/:id" element={<ClaimDetails />} />
               <Route path="/sinistres/edit/:id" element={<ClaimEdit />} />
-
               <Route path="/agences" element={<Agences />} />
-
               <Route path="/login" element={<Login />} />
               <Route path="/users" element={<UsersListPage />} />
               <Route path="/users/create" element={<CreateUser />} />
+              <Route path="/users/:id" element={<UserDetails />} />
 
               {/** Partners routes */}
               <Route path="/partners" element={<PartnerListCard />} />

@@ -23,14 +23,16 @@ export const menuConfig = [
     label: 'Tableau de bord',
     path: '/dashboard',
     icon: LayoutDashboard,
-    roles: ["ADMIN", "MANAGER", "USER"]
+    roles: ["ADMIN", "MANAGER", "USER"],
+    partner: ["LG", "AXA", "CNAAS"]
   },
   {
     id: '02',
     label: 'Assurés',
     path: '/insureds',
     icon: User,
-    roles: ["ADMIN", "MANAGER", "USER"]
+    roles: ["ADMIN", "MANAGER", "USER"],
+    partner: ["LG", "AXA", "CNAAS"]
 
   },
   {
@@ -38,14 +40,17 @@ export const menuConfig = [
     label: 'Groupements',
     path: '/groups',
     icon: Boxes,
-    roles: ["ADMIN", "MANAGER", "USER"]
+    roles: ["ADMIN", "MANAGER", "USER"],
+    partner: ["AXA", "CNAAS"]
   },
   {
     id: '04',
     label: 'Contrats',
     path: '/contracts',
     icon: FolderCheckIcon,
-    roles: ["ADMIN", "MANAGER", "USER"]
+    roles: ["ADMIN", "MANAGER", "USER"],
+    partner: ["LG", "AXA", "CNAAS"]
+
   },
 
   {
@@ -53,7 +58,8 @@ export const menuConfig = [
     label: 'Sinistres',
     path: '/sinistres',
     icon: FileWarning ,
-    roles: ["ADMIN", "MANAGER", "USER"]
+    roles: ["ADMIN", "MANAGER", "USER"],
+    partner: ["LG", "AXA", "CNAAS"]
   },
 
   {
@@ -62,13 +68,15 @@ export const menuConfig = [
     path: '/users',
     icon: Users,
     roles: ['ADMIN', 'MANAGER'],
+    partner: ["LG", "AXA", "CNAAS"]
   },
   {
     id: '08',
     label: 'Partenaires',
     path: '/partners',
     icon: UserStar,
-    roles: ["ADMIN"]
+    roles: ["ADMIN"],
+     partner: ["LG", "AXA", "CNAAS"]
   },
 
   {
