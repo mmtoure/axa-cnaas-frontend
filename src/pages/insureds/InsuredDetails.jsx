@@ -67,7 +67,7 @@ const InsuredDetails = () => {
             <InfoRow
               icon={User2}
               label="Créé par"
-              value={currentInsured?.user?.firstName+" "+currentInsured?.user?.lastName}
+              value={currentInsured?.createdBy?.firstName+" "+currentInsured?.createdBy?.lastName}
             />
             <InfoRow
               icon={Calendar}

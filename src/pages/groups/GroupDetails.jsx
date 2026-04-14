@@ -60,6 +60,12 @@ const GroupDetails = () => {
             value={group.phoneNumber}
           />
 
+               <InfoRow
+            icon={Users2}
+            label="Créé par"
+            value={group.createdBy?.firstName + " " + group.createdBy?.lastName}
+          />
+
 
           <InfoRow
             icon={Users2}

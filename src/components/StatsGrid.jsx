@@ -9,8 +9,11 @@ import { User } from 'lucide-react'
 import { Users2 } from 'lucide-react'
 import { UserLock } from 'lucide-react'
 import { XCircle } from 'lucide-react'
+import { selectCurrentUser } from '../features/auth/authSelectors'
+import { useSelector } from 'react-redux'
 
 const StatsGrid = ({data}) => {
+  const currentUser = useSelector(selectCurrentUser)
   return (
       <div className="p-2 space-y-4">
             <div className="grid md:grid-cols-3 gap-6">
@@ -20,13 +23,16 @@ const StatsGrid = ({data}) => {
                 icon={User2}
                 color="bg-blue-100 text-blue-600"
               />
-        
+             {
+              currentUser?.partnerName==="CNAAS" && (
               <KpiCard
                 title="Total Groupements"
                   value={data?.nbGroups}
                 icon={Users2}
                 color="bg-red-100 text-red-600"
               />
+              )}
+            
               <KpiCard
                 title="Total Sinistres"
                 value={data?.openClaims}
