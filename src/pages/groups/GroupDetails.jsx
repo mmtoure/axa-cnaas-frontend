@@ -17,12 +17,15 @@ import { UserPlus } from 'lucide-react';
 import { Users2 } from 'lucide-react';
 import { Calendar } from 'lucide-react';
 import { ArrowLeft } from 'lucide-react';
-import { ArrowLeftCircle } from 'lucide-react';
+import { ArrowLeftCircle, Folder } from 'lucide-react';
+import ProofpaymentTab from './tabs/ProofPaymentTab';
+
 
 
 const tabs = [
   { key: "insureds", label: "Liste des assurés", icon: Users },
   { key: "contract", label: "Contrat", icon: FileText },
+  { key: "proofPayment", label: "Preuve paiement", icon: Folder },
 ];
 const GroupDetails = () => {
   const { id } = useParams();
@@ -109,6 +112,10 @@ const GroupDetails = () => {
       {activeTab === "contract" && (
         <ContractTab group={group} />
       )}
+       {activeTab === "proofPayment" && (
+        <ProofpaymentTab group={group} />
+      )}
+
 
     </div>
 

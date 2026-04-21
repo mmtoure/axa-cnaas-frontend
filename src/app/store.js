@@ -9,6 +9,8 @@ import claimDocumentReducer from '../features/claimDocument/claimDocumentSlice'
 import partnerReducer from '../features/partner/partnerSlice'
 import pricingReducer from '../features/partnerPricing/partnerPricingSlice'
 import dashboardReducer from "../features/dashboard/dashboardSlice";
+import zoneReducer from "../features/zone/zoneSlice";
+import agenceReducer from "../features/agence/agenceSlice";
 
 
 
@@ -25,6 +27,8 @@ export const store = configureStore({
         partner: partnerReducer,
         pricing: pricingReducer,
         dashboard: dashboardReducer,
+        zone: zoneReducer,
+        agence: agenceReducer,
 
         
     }

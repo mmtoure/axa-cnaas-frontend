@@ -22,8 +22,30 @@ export const userSchema = z.object({
     .email("Email invalide"),
     
   partnerId: z
-    .string()
-    .min(1, "Partenaire requis")
-    .transform((val) =>Number(val)),
-  roleName: z.enum(["MANAGER", "USER"]),
+  .string()
+  .nullable()
+  .transform((val) => {
+    if (!val) return null;
+    const num = Number(val);
+    return isNaN(num) ? null : num;
+  }),
+  zoneId: z
+  .string()
+  .nullable()
+  .transform((val) => {
+    if (!val) return null;
+    const num = Number(val);
+    return isNaN(num) ? null : num;
+  }),
+
+  agenceId: z
+  .string()
+  .nullable()
+  .transform((val) => {
+    if (!val) return null;
+    const num = Number(val);
+    return isNaN(num) ? null : num;
+  }),
+    
+  roleName: z.enum(["ADMIN", "MANAGER", "USER"]),
 });

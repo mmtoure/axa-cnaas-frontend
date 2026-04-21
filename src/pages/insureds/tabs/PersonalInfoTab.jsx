@@ -9,6 +9,7 @@ import { User2 } from "lucide-react";
 import { UserIcon } from "lucide-react";
 import { UserCircle2 } from "lucide-react";
 import { formatDate } from "../../../util/helper";
+import { Folder } from "lucide-react";
 
 const PersonalInfoTab = ({ insured }) => {
   const beneficiary = insured?.beneficiary;
@@ -23,6 +24,8 @@ const PersonalInfoTab = ({ insured }) => {
           <h2 className="text-sm font-semibold text-gray-700">
             Informations de l’assuré
           </h2>
+
+          <hr className="mt-2 border-gray-200" />
         </div>
 
         <InfoRow
@@ -42,14 +45,15 @@ const PersonalInfoTab = ({ insured }) => {
           label="Date de naissance"
           value={formatDate(insured.dateOfBirth)}
         />
-      </div>
 
-      {/* Bénéficiaire */}
-      <div className="bg-white rounded-lg  p-5">
-        <h2 className="text-sm font-semibold text-gray-700 mb-4">
-          🤝 Informations du bénéficiaire
-        </h2>
-
+        {/* Bénéficiaire */}
+     
+        <div className="flex items-center justify-content gap-1 mt-4 mb-4">
+          <User2 className="w-4 h-4"/>
+          <h2 className="text-sm font-semibold text-gray-700">
+            Informations de l’assuré
+          </h2>
+        </div>
         {beneficiary ? (
           <>
             <InfoRow
@@ -57,7 +61,6 @@ const PersonalInfoTab = ({ insured }) => {
               label="Nom complet"
               value={`${beneficiary.firstName} ${beneficiary.lastName}`}
             />
-
             <InfoRow
               icon={Phone}
               label="Téléphone"
@@ -69,14 +72,35 @@ const PersonalInfoTab = ({ insured }) => {
               label="Date de naissance"
               value={formatDate(beneficiary.dateOfBirth)}
             />
-
-            
           </>
         ) : (
           <p className="text-sm text-gray-400 italic">
             Aucun bénéficiaire enregistré
           </p>
         )}
+      
+      </div>
+       {/* Logo */}
+      <div className="bg-white rounded-lg p-5">
+         <div className="flex items-center justify-content gap-1 mb-4">
+          <Folder className="w-4 h-4"/>
+          <h2 className="text-sm font-semibold text-gray-700">
+              Preuve de paiement
+          </h2>
+
+          <hr className="mt-2 border-gray-200" />
+        </div>
+        {insured.proofPayment ? (
+          <img
+            src={`http://localhost:8080/api/v1.0${insured.proofPayment}`}
+            alt="Proof of Payment"
+            className="w-full object-cover"
+          />
+        ) : (
+          <p className="text-sm text-gray-400 italic">
+            Aucun justificatif de paiement fourni
+          </p>
+        ) }
       </div>
     </div>
   );

@@ -48,8 +48,8 @@ export const menuConfig = [
     label: 'Contrats',
     path: '/contracts',
     icon: FolderCheckIcon,
-    roles: ["ADMIN", "MANAGER", "USER"],
-    partner: ["LG", "AXA", "CNAAS"]
+    roles: ["SUPER_ADMIN","ADMIN", "MANAGER", "USER"],
+
 
   },
 
@@ -58,8 +58,8 @@ export const menuConfig = [
     label: 'Sinistres',
     path: '/sinistres',
     icon: FileWarning ,
-    roles: ["ADMIN", "MANAGER", "USER"],
-    partner: ["LG", "AXA", "CNAAS"]
+    roles: ["SUPER_ADMIN","ADMIN", "MANAGER", "USER"],
+  
   },
 
   {
@@ -68,15 +68,15 @@ export const menuConfig = [
     path: '/users',
     icon: Users,
     roles: ['ADMIN', 'MANAGER'],
-    partner: ["LG", "AXA", "CNAAS"]
+
   },
   {
     id: '08',
     label: 'Partenaires',
     path: '/partners',
     icon: UserStar,
-    roles: ["ADMIN"],
-     partner: ["LG", "AXA", "CNAAS"]
+    roles: ["SUPER_ADMIN"],
+  
   },
 
   {
@@ -84,7 +84,17 @@ export const menuConfig = [
     label: 'Agences',
     path: '/agences',
     icon: Home,
-    roles: ["ADMIN"]
+    roles: ["SUPER_ ADMIN","ADMIN", "MANAGER"],
+
+  },
+
+    {
+    id: '09',
+    label: 'Zones',
+    path: '/zones',
+    icon: Home,
+    roles: ["SUPER_ADMIN", "ADMIN"],
+   
 
   },
 
@@ -93,6 +103,6 @@ export const menuConfig = [
     label: 'Paramètres',
     path: '/parametres',
     icon: Settings,
-    roles: ["ADMIN"]
+    roles: ["SUPER_ADMIN"],
   },
 ];

@@ -85,8 +85,6 @@ const CreatePartner = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <fieldset disabled={loading} className="space-y-6">
               <div className="flex flex-col gap-4">
-
-
                 {/* ================== ASSURÉ ================== */}
                 <div className="bg-white rounded-lg shadow p-6 ">
                   <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>

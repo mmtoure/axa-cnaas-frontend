@@ -86,29 +86,8 @@ const UserCard = ({ user }) => {
         </div>
       </div>
 
-      <hr className="my-1 h-[2px] bg-gradient-to-r from-transparent via-gray-300 to-transparent border-0" />
-      {/* Statistics */}
-      <div className="flex items-center justify-between gap-2">
-        <div className="flex flex-col items-center gap-1">
-          <span className='text-sm text-gray-500 text-center font-semibold'>17</span>
-          <span className='text-sm text-gray-500'>Assurés</span>
-        </div>
-        <div className="flex flex-col items-center gap-1">
-          <span className='text-sm text-gray-500 text-center font-semibold'>3</span>
-          <span className='text-sm text-gray-500'>Groupements</span>
-        </div>
-        <div className="flex flex-col items-center gap-1">
-          <span className='text-sm text-gray-500 text-center font-semibold'>19</span>
-          <span className='text-sm text-gray-500' >Sinistres</span>
-        </div>
-
-       
-      </div>
-
-
-      {/* Footer */}
-      
-
+     
+      {/* Action */}
         <button
           onClick={() => navigate(`/users/${user.id}`)}
           className="text-sm bg-white border border-blue-900 text-blue-900 px-3 py-3 rounded hover:bg-blue-900 hover:text-white transition-colors w-full flex items-center justify-center gap-2"

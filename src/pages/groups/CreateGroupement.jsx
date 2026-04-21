@@ -14,6 +14,8 @@ import { toast } from 'react-toastify';
 import * as XLSX from "xlsx";
 import { cleanRow, validateRow } from '../../util/excelUtils';
 import { LoaderCircle } from 'lucide-react';
+import UploadField from '../../components/UplaodFile';
+import { FileText,Folder } from 'lucide-react';
 
 const CreateGroupement = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -22,6 +24,7 @@ const CreateGroupement = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [errorExcel, setErrorExcel] = useState([])
+    const [fileProofPayment, setFileProofPayment] = useState(null);
 
   const onSubmit = async (data) => {
     console.log("DATA", data);
@@ -37,7 +40,7 @@ const CreateGroupement = () => {
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const rows = XLSX.utils.sheet_to_json(sheet, { defval: "", raw: false });
     const cleaned = [];
-    
+
     rows.forEach((row, index) => {
       const clean = cleanRow(row);
       const error = validateRow(clean, index);
@@ -51,6 +54,9 @@ const CreateGroupement = () => {
       return;
     }
     const formData = new FormData();
+    if(fileProofPayment){
+      formData.append("proofPayment", fileProofPayment)
+    }
 
     formData.append(
       "group",
@@ -67,7 +73,6 @@ const CreateGroupement = () => {
     try {
       console.log("creation assuré", data);
       dispatch(createGroup(formData))
-
     } catch (err) {
       alert("Erreur lors de la création", err.message);
     }
@@ -94,95 +99,121 @@ const CreateGroupement = () => {
       </p>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <fieldset disabled={loading} className="space-y-6">
-          <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* ================== Groupement ================== */}
+            <div className="w-full bg-opacity-95 backdrop-blur-sm my-2">
+              <div className="bg-white rounded-lg shadow p-6 ">
+                <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>
+                  <User2 className='w-4 h-4' />
+                  <h2 className="text-gray-500 text-lg font-semibold">
+                    Informations Assuré:
+                  </h2>
+                </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <Input
+                    label="Nom Groupement:"
+                    placeholder="Nom Groupement:"
+                    {...register("name")}
+                    error={errors.name?.message}
+                  />
+                  <Input
+                    label="Téléphone:"
+                    placeholder="Téléphone"
+                    {...register("phoneNumber")}
+                    error={errors.phoneNumber?.message}
+                  />
+                </div>
 
-            {/* ================== ASSURÉ ================== */}
-            <div className="bg-white rounded-lg shadow p-6 ">
-              <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>
-                <User2 className='w-4 h-4' />
-                <h2 className="text-gray-500 text-lg font-semibold">
-                  Informations du groupement:
-                </h2>
-              </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <Input
+                    label="Prénom Représentant:"
+                    placeholder="Prénom du représentant"
+                    {...register("firstName")}
+                    error={errors.firstName?.message}
+                  />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                <Input
-                  label="Nom Groupement:"
-                  placeholder="Nom Groupement:"
-                  {...register("name")}
-                  error={errors.name?.message}
-                />
-                <Input
-                  label="Téléphone:"
-                  placeholder="Téléphone"
-                  {...register("phoneNumber")}
-                  error={errors.phoneNumber?.message}
-                />
-              </div>
+                  <Input
+                    label="Nom Représentant:"
+                    placeholder="Nom du représentant"
+                    {...register("lastName")}
+                    error={errors.lastName?.message}
+                  />
+                </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                <Input
-                  label="Prénom Représentant:"
-                  placeholder="Prénom du représentant"
-                  {...register("firstName")}
-                  error={errors.firstName?.message}
-                />
-
-                <Input
-                  label="Nom Représentant:"
-                  placeholder="Nom du représentant"
-                  {...register("lastName")}
-                  error={errors.lastName?.message}
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                <Input
-                  label="Date de naissance Représentant:"
-                  placeholder="Date de naissance"
-                  type="date"
-                  {...register("dateOfBirth")}
-                  error={errors.dateOfBirth?.message}
-                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <Input
+                    label="Date de naissance Représentant:"
+                    placeholder="Date de naissance"
+                    type="date"
+                    {...register("dateOfBirth")}
+                    error={errors.dateOfBirth?.message}
+                  />
+                </div>
               </div>
             </div>
 
-            {/* ================== BÉNÉFICIAIRE ================== */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>
-                <User2 className='w-4 h-4' />
-                <h2 className="text-gray-500 text-lg font-semibold">
-                  Groupement
-                </h2>
-              </div>
+            <div className="w-full flex flex-col gap-2">
+              {/* ================== Excel file ================== */}
+              <div className="w-full bg-opacity-95 backdrop-blur-sm my-2">
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                <Input
-                  type="file"
-                  accept=".xls,.xlsx"
-                  onChange={(e) => {
-                    const selectedFile = e.target.files?.[0];
-                    if (selectedFile) {
-                      setFile(selectedFile); // 🔐 fichier sécurisé
-                    }
-                  }}
-                  error={errors.file?.message}
-                />
-
-                {errorExcel.length > 0 && (
-                  <div className="bg-red-50 p-2 text-red-700 text-sm">
-                    <h4>Erreurs Excel :</h4>
-                    {errorExcel.map((e, i) => (
-                      <p key={i}>
-                        Ligne {e.line} : {e}
-                      </p>
-                    ))}
+                <div className="bg-white rounded-lg shadow p-6">
+                  <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>
+                    <Folder className='w-4 h-4' />
+                    <h2 className="text-gray-500 text-lg font-semibold">
+                      Téléverser la liste des assurés:
+                    </h2>
                   </div>
-                )}
-              </div>
-            </div>
+                  <div className="">
+                    <Input
+                      type="file"
+                      accept=".xls,.xlsx"
+                      onChange={(e) => {
+                        const selectedFile = e.target.files?.[0];
+                        if (selectedFile) {
+                          setFile(selectedFile)
+                        }
+                      }}
+                      error={errors.file?.message}
+                    />
 
+                    {errorExcel.length > 0 && (
+                      <div className="bg-red-50 p-2 text-red-700 text-sm">
+                        <h4>Erreurs Excel :</h4>
+                        {errorExcel.map((e, i) => (
+                          <p key={i}>
+                            Ligne {e.line} : {e}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* ================== PREUVE DE PAIEMENT ================== */}
+              <div className="w-full bg-white rounded-lg shadow p-6">
+                <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>
+                  <FileText className='w-4 h-4' />
+                  <h2 className="text-gray-500 text-lg font-semibold">
+                    Preuve de paiement:
+                  </h2>
+                </div>
+                <div>
+                  <UploadField
+                    key={"paymentProof"}
+                    label={"Preuve de paiement (jpg, jpeg, png)"}
+                    accept=".jpg,.jpeg,.png"
+                    file={fileProofPayment}
+                    onChange={(fileProofPayment) =>
+                      setFileProofPayment(fileProofPayment)
+                    }
+                    error={errors?.documents?.["paymentProof"]?.message}
+                  />
+                </div>
+              </div>
+
+            </div>
           </div>
           {/* ================== ACTION ================== */}
           <div className="flex justify-end gap-4">
@@ -208,6 +239,7 @@ const CreateGroupement = () => {
         </fieldset>
       </form>
     </div>
+
   )
 }
 

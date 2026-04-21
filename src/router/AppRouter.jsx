@@ -41,6 +41,14 @@ import Report from "../pages/Report"
 import Layout from "../layouts/Layout"
 import Login from "../pages/Login"
 import Home from "../pages/Home"
+import ZoneList from "../pages/zones/ZoneList"
+import ZonesCreate from "../pages/zones/ZonesCreate"
+import ZoneDetails from "../pages/zones/ZoneDetails"
+import ZoneEdit from "../pages/zones/ZoneEdit"
+import AgenceList from "../pages/agences/AgenceList"
+import AgenceDetails from "../pages/agences/AgenceDetails"
+import AgenceEdit from "../pages/agences/AgenceEdit"
+import AgencesCreate from "../pages/agences/AgencesCreate"
 
 const AppRouter = () => {
   return (
@@ -80,7 +88,7 @@ const AppRouter = () => {
               <Route path="/sinistres/create" element={<CreateMultiClaim />} />
               <Route path="/sinistres/:id" element={<ClaimDetails />} />
               <Route path="/sinistres/edit/:id" element={<ClaimEdit />} />
-              <Route path="/agences" element={<Agences />} />
+            
               <Route path="/login" element={<Login />} />
               <Route path="/users" element={<UsersListPage />} />
               <Route path="/users/create" element={<CreateUser />} />
@@ -92,6 +100,18 @@ const AppRouter = () => {
               <Route path="/partners/:id" element={<PartnerDetails />} />
               <Route path="/partners/:id/pricings/create" element={<CreatePricings />} />
               <Route path="/parametres" element={<Parametres />} />
+
+              {/*Zones routes */}
+              <Route path="/zones" element={<ZoneList />} />
+              <Route path="/zones/create" element={<ZonesCreate />} />
+              <Route path="/zones/:id" element={<ZoneDetails />} />
+              <Route path="/zones/edit/:id" element={<ZoneEdit />} /> 
+
+              {/* Agences routes */}
+              <Route path="/agences" element={<AgenceList />} />
+              <Route path="/agences/create" element={<AgencesCreate />} />
+              <Route path="/agences/:id" element={<AgenceDetails />} />
+              <Route path="/agences/edit/:id" element={<AgenceEdit />} />
             </Route>
           </Route>
         </Routes>
