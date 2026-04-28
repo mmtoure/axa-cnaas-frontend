@@ -69,7 +69,6 @@ const AgenceList = () => {
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {agences.map((agence) => (
           <AgenceCard key={agence.id} agence={agence}/>  
-
         ))}
       </div>
     </div>

@@ -49,6 +49,8 @@ import AgenceList from "../pages/agences/AgenceList"
 import AgenceDetails from "../pages/agences/AgenceDetails"
 import AgenceEdit from "../pages/agences/AgenceEdit"
 import AgencesCreate from "../pages/agences/AgencesCreate"
+import ChangerPassword from "../components/ChangerPassword"
+import UpdateUser from "../pages/user/UpdateUser"
 
 const AppRouter = () => {
   return (
@@ -93,6 +95,8 @@ const AppRouter = () => {
               <Route path="/users" element={<UsersListPage />} />
               <Route path="/users/create" element={<CreateUser />} />
               <Route path="/users/:id" element={<UserDetails />} />
+              <Route path="/users/update/:id" element={<UpdateUser />} />
+              <Route path="/users/change-password/:id" element={<ChangerPassword />} />
 
               {/** Partners routes */}
               <Route path="/partners" element={<PartnerListCard />} />
@@ -105,6 +109,7 @@ const AppRouter = () => {
               <Route path="/zones" element={<ZoneList />} />
               <Route path="/zones/create" element={<ZonesCreate />} />
               <Route path="/zones/:id" element={<ZoneDetails />} />
+              <Route path="/zones/:id/agences/create" element={<AgencesCreate />} />
               <Route path="/zones/edit/:id" element={<ZoneEdit />} /> 
 
               {/* Agences routes */}

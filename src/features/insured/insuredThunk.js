@@ -9,9 +9,11 @@ export const createInsured = createAsyncThunk(
     try {
       const res = await api.post("/insureds",insuredData)
       console.log("create insured success",res.data);
+    
       return res.data
       
     } catch (error) {
+      console.error("Error in createInsured thunk:", error);
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message)
       } else {

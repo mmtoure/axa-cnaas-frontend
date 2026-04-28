@@ -1,4 +1,4 @@
-import { loginUser } from "./authThunk";
+import { changePassword, getUserById, loginUser } from "./authThunk";
 import { createSlice } from "@reduxjs/toolkit";
 
 
@@ -36,6 +36,32 @@ const authSlice = createSlice({
             .addCase(loginUser.rejected, (state, action)=>{
                 state.loading = false;
                 state.error = action.payload?.message || "Login failed";
+            })
+
+            // getUserById cases
+            .addCase(getUserById.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(getUserById.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(getUserById.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload?.message || "Failed to fetch user";
+            })
+
+            //change password cases can be added here
+            .addCase(changePassword.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(changePassword.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(changePassword.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload?.message || "Failed to change password";
             })
 
     }

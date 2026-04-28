@@ -11,6 +11,8 @@ import StatusBadge from "./StatusBadge";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { deleteAgence, getAgences } from "../features/agence/agenceThunk";
+import { useSelector } from "react-redux";
+import { getUserById } from "../features/auth/authThunk";
 
 
 
@@ -20,7 +22,14 @@ const AgenceCard = ({ agence }) => {
   const menuRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+   const {user} = useSelector((state) => state.auth)
 
+
+
+
+  useEffect(() => {
+    dispatch(getUserById(agence.chefAgenceId));
+  }, [dispatch, agence.chefAgenceId]);
 
    useEffect(() => {
 
@@ -103,13 +112,9 @@ const AgenceCard = ({ agence }) => {
           {agence.name}
         </h2>
         <p className="text-sm text-gray-500">
-          Responsable : {agence.firstName} {agence.lastName}
+          Chef d'agence : {user?.firstName} {user?.lastName}
         </p>
       </div>
-
-     
-
-
       {/* Action */}
       <div className="mt-6 flex items-center justify-center">
         <button className="w-full bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-700 transition"

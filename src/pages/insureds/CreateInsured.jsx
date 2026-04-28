@@ -18,6 +18,8 @@ import { useState } from 'react';
 import { da, id } from 'zod/locales';
 import UploadField from '../../components/UplaodFile';
 import { FileText } from 'lucide-react';
+import { getAgences } from '../../features/agence/agenceThunk';
+
 
 const categories = [
   // TELEVISIONS
@@ -74,6 +76,7 @@ const CreateInsured = () => {
     category: null,
   });
   const [file, setFile] = useState(null);
+  const {agences} = useSelector((state) => state.agence);
 
   const {
     register,
@@ -88,6 +91,7 @@ const CreateInsured = () => {
       dateOfBirth: "",
       phoneNumber: "",
       category: null,
+      agenceId: null,
       identityCardNumber: null,
       beneficiary: {
         firstName: "",
@@ -115,7 +119,10 @@ const CreateInsured = () => {
     }
     try {
       data.category = formData.category;
-      dispatch(createInsured(formData))
+      data.agenceId = parseInt(data.agenceId);
+
+      console.log("creation assuré", data);
+      await dispatch(createInsured(formData))
         .unwrap()
         .then(() => {
           toast.success("Assuré créé avec succès");
@@ -123,13 +130,24 @@ const CreateInsured = () => {
           reset()
         })
         .catch((err) => {
-          toast.error(err.message);
+          console.error(err);
+
+  toast.error(
+    err ||
+    err?.message ||
+    err?.response?.data?.message ||
+    "Erreur lors de la création de l'assuré"
+  );
         });
     } catch (err) {
       alert("Erreur lors de la création", err.message);
     }
 
   };
+
+  useEffect(() => {
+    dispatch(getAgences());
+  }, [dispatch])
 
 
   return (
@@ -145,9 +163,10 @@ const CreateInsured = () => {
         <fieldset disabled={loading} className="space-y-6">
 
           <div className="flex flex-col gap-4">
+            <div className="w-full flex gap-2">
             {/* ================== ASSURÉ ================== */}
-            <div className="w-full md:w-2/3 bg-opacity-95 backdrop-blur-sm my-4">
-              <div className="bg-white rounded-lg shadow p-6 ">
+           <div className="w-2/3 bg-white rounded-lg shadow p-6">
+              
                 <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>
                   <User2 className='w-4 h-4' />
                   <h2 className="text-gray-500 text-lg font-semibold">
@@ -183,26 +202,60 @@ const CreateInsured = () => {
                     error={errors.phoneNumber?.message}
                   />
                 </div>
-                {user?.partnerName === "LG" && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <Input
-                      label="N° CNI:"
-                      placeholder="N° de la carte d'identité"
-                      {...register("identityCardNumber")}
-                      error={errors.identityCardNumber?.message}
-                    />
-                    <SearchSelect
-                      placeholder="Sélectionner un produit"
-                      data={categories}
-                      onSelect={(category) =>
-                        setFormData((prev) => ({ ...prev, category }))
-                      }
-                    />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                
+                  {user && user?.role?.name === "ADMIN" && (
+                      <div className="w-full">
+                    <label className="block text-sm text-gray-500 mb-1">
+                      Selectionner l'agence:
+                    </label>
+                    <select name="agences" id="agences"
+                      {...register("agenceId")}
+                      className="w-full text-sm border border-gray-300 rounded-md px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option key="value" value="">
+                        -- Sélectionner --
+                      </option>
+                      {agences.map((agence) => (
+                        <option key={agence.id} value={agence.id}>
+                          {agence.id} - {agence.name}
+                        </option>
+
+                      ))}
+
+                    </select>
+                    {errors.agenceId && (
+                      <p className="text-xs text-red-600 mt-1">{errors.agenceId.message}</p>
+                    )}
                   </div>
-                )}
-              </div>
+                  )}
+               
+                </div>
             </div>
 
+              {/* ================== PREUVE DE PAIEMENT ================== */}
+              <div className="w-1/3 bg-white rounded-lg shadow p-6">
+                <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>
+                  <FileText className='w-4 h-4' />
+                  <h2 className="text-gray-500 text-lg font-semibold">
+                    Preuve de paiement:
+                  </h2>
+                </div>
+                <div>
+                  <UploadField
+                    key={"paymentProof"}
+                    label={"Preuve de paiement (jpg, jpeg, png)"}
+                    accept=".jpg,.jpeg,.png"
+                    file={file}
+                    onChange={(file) =>
+                      setFile(file)
+                    }
+                    error={errors?.documents?.["paymentProof"]?.message}
+                  />
+                </div>
+              </div>
+           </div>
 
             <div className="w-full flex gap-2">
               {/* ================== BÉNÉFICIAIRE ================== */}
@@ -243,27 +296,7 @@ const CreateInsured = () => {
                   />
                 </div>
               </div>
-              {/* ================== PREUVE DE PAIEMENT ================== */}
-              <div className="w-1/3 bg-white rounded-lg shadow p-6">
-                <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>
-                  <FileText className='w-4 h-4' />
-                  <h2 className="text-gray-500 text-lg font-semibold">
-                    Preuve de paiement:
-                  </h2>
-                </div>
-                <div>
-                  <UploadField
-                    key={"paymentProof"}
-                    label={"Preuve de paiement (jpg, jpeg, png)"}
-                    accept=".jpg,.jpeg,.png"
-                    file={file}
-                    onChange={(file) =>
-                      setFile(file)
-                    }
-                    error={errors?.documents?.["paymentProof"]?.message}
-                  />
-                </div>
-              </div>
+      
             </div>
 
           </div>

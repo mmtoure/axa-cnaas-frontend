@@ -3,7 +3,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Input from '../../components/Input'
 import { toast } from 'react-toastify'
 import { agenceSchema } from '../../validations/agenceSchema'
@@ -20,8 +20,13 @@ const AgencesCreate = () => {
   const { loading, success, error } = useSelector((state) => state.agence)
   const { zones } = useSelector((state) => state.zone)
   const currentUser = useSelector(selectCurrentUser);
-  const {users} = useSelector((state) => state.user)
+  const { users } = useSelector((state) => state.user)
+  const { id } = useParams();
+  const zone = zones.find((z) => z.id === parseInt(id));
+  console.log("Zone:", zone);
 
+
+  console.log("Zone ID:", id);
 
   useEffect(() => {
     dispatch(getZones());
@@ -36,6 +41,7 @@ const AgencesCreate = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm({
     resolver: zodResolver(agenceSchema),
     defaultValues: {
@@ -45,14 +51,24 @@ const AgencesCreate = () => {
     },
   });
 
+  useEffect(() => {
+    if (id) {
+      setValue("zoneId", id);
+    }
+  }, [id]);
+
   const onSubmit = async (data) => {
     console.log("creation agence", data);
+    if (zone) {
+      data.zoneId = zone.id;
+    }
+
     //dispatch createAgence
     dispatch(createAgence(data))
       .unwrap()
       .then(() => {
         toast.success("Agence créée avec succès");
-        navigate("/agences");
+        navigate(`/zones/${data.zoneId}`);
         reset()
       })
       .catch((err) => {
@@ -68,7 +84,7 @@ const AgencesCreate = () => {
       <p className="text-sm text-slate-700 mb-6">
         Entrer les informations pour la création d'une région
       </p>
-      <div className="w-full md:w-2/3 bg-opacity-95 backdrop-blur-sm my-4">
+      <div className="w-full bg-opacity-95 backdrop-blur-sm my-4">
         <form onSubmit={handleSubmit(onSubmit)}>
           <fieldset className="space-y-6">
             <div className="flex flex-col gap-4">
@@ -80,7 +96,7 @@ const AgencesCreate = () => {
                     Informations de la région:
                   </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
                   <Input
                     label="Nom Région:"
                     placeholder="Nom Région"
@@ -89,31 +105,32 @@ const AgencesCreate = () => {
                   />
 
                   <div className="w-full">
-
                     <label className="block text-sm text-gray-500 mb-1">
-                      Choisir une région:
+                      Selectionner la zone:
                     </label>
-                    <select name="zones" id="zones"
-                      {...register("zoneId")}
-                      className="w-full text-sm border border-gray-300 rounded-md px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option key="value" value="">
-                        -- Sélectionner --
-                      </option>
-                      {zones.map((zone) => (
-                        <option key={zone.id} value={zone.id}>
-                          {zone.id} - {zone.name}
-                        </option>
-                      ))}
+                  <select
+                    {...register("zoneId")}
+                    disabled={!!id}
+                    className={`
+                      w-full text-sm border rounded-md px-3 py-3 focus:outline-none
+                      ${id 
+                        ? "bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200" 
+                        : "border-gray-300 focus:ring-2 focus:ring-blue-500"
+                      }
+                    `}
+                  >
+                  <option value="">Sélectionner une zone</option>
 
-
-                    </select>
-                    {errors.zoneId && (
-                      <p className="text-xs text-red-600 mt-1">{errors.zoneId.message}</p>
-                    )}
+                  {zones.map((z) => (
+                    <option key={z.id} value={z.id}>
+                      {z.id} - {z.name}
+                    </option>
+                  ))}
+                </select>
                   </div>
 
-                   <div className="w-full">
+
+                  <div className="w-full">
                     <label className="block text-sm text-gray-500 mb-1">
                       Selectionner le chef d'agence:
                     </label>
@@ -125,12 +142,10 @@ const AgencesCreate = () => {
                         -- Sélectionner --
                       </option>
                       {chefAgences.map((user) => (
-                        
+                        <option key={user.id} value={user.id}>
+                          {user.id} - {user.firstName} {user.lastName}
+                        </option>
 
-                          <option key={user.id} value={user.id}>
-                            {user.id} - {user.firstName} {user.lastName}
-                          </option>
-                        
                       ))}
 
                     </select>

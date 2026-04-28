@@ -40,7 +40,7 @@ const ZonesCreate = () => {
   const onSubmit = async (data) => {
     console.log("creation zone", data);
     //dispatch createZone
-    dispatch(createZone(data))
+    await dispatch(createZone(data))
       .unwrap()
       .then(() => {
         toast.success("Zone créée avec succès");
@@ -48,7 +48,8 @@ const ZonesCreate = () => {
         reset()
       })
       .catch((err) => {
-        toast.error(err.message);
+        console.log("Error creating zone:", err.error || err.response?.data?.message || err);
+        toast.error(err);
       });
   }
 
@@ -60,7 +61,7 @@ const ZonesCreate = () => {
       <p className="text-sm text-slate-700 mb-6">
         Entrer les informations pour la création d'une zone
       </p>
-      <div className="w-full md:w-2/3 bg-opacity-95 backdrop-blur-sm my-4">
+      <div className="w-full bg-opacity-95 backdrop-blur-sm my-4">
         <form onSubmit={handleSubmit(onSubmit)}>
           <fieldset className="space-y-6">
             <div className="flex flex-col gap-4">
@@ -72,7 +73,7 @@ const ZonesCreate = () => {
                     Informations de la zone:
                   </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
                   <Input
                     label="Nom Zone:"
                     placeholder="Nom Zone"

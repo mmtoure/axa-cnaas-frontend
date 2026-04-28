@@ -23,8 +23,6 @@ export const createUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'auth/login',
   async ({email, password}, { rejectWithValue }) => {
-    
-    
     try {
       const res = await api.post("/login",{email, password})
       console.log("login success",res.data);
@@ -47,5 +45,31 @@ export const loginUser = createAsyncThunk(
       });
     }
   }
-
 )
+
+  // get user by id
+  export const getUserById = createAsyncThunk(
+    'auth/getUserById',
+    async (userId, { rejectWithValue }) => {
+      try {
+        const res = await api.get(`/users/${userId}`);
+        return res.data;
+      } catch (error) {
+        return rejectWithValue(error.message || "Failed to fetch user");
+      }
+    }
+  );
+
+  // change password
+  export const changePassword = createAsyncThunk(
+    'auth/changePassword',
+    async ({ id, ...data }, { rejectWithValue }) => {
+      try {
+        console.log("Changing password for user ID:", id, "with data:", data);
+        const res = await api.put(`/users/change-password/${id}`, data);
+        return res.data;
+      } catch (error) {
+        return rejectWithValue(error.message || "Failed to change password");
+      }
+    }
+  );

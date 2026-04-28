@@ -15,7 +15,10 @@ import * as XLSX from "xlsx";
 import { cleanRow, validateRow } from '../../util/excelUtils';
 import { LoaderCircle } from 'lucide-react';
 import UploadField from '../../components/UplaodFile';
-import { FileText,Folder } from 'lucide-react';
+import { FileText, Folder } from 'lucide-react';
+import { getAgences } from '../../features/agence/agenceThunk';
+import { getAllUsers } from '../../features/user/userThunk';
+import { selectCurrentUser } from '../../features/auth/authSelectors';
 
 const CreateGroupement = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -24,7 +27,10 @@ const CreateGroupement = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [errorExcel, setErrorExcel] = useState([])
-    const [fileProofPayment, setFileProofPayment] = useState(null);
+  const [fileProofPayment, setFileProofPayment] = useState(null);
+  const { agences } = useSelector((state) => state.agence)
+  const currentUser = useSelector(selectCurrentUser);
+  
 
   const onSubmit = async (data) => {
     console.log("DATA", data);
@@ -54,7 +60,7 @@ const CreateGroupement = () => {
       return;
     }
     const formData = new FormData();
-    if(fileProofPayment){
+    if (fileProofPayment) {
       formData.append("proofPayment", fileProofPayment)
     }
 
@@ -66,6 +72,7 @@ const CreateGroupement = () => {
         lastName: data.lastName,
         phoneNumber: data.phoneNumber,
         dateOfBirth: data.dateOfBirth,
+        agenceId: data.agenceId ? parseInt(data.agenceId) : null,
       })], { type: "application/json" })
     );
 
@@ -89,6 +96,12 @@ const CreateGroupement = () => {
       toast.error(error);
     }
   }, [success, error, dispatch, navigate]);
+
+  useEffect(() => {
+    dispatch(getAgences());
+    
+  }, [dispatch]);
+
   return (
     <div className="bg-opacity-95 backdrop-blur-sm p-8 max-h-[90vh] overflow-y-auto">
       <h3 className="text-2xl font-semibold text-black mb-2">
@@ -149,6 +162,33 @@ const CreateGroupement = () => {
                     {...register("dateOfBirth")}
                     error={errors.dateOfBirth?.message}
                   />
+
+                  {currentUser?.role?.name !== "USER" && (
+                    <div className="w-full">
+                      <label className="block text-sm text-gray-500 mb-1">
+                        Selectionner l'agence:
+                      </label>
+                      <select name="agences" id="agences"
+                        {...register("agenceId")}
+                        className="w-full text-sm border border-gray-300 rounded-md px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      >
+                        <option key="value" value="">
+                          -- Sélectionner --
+                        </option>
+                        {agences.map((agence) => (
+                          <option key={agence.id} value={agence.id}>
+                            {agence.id} - {agence.name}
+                          </option>
+
+                        ))}
+
+                      </select>
+                      {errors.agenceId && (
+                        <p className="text-xs text-red-600 mt-1">{errors.agenceId.message}</p>
+                      )}
+                    </div>
+                  )}
+
                 </div>
               </div>
             </div>

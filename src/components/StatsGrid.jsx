@@ -23,15 +23,14 @@ const StatsGrid = ({data}) => {
                 icon={User2}
                 color="bg-blue-100 text-blue-600"
               />
-             {
-              currentUser?.partnerName==="CNAAS" && (
+           
               <KpiCard
                 title="Total Groupements"
                   value={data?.nbGroups}
                 icon={Users2}
                 color="bg-red-100 text-red-600"
               />
-              )}
+              
             
               <KpiCard
                 title="Total Sinistres"

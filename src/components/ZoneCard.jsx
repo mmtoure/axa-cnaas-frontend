@@ -8,6 +8,9 @@ import { Edit } from "lucide-react";
 import { Trash2 } from "lucide-react";
 import Loader from "./Loader";
 import StatusBadge from "./StatusBadge";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getUserById } from "../features/auth/authThunk";
 
 
 
@@ -16,6 +19,12 @@ const ZoneCard = ({ zone, onDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const {user} = useSelector((state) => state.auth)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserById(zone.chefZoneId));
+  }, [dispatch, zone.chefZoneId]);
 
    useEffect(() => {
     const handleClickOutside = (event) => {
@@ -73,7 +82,7 @@ const ZoneCard = ({ zone, onDelete }) => {
           {zone.name}
         </h2>
         <p className="text-sm text-gray-500">
-          Responsable : {zone.firstName} {zone.lastName}
+          Chef de zone : {user?.firstName} {user?.lastName}
         </p>
       </div>
 
