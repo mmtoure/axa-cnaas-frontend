@@ -4,19 +4,30 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteZone, getZones } from '../../features/zone/zonethunk';
-import ZoneCard from '../../components/ZoneCard';
+import ZoneCard from '../../components/ReseauCard';
 import Swal from 'sweetalert2';
+import { deleteReseau, getReseaux } from '../../features/reseau/reseauThunk';
+import ReseauCard from '../../components/ReseauCard';
+import { useMemo } from 'react';
+import { selectCurrentUser } from '../../features/auth/authSelectors';
 
-const ZoneList = () => {
+const ReseauList = () => {
   const navigate = useNavigate();
-  const {zones} = useSelector((state) => state.zone)
+  const {reseaux} = useSelector((state) => state.reseau)
   const dispatch = useDispatch();
+   const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
     //dispatch getZones
-    dispatch(getZones());
+    dispatch(getReseaux());
   }, [dispatch])
+
+    const allNetworks = useMemo(() => {
+    if (currentUser?.role?.name === "ADMIN") {
+      return reseaux;
+    }
+    return [currentUser?.network]
+  }, [currentUser, reseaux]);
 
     const handleDelete = (id) => {
       console.log("Deleting insured with ID:", id);
@@ -28,11 +39,11 @@ const ZoneList = () => {
         confirmButtonText: "Oui, supprimer"
       }).then((result) => {
         if (result.isConfirmed) {
-          dispatch(deleteZone(id)).then(() => {
-            dispatch(getZones());
+          dispatch(deleteReseau(id)).then(() => {
+            dispatch(getReseaux());
             Swal.fire(
               "Supprimé!",
-              "Le zone a été supprimé.",
+              "Le reseau a été supprimé.",
               "success"
             );
           });
@@ -42,31 +53,32 @@ const ZoneList = () => {
  
   return (
        <div className="p-4 min-h-screen">
-        {console.log("zones", zones)}
+       
         
         
      {/* Header */}
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-lg font-semibold text-gray-700">
-              Gestion des zones
+              Gestion des réseaux
             </h3>
           
             {/* Button Creation zone */}
             <button
               type="button"
               aria-label="Créer un nouvelle zone"
-              onClick={() => navigate("/zones/create")}
+              onClick={() => navigate("/reseaux/create")}
               className="inline-flex items-center gap-2 px-2 py-2 bg-blue-900 text-white rounded-md
                     hover:bg-blue-700 transition
                     focus:outline-none focus:ring-2 focus:ring-blue-400">
               <PlusCircle className="w-5 h-5" />
-              Créer une zone
+              Créer un reseau
             </button>
           </div>
 
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {zones.map((zone) => (
-          <ZoneCard key={zone.id} zone={zone} onDelete={handleDelete} />  
+        {console.log("reseaux", allNetworks)}
+        {allNetworks?.map((reseau) => (
+          <ReseauCard key={reseau?.id} reseau={reseau} onDelete={handleDelete} />  
 
         ))}
       </div>
@@ -76,4 +88,4 @@ const ZoneList = () => {
 };
 
 
-export default ZoneList
+export default ReseauList

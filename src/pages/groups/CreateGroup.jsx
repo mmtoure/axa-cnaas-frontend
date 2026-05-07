@@ -14,6 +14,7 @@ import { resetState } from '../../features/insured/insuredSlice';
 import { toast } from 'react-toastify';
 import { groupSchema } from '../../validations/groupSchema';
 import { createGroup } from '../../features/group/groupThunk';
+import { selectCurrentUser } from '../../features/auth/authSelectors';
 
 
 
@@ -24,7 +25,7 @@ const navigate = useNavigate()
 const dispatch = useDispatch()
 const {loading, success, error} = useSelector((state) => state.group)
 const [file, setFile] = React.useState(null);
-
+const { currentUser } = useSelector(selectCurrentUser);
 
 
   const {
@@ -82,7 +83,7 @@ useEffect(() => {
     </p>
 
  
-  <div className="w-2/3 bg-opacity-95 backdrop-blur-sm my-4">
+  <div className="w-full md:w-2/3 bg-opacity-95 backdrop-blur-sm my-4">
 
   <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
   <fieldset disabled={loading} className="space-y-6">
@@ -90,7 +91,7 @@ useEffect(() => {
       
 
       {/* ================== ASSURÉ ================== */}
-      <div className="bg-white rounded-lg shadow p-6 w-2/3">
+      <div className="bg-white rounded-lg shadow p-6 ">
         <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>
           <User2 className='w-4 h-4' />
           <h2 className="text-gray-500 text-lg font-semibold">

@@ -15,10 +15,12 @@ import { toast } from 'react-toastify';
 import { me } from '../../features/user/userThunk';
 import SearchSelect from '../../components/SearchSelect';
 import { useState } from 'react';
-import { da, id } from 'zod/locales';
+
 import UploadField from '../../components/UplaodFile';
 import { FileText } from 'lucide-react';
 import { getAgences } from '../../features/agence/agenceThunk';
+import { selectCurrentUser } from '../../features/auth/authSelectors';
+import { getRegionByid } from '../../features/regions/RegionThunk';
 
 
 const categories = [
@@ -71,18 +73,28 @@ const CreateInsured = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { loading, success, error } = useSelector((state) => state.insured)
-  const { user } = useSelector((state) => state.user)
-  const [formData, setFormData] = useState({
-    category: null,
-  });
+   const currentUser = useSelector(selectCurrentUser);
+  const { region } = useSelector((state) => state.region)
   const [file, setFile] = useState(null);
-  const {agences} = useSelector((state) => state.agence);
+  
+  
+
+  const regions =
+  currentUser?.regions?.length > 0
+    ? currentUser.regions
+    : currentUser?.network?.regions ?? [];
+
+  console.log("regions for currentUser", regions);
+  console.log("CurrentUser", currentUser)
+
+  
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    watch
   } = useForm({
     resolver: zodResolver(insuredSchema),
     defaultValues: {
@@ -93,6 +105,8 @@ const CreateInsured = () => {
       category: null,
       agenceId: null,
       identityCardNumber: null,
+      regionId: null,
+      department: null,
       beneficiary: {
         firstName: "",
         lastName: "",
@@ -101,6 +115,11 @@ const CreateInsured = () => {
       },
     },
   });
+
+  const selectedRegion = watch("regionId");
+  console.log("SelectedDepartment", selectedRegion)
+
+  
 
 
   const onSubmit = async (data) => {
@@ -147,7 +166,13 @@ const CreateInsured = () => {
 
   useEffect(() => {
     dispatch(getAgences());
-  }, [dispatch])
+    if(selectedRegion){
+     dispatch(getRegionByid(selectedRegion))
+    }
+   
+  }, [dispatch,selectedRegion])
+
+  console.log("Region Selected", region?.departments)
 
 
   return (
@@ -202,36 +227,63 @@ const CreateInsured = () => {
                     error={errors.phoneNumber?.message}
                   />
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                
-                  {user && user?.role?.name === "ADMIN" && (
-                      <div className="w-full">
+                  <div className="w-full">
                     <label className="block text-sm text-gray-500 mb-1">
-                      Selectionner l'agence:
+                      Selectionner la region:
                     </label>
-                    <select name="agences" id="agences"
-                      {...register("agenceId")}
+                    <select name="regions" id="regions"
+                      {...register("regionId")}
                       className="w-full text-sm border border-gray-300 rounded-md px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option key="value" value="">
                         -- Sélectionner --
                       </option>
-                      {agences.map((agence) => (
-                        <option key={agence.id} value={agence.id}>
-                          {agence.id} - {agence.name}
+                      {regions?.map((region) => (
+                        <option key={region.id} value={region.id}>
+                          {region.id} - {region.name}
                         </option>
 
                       ))}
 
                     </select>
-                    {errors.agenceId && (
-                      <p className="text-xs text-red-600 mt-1">{errors.agenceId.message}</p>
+                    {errors.regionId && (
+                      <p className="text-xs text-red-600 mt-1">{errors.regionId.message}</p>
                     )}
                   </div>
-                  )}
+
+                  {selectedRegion  && (
+                  <div className="w-full">
+                    <label className="block text-sm text-gray-500 mb-1">
+                      Selectionner le departement:
+                    </label>
+                    {(region?.departments || []).map(dep => (
+                      <label key={dep} className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          value={dep}
+                          {...register("department")}
+                        />
+                        {dep}
+                      </label>
+                    ))}
+                   
+                    {errors.department && (
+                      <p className="text-xs text-red-600 mt-1">{errors.department.message}</p>
+                    )}
+                  </div>
+                    )}
+                  
                
                 </div>
+                
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  
+               
+                </div>
+
+              
+                 
             </div>
 
               {/* ================== PREUVE DE PAIEMENT ================== */}

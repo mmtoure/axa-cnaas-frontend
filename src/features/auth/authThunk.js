@@ -6,7 +6,7 @@ export const createUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const res = await api.post("/create-user",userData)
-      console.log("create user success",res.data);
+     // console.log("create user success",res.data);
       return res.data
       
     } catch (error) {

@@ -8,6 +8,7 @@ export const groupSchema = z.object({
   name: z.string().min(2, "Nom du groupement requis"),
   file: z
     .any()
-    .or(z.instanceof(File))
+    .or(z.instanceof(File)),
+  regionId: z.string().nullable(),
 
 });

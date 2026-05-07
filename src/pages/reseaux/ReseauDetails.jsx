@@ -2,36 +2,38 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getZoneById } from '../../features/zone/zonethunk';
+import { getReseauById } from '../../features/reseau/reseauThunk';
 import { useEffect } from 'react';
 import { getAgenceByZoneId } from '../../features/agence/agenceThunk';
-import AgenceCard from '../../components/AgenceCard';
-import { PlusCircle } from 'lucide-react';
 
-const ZoneDetails = () => {
+import { PlusCircle } from 'lucide-react';
+import RegionCard from '../../components/RegionCard';
+
+const ReseauDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { zone, loading, error } = useSelector((state) => state.zone);
+  const { reseau, loading, error } = useSelector((state) => state.reseau);
   const { agences } = useSelector((state) => state.agence);
   const navigate = useNavigate();
+  const regions = reseau?.regions || [];
 
   useEffect(() => {
-    dispatch(getZoneById(id));
+    dispatch(getReseauById(id));
     dispatch(getAgenceByZoneId(id));
   }, [dispatch, id]);
 
   if (loading) return <p className="p-6">Chargement...</p>;
   if (error) return <p className="p-6 text-red-600">Erreur</p>;
-  if (!zone) return null;
+  if (!reseau) return null;
   return (
        <div className="p-4 min-h-screen">
-        {console.log("agences", agences)}
+        {console.log("regions", regions)}
         
         
      {/* Header */}
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-lg font-semibold text-gray-700">
-              Gestion des agences
+              Gestion des réseaux - {reseau.name}
             </h3>
           
             {/* Button Creation zone */}
@@ -48,8 +50,8 @@ const ZoneDetails = () => {
           </div>
 
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {agences.map((agence) => (
-          <AgenceCard key={agence.id} agence={agence}/>  
+        {regions.map((region) => (
+          <RegionCard key={region.id} region={region}/>  
 
         ))}
       </div>
@@ -59,4 +61,4 @@ const ZoneDetails = () => {
 };
 
 
-export default ZoneDetails
+export default ReseauDetails

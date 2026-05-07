@@ -6,6 +6,7 @@ const userSlice = createSlice({
     initialState: {
     loading: false,
     user: null,
+    lastCreatedUser: null,
     users: [],
     error: null,
     success: false,
@@ -56,7 +57,7 @@ extraReducers:(builder) =>{
         })
         .addCase(createUser.fulfilled, (state, action)=>{
             state.loading=false
-            state.user = action.payload
+            state.lastCreatedUser = action.payload
             state.success=true
 
         })

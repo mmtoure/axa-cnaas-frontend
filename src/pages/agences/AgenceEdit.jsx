@@ -12,7 +12,7 @@ import { getAllUsers } from '../../features/user/userThunk';
 import { User2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getZones, updateZone } from '../../features/zone/zonethunk';
+import { getReseaux, updateReseau } from '../../features/reseau/reseauThunk';
 import { getAgenceById, updateAgence } from '../../features/agence/agenceThunk';
 
 
@@ -48,7 +48,7 @@ const AgenceEdit = () => {
   useEffect(() => {
     dispatch(getAgenceById(id))
     dispatch(getAllUsers());
-    dispatch(getZones());
+    dispatch(getReseaux());
   }, [dispatch, id])
 
 

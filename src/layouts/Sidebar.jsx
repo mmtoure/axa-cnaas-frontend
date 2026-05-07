@@ -22,7 +22,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     
       const filteredMenu = menuConfig.filter(item =>{
         return (
-            item.roles?.some(role => currentUser.role.name.includes(role)) 
+            item.roles?.some(role => currentUser?.role?.name.includes(role)) 
         )
         
       }

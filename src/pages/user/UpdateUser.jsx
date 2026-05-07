@@ -13,7 +13,7 @@ import { createUser } from '../../features/user/userThunk';
 import { toast } from 'react-toastify';
 import { getAllPartners } from '../../features/partner/partnerThunk';
 import { selectCurrentUser } from '../../features/auth/authSelectors';
-import { getZones } from '../../features/zone/zonethunk';
+import { getReseaux } from '../../features/reseau/reseauThunk';
 import { getUserById } from '../../features/auth/authThunk';
 
 const UpdateUser = () => {
@@ -22,11 +22,11 @@ const UpdateUser = () => {
     const { partners } = useSelector((state) => state.partner)
     const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
-    const { zones } = useSelector((state) => state.zone)
+    const { reseaux } = useSelector((state) => state.reseau)
     const {id} = useParams();
 
     useEffect(() => {
-        dispatch(getZones());
+        dispatch(getReseaux());
     }, [dispatch]);
 
     const {
@@ -51,7 +51,7 @@ const UpdateUser = () => {
 
     useEffect(() => {
         dispatch(getAllPartners());
-        dispatch(getZones());
+        dispatch(getReseaux());
         dispatch(getUserById(id));
     }, [dispatch, id]);
 
@@ -170,14 +170,12 @@ const UpdateUser = () => {
                                             className="w-full text-sm border border-gray-300 rounded-md px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         >
                                             <option value="">-- Sélectionner --</option>
-                                         
                                             {currentUser?.role.name === "SUPER_ADMIN" && (
                                                 <>
                                                     <option value="ADMIN">Admin</option>
                                                     <option value="MANAGER">Manager</option>
                                                     <option value="USER">User</option>
                                                 </>
-
                                             )}
 
                                             {currentUser?.role.name === "ADMIN" && (
@@ -187,7 +185,6 @@ const UpdateUser = () => {
                                                 </>
 
                                             )}
-
                                             {currentUser?.role.name === "MANAGER" && (
                                                 <>
                                                     <option value="USER">User</option>

@@ -20,32 +20,51 @@ export const userSchema = z.object({
 
   email: z
     .email("Email invalide"),
-    
+
   partnerId: z
-  .string()
-  .nullable()
-  .transform((val) => {
-    if (!val) return null;
-    const num = Number(val);
-    return isNaN(num) ? null : num;
-  }),
+    .string()
+    .nullable()
+    .transform((val) => {
+      if (!val) return null;
+      const num = Number(val);
+      return isNaN(num) ? null : num;
+    }),
   zoneId: z
-  .string()
-  .nullable()
-  .transform((val) => {
-    if (!val) return null;
-    const num = Number(val);
-    return isNaN(num) ? null : num;
-  }),
+    .string()
+    .nullable()
+    .transform((val) => {
+      if (!val) return null;
+      const num = Number(val);
+      return isNaN(num) ? null : num;
+    }),
 
   agenceId: z
-  .string()
-  .nullable()
-  .transform((val) => {
-    if (!val) return null;
-    const num = Number(val);
-    return isNaN(num) ? null : num;
-  }),
-    
+    .string()
+    .nullable()
+    .transform((val) => {
+      if (!val) return null;
+      const num = Number(val);
+      return isNaN(num) ? null : num;
+    }),
+
   roleName: z.enum(["ADMIN", "MANAGER", "USER"]),
+
+  networkId: z
+    .string()
+    .nullable()
+    .transform((val) => {
+      if (!val) return null;
+      const num = Number(val);
+      return isNaN(num) ? null : num;
+    }),
+
+  regionIds: z.array(z.number()).optional(),
+}).refine((data) => {
+  if (data.roleName === "USER") {
+    return data.regionIds && data.regionIds.length > 0;
+  }
+  return true;
+}, {
+  message: "Sélectionnez au moins une région",
+  path: ["regionIds"],
 });

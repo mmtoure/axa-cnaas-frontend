@@ -4,22 +4,37 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import ZoneCard from '../../components/ZoneCard';
 import Swal from 'sweetalert2';
 import { deleteAgence, getAgences } from '../../features/agence/agenceThunk';
-import AgenceCard from '../../components/AgenceCard';
+import { selectCurrentUser } from '../../features/auth/authSelectors';
+import RegionCard from '../../components/RegionCard';
+import { getRegions } from '../../features/regions/RegionThunk';
+import { useMemo } from 'react';
 
 const AgenceList = () => {
   const navigate = useNavigate();
-  const {agences} = useSelector((state) => state.agence)
+  const {regions} = useSelector((state) => state.region)
   const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
+
+
+  const allRegions = useMemo(() => {
+  if (currentUser?.role?.name === "ADMIN") {
+    return regions;
+  }
+
+  return currentUser?.regions?.length
+    ? currentUser.regions
+    : currentUser?.network?.regions ?? [];
+}, [currentUser, regions]);
+
 
   useEffect(() => {
     //dispatch getZones
-    dispatch(getAgences());
-  }, [dispatch])
+    dispatch(getRegions());
+  }, [dispatch])  
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
       console.log("Deleting agence with ID:", id);
       Swal.fire({
         title: "Supprimer ?",
@@ -33,7 +48,7 @@ const AgenceList = () => {
             
             Swal.fire(
               "Supprimé!",
-              "Le zone a été supprimé.",
+              "La agence a été supprimée.",
               "success"
             );
             dispatch(getAgences());
@@ -44,7 +59,7 @@ const AgenceList = () => {
  
   return (
        <div className="p-4 min-h-screen">
-        {console.log("agences", agences)}
+        {console.log("regions", allRegions)}
         
         
      {/* Header */}
@@ -67,9 +82,13 @@ const AgenceList = () => {
           </div>
 
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {agences.map((agence) => (
-          <AgenceCard key={agence.id} agence={agence}/>  
-        ))}
+        {allRegions && allRegions?.length === 0 ? (
+          <p className="text-gray-500">Aucune agence trouvée.</p>
+        ) : (
+          allRegions?.map((region) => (
+            <RegionCard key={region?.id} region={region} onDelete={handleDelete} />
+          ))
+        )}
       </div>
     </div>
 

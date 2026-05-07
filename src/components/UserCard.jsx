@@ -10,11 +10,9 @@ import StatusBadge from './StatusBadge';
 import { useNavigate } from "react-router-dom";
 import RoleBadge from './RoleBadge';
 
-
 const UserCard = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
 
   useEffect(() => {

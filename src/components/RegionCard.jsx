@@ -8,25 +8,29 @@ import { Edit } from "lucide-react";
 import { Trash2 } from "lucide-react";
 import Loader from "./Loader";
 import StatusBadge from "./StatusBadge";
-import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
+import { deleteAgence, getAgences } from "../features/agence/agenceThunk";
+import { useSelector } from "react-redux";
 import { getUserById } from "../features/auth/authThunk";
 
 
 
-const ZoneCard = ({ zone, onDelete }) => {
+const RegionCard = ({region}) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  const {user} = useSelector((state) => state.auth)
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getUserById(zone.chefZoneId));
-  }, [dispatch, zone.chefZoneId]);
+
+
+
+
+
 
    useEffect(() => {
+
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsOpen(false);
@@ -39,6 +43,30 @@ const ZoneCard = ({ zone, onDelete }) => {
     
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
+
+  const handleDelete = (id) => {
+        console.log("Deleting agence with ID:", id);
+        Swal.fire({
+          title: "Supprimer ?",
+          text: "Cette action est irréversible",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Oui, supprimer"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            dispatch(deleteAgence(id)).then(() => {
+              
+              Swal.fire(
+                "Supprimé!",
+                "La agence a été supprimée.",
+                "success"
+              );
+              dispatch(getAgences());
+            });
+          }
+        });
+      };
+   
 
  
   
@@ -58,7 +86,7 @@ const ZoneCard = ({ zone, onDelete }) => {
         {isOpen && (
           <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10 py-1">
             <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              onClick={() => navigate(`/zones/edit/${zone.id}`)}
+              onClick={() => navigate(`/agences/edit/${region.id}`)}
             >
 
               <Edit size={16} className="mr-2" /> Modifier
@@ -66,7 +94,7 @@ const ZoneCard = ({ zone, onDelete }) => {
             <hr className="my-1" />
             <button className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
               onClick={() => {
-                onDelete(zone.id);
+                handleDelete(region .id);
                 setIsOpen(false);
               }}
             >
@@ -79,20 +107,20 @@ const ZoneCard = ({ zone, onDelete }) => {
       {/* Header */}
       <div>
         <h2 className="text-xl font-bold text-gray-800">
-          {zone.name}
+          {region?.name}
         </h2>
         <p className="text-sm text-gray-500">
-          Chef de zone : {user?.firstName} {user?.lastName}
+          Responsable : {region?.userFirstName} {region?.userLastName}
+        </p>
+
+         <p className="text-sm text-gray-500">
+          Réseau : {region?.networkName}
         </p>
       </div>
-
-     
-
-
       {/* Action */}
       <div className="mt-6 flex items-center justify-center">
         <button className="w-full bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-        onClick={() => navigate(`/zones/${zone.id}`)}
+        onClick={() => navigate(`/agences/${region.id}`)}
         >
           Voir détails
         </button>
@@ -101,4 +129,4 @@ const ZoneCard = ({ zone, onDelete }) => {
   );
 };
 
-export default ZoneCard;
+export default RegionCard;

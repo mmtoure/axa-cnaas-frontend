@@ -41,16 +41,20 @@ import Report from "../pages/Report"
 import Layout from "../layouts/Layout"
 import Login from "../pages/Login"
 import Home from "../pages/Home"
-import ZoneList from "../pages/zones/ZoneList"
-import ZonesCreate from "../pages/zones/ZonesCreate"
-import ZoneDetails from "../pages/zones/ZoneDetails"
-import ZoneEdit from "../pages/zones/ZoneEdit"
+import ZoneList from "../pages/reseaux/ReseauList"
+import ZoneEdit from "../pages/reseaux/ReseauEdit"
+import ReseauxDetails from "../pages/reseaux/ReseauDetails"
+import ZonesCreate from "../pages/reseaux/ReseauCreate"
 import AgenceList from "../pages/agences/AgenceList"
 import AgenceDetails from "../pages/agences/AgenceDetails"
 import AgenceEdit from "../pages/agences/AgenceEdit"
 import AgencesCreate from "../pages/agences/AgencesCreate"
 import ChangerPassword from "../components/ChangerPassword"
 import UpdateUser from "../pages/user/UpdateUser"
+import ReseauList from "../pages/reseaux/ReseauList"
+import ReseauDetails from "../pages/reseaux/ReseauDetails"
+import ReseauEdit from "../pages/reseaux/ReseauEdit"
+import ReseauCreate from "../pages/reseaux/ReseauCreate"
 
 const AppRouter = () => {
   return (
@@ -105,12 +109,12 @@ const AppRouter = () => {
               <Route path="/partners/:id/pricings/create" element={<CreatePricings />} />
               <Route path="/parametres" element={<Parametres />} />
 
-              {/*Zones routes */}
-              <Route path="/zones" element={<ZoneList />} />
-              <Route path="/zones/create" element={<ZonesCreate />} />
-              <Route path="/zones/:id" element={<ZoneDetails />} />
-              <Route path="/zones/:id/agences/create" element={<AgencesCreate />} />
-              <Route path="/zones/edit/:id" element={<ZoneEdit />} /> 
+              {/*Réseaux routes */}
+              <Route path="/reseaux" element={<ReseauList />} />
+              <Route path="/reseaux/create" element={<ReseauCreate />} />
+              <Route path="/reseaux/:id" element={<ReseauDetails />} />
+              <Route path="/reseaux/:id/agences/create" element={<AgencesCreate />} />
+              <Route path="/reseaux/edit/:id" element={<ReseauEdit />} /> 
 
               {/* Agences routes */}
               <Route path="/agences" element={<AgenceList />} />

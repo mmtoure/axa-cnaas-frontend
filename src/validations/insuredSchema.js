@@ -7,7 +7,9 @@ export const insuredSchema = z.object({
   phoneNumber: z.string().min(9, "Téléphone invalide"),
   category: z.string().nullable(),
   agenceId: z.string().nullable(),
+  regionId: z.string().nullable(),
   identityCardNumber: z.string().nullable(),
+  department: z.string().nullable(),
   
 
   beneficiary: z.object({

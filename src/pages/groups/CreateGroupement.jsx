@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { User2 } from 'lucide-react';
 import { createGroup } from '../../features/group/groupThunk';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { data, useNavigate } from 'react-router-dom';
 import { resetState } from '../../features/group/groupSlice';
 import { toast } from 'react-toastify';
 import * as XLSX from "xlsx";
@@ -16,12 +16,11 @@ import { cleanRow, validateRow } from '../../util/excelUtils';
 import { LoaderCircle } from 'lucide-react';
 import UploadField from '../../components/UplaodFile';
 import { FileText, Folder } from 'lucide-react';
-import { getAgences } from '../../features/agence/agenceThunk';
-import { getAllUsers } from '../../features/user/userThunk';
 import { selectCurrentUser } from '../../features/auth/authSelectors';
+import { getRegionByid } from '../../features/regions/RegionThunk';
 
 const CreateGroupement = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  
   const { loading, success, error } = useSelector((state) => state.group)
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,7 +29,16 @@ const CreateGroupement = () => {
   const [fileProofPayment, setFileProofPayment] = useState(null);
   const { agences } = useSelector((state) => state.agence)
   const currentUser = useSelector(selectCurrentUser);
+  const {region} = useSelector((state) => state.region)
   
+  const { register, handleSubmit,watch, formState: { errors } } = useForm();
+  const regions =
+  currentUser?.regions?.length > 0
+    ? currentUser.regions
+    : currentUser?.network?.regions ?? [];
+
+      const selectedRegion = watch("regionId");
+  console.log("SelectedDepartment", selectedRegion)
 
   const onSubmit = async (data) => {
     console.log("DATA", data);
@@ -73,6 +81,7 @@ const CreateGroupement = () => {
         phoneNumber: data.phoneNumber,
         dateOfBirth: data.dateOfBirth,
         agenceId: data.agenceId ? parseInt(data.agenceId) : null,
+        regionId: data.regionId ? parseInt(data.regionId) : null,
       })], { type: "application/json" })
     );
 
@@ -98,9 +107,13 @@ const CreateGroupement = () => {
   }, [success, error, dispatch, navigate]);
 
   useEffect(() => {
-    dispatch(getAgences());
+     if(selectedRegion){
+         dispatch(getRegionByid(selectedRegion))
+        }
     
-  }, [dispatch]);
+  }, [dispatch,selectedRegion]);
+
+  console.log("Selected Region", region)
 
   return (
     <div className="bg-opacity-95 backdrop-blur-sm p-8 max-h-[90vh] overflow-y-auto">
@@ -112,9 +125,9 @@ const CreateGroupement = () => {
       </p>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <fieldset disabled={loading} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="w-full flex gap-1">
             {/* ================== Groupement ================== */}
-            <div className="w-full bg-opacity-95 backdrop-blur-sm my-2">
+            <div className="w-2/3 bg-opacity-95 backdrop-blur-sm my-2">
               <div className="bg-white rounded-lg shadow p-6 ">
                 <div className='flex items-center gap-2 mb-4 pb-2 border-b border-gray-200'>
                   <User2 className='w-4 h-4' />
@@ -162,38 +175,56 @@ const CreateGroupement = () => {
                     {...register("dateOfBirth")}
                     error={errors.dateOfBirth?.message}
                   />
-
-                  {currentUser?.role?.name !== "USER" && (
-                    <div className="w-full">
-                      <label className="block text-sm text-gray-500 mb-1">
-                        Selectionner l'agence:
-                      </label>
-                      <select name="agences" id="agences"
-                        {...register("agenceId")}
-                        className="w-full text-sm border border-gray-300 rounded-md px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      >
-                        <option key="value" value="">
-                          -- Sélectionner --
+                  <div className="w-full">
+                    <label className="block text-sm text-gray-500 mb-1">
+                      Selectionner la région du groupement:
+                    </label>
+                    <select name="regions" id="regions"
+                      {...register("regionId")}
+                      className="w-full text-sm border border-gray-300 rounded-md px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option key="value" value="">
+                        -- Sélectionner --
+                      </option>
+                      {regions?.map((region) => (
+                        <option key={region.id} value={region.id}>
+                          {region.id} - {region.name}
                         </option>
-                        {agences.map((agence) => (
-                          <option key={agence.id} value={agence.id}>
-                            {agence.id} - {agence.name}
-                          </option>
 
-                        ))}
+                      ))}
 
-                      </select>
-                      {errors.agenceId && (
-                        <p className="text-xs text-red-600 mt-1">{errors.agenceId.message}</p>
-                      )}
-                    </div>
-                  )}
-
+                    </select>
+                    {errors.regionId && (
+                      <p className="text-xs text-red-600 mt-1">{errors.regionId.message}</p>
+                    )}
+                  </div>
+                    {selectedRegion  && (
+                  <div className="w-full">
+                    <label className="block text-sm text-gray-500 mb-1">
+                      Selectionner le departement:
+                    </label>
+                    {(region?.departments || []).map(dep => (
+                      <label key={dep} className="flex items-center gap-2 cursor-pointer text-sm">
+                        <input
+                          type="radio"
+                          value={dep}
+                          {...register("department")}
+                          className='text-red-600'
+                        />
+                        {dep}
+                      </label>
+                    ))}
+                   
+                    {errors.department && (
+                      <p className="text-xs text-red-600 mt-1">{errors.department.message}</p>
+                    )}
+                  </div>
+                    )}
                 </div>
               </div>
             </div>
 
-            <div className="w-full flex flex-col gap-2">
+            <div className="w-1/3 flex flex-col gap-2">
               {/* ================== Excel file ================== */}
               <div className="w-full bg-opacity-95 backdrop-blur-sm my-2">
 

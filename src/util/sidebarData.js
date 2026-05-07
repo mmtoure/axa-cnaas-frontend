@@ -68,7 +68,7 @@ export const sidebarData = [
     label: 'Partenaires',
     path: '/partners',
     icon: UserStar,
-    roles: ["ADMIN"]
+    roles: ["SUPER_ADMIN"]
   },
 
   {
@@ -76,9 +76,19 @@ export const sidebarData = [
     label: 'Agences',
     path: '/agences',
     icon: Home,
-    roles: ["ADMIN"]
+    roles: ["ADMIN", "SUPER_ADMIN", "MANAGER"]
 
   },
+
+    {
+    id: '10',
+    label: 'Réseaux',
+    path: '/reseaux',
+    icon: Home,
+    roles: ["ADMIN","SUPER_ADMIN", "MANAGER"]
+
+  },
+
 
   {
     id: '10',

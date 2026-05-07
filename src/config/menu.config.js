@@ -4,6 +4,7 @@ import { HousePlus } from 'lucide-react';
 import { UserStar } from 'lucide-react';
 import { FolderCheckIcon } from 'lucide-react';
 import { FolderCodeIcon } from 'lucide-react';
+import { Network } from 'lucide-react';
 import { FileWarning } from 'lucide-react';
 import { File } from 'lucide-react';
 import { UsersRound } from 'lucide-react';
@@ -84,16 +85,16 @@ export const menuConfig = [
     label: 'Agences',
     path: '/agences',
     icon: Home,
-    roles: ["SUPER_ ADMIN","ADMIN", "MANAGER"],
+    roles: ["SUPER_ ADMIN","ADMIN", "MANAGER","USER"],
 
   },
 
     {
     id: '09',
-    label: 'Zones',
-    path: '/zones',
-    icon: Home,
-    roles: ["SUPER_ADMIN", "ADMIN"],
+    label: 'Réseaux',
+    path: '/reseaux',
+    icon: Network,
+    roles: ["SUPER_ADMIN", "ADMIN","MANAGER","USER"],
    
 
   },

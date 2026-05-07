@@ -10,7 +10,7 @@ import { agenceSchema } from '../../validations/agenceSchema'
 import { createAgence } from '../../features/agence/agenceThunk'
 import { selectCurrentUser } from '../../features/auth/authSelectors'
 import { useEffect } from 'react'
-import { getZones } from '../../features/zone/zonethunk'
+import { getReseaux } from '../../features/reseau/reseauThunk'
 import { User2 } from 'lucide-react'
 import { getAllUsers } from '../../features/user/userThunk'
 
@@ -18,18 +18,18 @@ const AgencesCreate = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { loading, success, error } = useSelector((state) => state.agence)
-  const { zones } = useSelector((state) => state.zone)
+  const { reseaux } = useSelector((state) => state.reseau)
   const currentUser = useSelector(selectCurrentUser);
   const { users } = useSelector((state) => state.user)
   const { id } = useParams();
-  const zone = zones.find((z) => z.id === parseInt(id));
-  console.log("Zone:", zone);
+  const reseau = reseaux.find((r) => r.id === parseInt(id));
+  console.log("Réseau:", reseau);
 
 
   console.log("Zone ID:", id);
 
   useEffect(() => {
-    dispatch(getZones());
+    dispatch(getReseaux());
     dispatch(getAllUsers());
   }, [dispatch])
 
@@ -59,8 +59,8 @@ const AgencesCreate = () => {
 
   const onSubmit = async (data) => {
     console.log("creation agence", data);
-    if (zone) {
-      data.zoneId = zone.id;
+    if (reseau) {
+      data.zoneId = reseau.id;
     }
 
     //dispatch createAgence
@@ -68,7 +68,7 @@ const AgencesCreate = () => {
       .unwrap()
       .then(() => {
         toast.success("Agence créée avec succès");
-        navigate(`/zones/${data.zoneId}`);
+        navigate(`/reseaux/${data.zoneId}`);
         reset()
       })
       .catch((err) => {
@@ -119,11 +119,11 @@ const AgencesCreate = () => {
                       }
                     `}
                   >
-                  <option value="">Sélectionner une zone</option>
+                  <option value="">Sélectionner un réseau</option>
 
-                  {zones.map((z) => (
-                    <option key={z.id} value={z.id}>
-                      {z.id} - {z.name}
+                  {reseaux.map((r) => (
+                    <option key={r.id} value={r.id}>
+                      {r.id} - {r.name}
                     </option>
                   ))}
                 </select>

@@ -27,6 +27,7 @@ import InfoRow from '../../components/InfoRow';
 import { PlusCircle } from 'lucide-react';
 import { User2 } from 'lucide-react';
 import { Calendar } from 'lucide-react';
+import { Home } from 'lucide-react';
 
 const tabs = [
   { key: "info", label: "Infos personnelles", icon: User },
@@ -62,6 +63,18 @@ const InsuredDetails = () => {
             icon={Phone}
             label="Téléphone"
             value={currentInsured?.phoneNumber}
+          />
+
+           <InfoRow
+            icon={Home}
+            label="Region"
+            value={currentInsured?.regionName}
+          />
+          
+           <InfoRow
+            icon={Home}
+            label="Département"
+            value={currentInsured?.department}
           />
           <InfoRow
             icon={User2}

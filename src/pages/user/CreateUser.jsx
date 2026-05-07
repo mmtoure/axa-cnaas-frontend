@@ -13,7 +13,11 @@ import { createUser } from '../../features/user/userThunk';
 import { toast } from 'react-toastify';
 import { getAllPartners } from '../../features/partner/partnerThunk';
 import { selectCurrentUser } from '../../features/auth/authSelectors';
-import { getZones } from '../../features/zone/zonethunk';
+import { getAvailableNetwork } from '../../features/reseau/reseauThunk';
+import { useMemo } from 'react';
+import { useState } from 'react';
+import { X } from 'lucide-react';
+import { getAvailableRegions } from '../../features/regions/RegionThunk';
 
 const CreateUser = () => {
     const navigate = useNavigate();
@@ -21,17 +25,41 @@ const CreateUser = () => {
     const { partners } = useSelector((state) => state.partner)
     const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
-    const { zones } = useSelector((state) => state.zone)
+    const { reseaux } = useSelector((state) => state.reseau)
+    const [searchText, setSearchText] = useState("");
+    const { regions } = useSelector((state) => state.region)
+    const networkId = currentUser?.network?.id;
+    console.log("networkId for currentUser", currentUser?.network?.id);
+
+
+
 
     useEffect(() => {
-        dispatch(getZones());
+        dispatch(getAvailableNetwork());
     }, [dispatch]);
+
+    useEffect(() => {
+        if (networkId) {
+            dispatch(getAvailableRegions(networkId));
+        }
+    }, [dispatch, networkId]);
+
+    const filteredRegions = useMemo(() => {
+        const query = searchText.trim().toLowerCase();
+        if (!query) return regions;
+        return regions.filter((region) =>
+            region.name.toLowerCase().includes(query)
+        );
+    }, [searchText, regions]);
+
 
     const {
         register,
         handleSubmit,
         formState: { errors },
         reset,
+        watch,
+        setValue
     } = useForm({
         resolver: zodResolver(userSchema),
         defaultValues: {
@@ -42,10 +70,25 @@ const CreateUser = () => {
             password: "",
             partnerId: "",
             roleName: "",
-            zoneId: "",
-            agenceId: "",
+            zoneId: null,
+            agenceId: null,
+            networkId: "",
+            regionIds: [],
         },
     });
+    const selectedRole = watch("roleName");
+    const selectedRegions = watch("regionIds");
+
+    const toggleRegion = (regionId) => {
+        const updated = selectedRegions.includes(regionId)
+            ? selectedRegions.filter((id) => id !== regionId)
+            : [...selectedRegions, regionId];
+
+        setValue("regionIds", updated, {
+            shouldValidate: true,
+            shouldDirty: true,
+        });
+    };
 
     useEffect(() => {
         dispatch(getAllPartners());
@@ -115,7 +158,7 @@ const CreateUser = () => {
                                     />
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                                    {currentUser?.role.name === "SUPER_ADMIN" && (
+                                    {currentUser?.role?.name === "SUPER_ADMIN" && (
                                         <div className="w-full">
                                             <label className="block text-sm text-gray-500 mb-1">
                                                 PARTENAIRE:
@@ -124,10 +167,10 @@ const CreateUser = () => {
                                                 {...register("partnerId")}
                                                 className="w-full text-sm border border-gray-300 rounded-md px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                             >
-
+                                                <option value="">-- Sélectionner --</option>
                                                 {currentUser?.role.name === "SUPER_ADMIN" && partners.map((partner) => (
                                                     <>
-                                                        <option value="">-- Sélectionner --</option>
+
                                                         <option key={partner.id} value={partner.id}>
                                                             {partner.name}
                                                         </option>
@@ -152,7 +195,7 @@ const CreateUser = () => {
                                             {errors.roleName && (
                                                 <p className="text-xs text-red-600 mt-1">{errors.roleName.message}</p>
                                             )}
-                                            {currentUser?.role.name === "SUPER_ADMIN" && (
+                                            {currentUser?.role?.name === "SUPER_ADMIN" && (
                                                 <>
                                                     <option value="ADMIN">Admin</option>
                                                     <option value="MANAGER">Manager</option>
@@ -161,7 +204,7 @@ const CreateUser = () => {
 
                                             )}
 
-                                            {currentUser?.role.name === "ADMIN" && (
+                                            {currentUser?.role?.name === "ADMIN" && (
                                                 <>
                                                     <option value="MANAGER">Manager</option>
                                                     <option value="USER">User</option>
@@ -169,7 +212,7 @@ const CreateUser = () => {
 
                                             )}
 
-                                            {currentUser?.role.name === "MANAGER" && (
+                                            {currentUser?.role?.name === "MANAGER" && (
                                                 <>
                                                     <option value="USER">User</option>
                                                 </>
@@ -182,7 +225,84 @@ const CreateUser = () => {
                                             <p className="text-xs text-red-600 mt-1">{errors.roleName.message}</p>
                                         )}
                                     </div>
-                                  
+
+                                    {selectedRole === "MANAGER" && (
+                                        <div className="w-full">
+                                            <label className="block text-sm text-gray-500 mb-1">
+                                                RÉSEAU:
+                                            </label>
+                                            <select name="networkId" id="networkId"
+                                                {...register("networkId")}
+                                                className="w-full text-sm border border-gray-300 rounded-md px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            >
+                                                <option value="">-- Sélectionner --</option>
+                                                {reseaux.map((reseau) => (
+                                                    <option key={reseau.id} value={reseau.id}>
+                                                        {reseau?.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            {errors.networkId && (
+                                                <p className="text-xs text-red-600 mt-1">{errors.networkId.message}</p>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {selectedRole === "USER" && (
+                                        <div className="">
+                                            <label className="block text-sm text-gray-500 mb-1">
+                                                RÉGIONS:
+                                            </label>
+                                            <div className="border border-gray-200 rounded-md">
+                                                <div className="flex flex-wrap gap-1 py-1 px-2 text-sm flex-wrap">
+                                                    {/* Badges sélectionnés */}
+                                                    {selectedRegions.length > 0 && (
+                                                        <div className="flex flex-wrap gap-2">
+                                                            {selectedRegions.map((id) => {
+                                                                const region = regions.find((r) => r.id === id);
+
+                                                                return (
+                                                                    <span
+                                                                        key={id}
+                                                                        className='bg-gray-200 text-gray-800 py-1 px-2 rounded-md flex items-center gap-1'>
+                                                                        {region?.name}
+                                                                        <X size={12} className="ml-1 cursor-pointer" onClick={() => toggleRegion(id)} />
+                                                                    </span>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Tapez pour filtrer..."
+                                                    value={searchText}
+                                                    onChange={(e) => setSearchText(e.target.value)}
+                                                    className="w-full py-2 px-3 outline-none focus:none"
+                                                />
+
+                                            </div>
+                                            <div className="flex flex-col gap-2 border-t-2 border-gray-400 max-h-48 overflow-y-auto">
+                                                {
+                                                    filteredRegions.map(region => (
+                                                        <div key={region.id} className="flex items-center py-2 px-3 hover:bg-gray-100 cursor-pointer"
+                                                            onClick={() => toggleRegion(region.id)}
+                                                        >
+                                                            <input type="checkbox" className="mr-2" checked={selectedRegions.includes(region.id)} readOnly />
+                                                            {region?.name}
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+
+                                            {errors.regionIds && (
+                                                <p className="text-xs text-red-600 mt-1">{errors.regionIds.message}</p>
+                                            )}
+                                        </div>
+
+
+                                    )}
+
                                 </div>
                             </div>
                         </div>
